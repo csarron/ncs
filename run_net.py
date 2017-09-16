@@ -3,15 +3,8 @@ from __future__ import division
 from __future__ import print_function
 import argparse
 from mvnc import mvncapi as mvnc
-import os
+from helper import check_file_existence
 import time
-
-
-def check_file_existence(graph_file_):
-    if not os.path.exists(graph_file_):
-        raise argparse.ArgumentTypeError("%s does not exist!" % graph_file_)
-    print("using graph file:", graph_file_)
-    return graph_file_
 
 
 def check_input_shape(input_shape_):
@@ -38,7 +31,7 @@ def parse_args():
     parser.add_argument("-i", "--iterations", type=int, default=1,
                         help="iterations to run the model")
     parser.add_argument("-m", "--mark", action="store_true",
-                        help="whether to set ttl mark (for monsoon timestamp) or not")
+                        help="whether to set Raspberry Pi ttl mark (for monsoon timestamp) or not")
     return parser.parse_args()
 
 
