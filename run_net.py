@@ -9,17 +9,12 @@ import time
 
 def check_input_shape(input_shape_):
     dim_strings = input_shape_.split(",")
-    dims = []
-    for dim_str in dim_strings:
-        if not dim_str:
-            continue
-        try:
-            dim = int(dim_str.strip())
-            dims.append(dim)
-        except Exception as e:
-            print("format error:", e)
-    print("input shape:", input_shape_)
-    return dims
+    try:
+        dims = list(map(lambda x: int(x.strip()), dim_strings))
+        print("input shape:", dims)
+        return dims
+    except Exception as e:
+        print("format error:", e)
 
 
 def parse_args():
@@ -70,7 +65,7 @@ def load_graph(device_, graph_file_):
     start_time = time.time()
 
     device_.OpenDevice()
-    opt = device_.GetDeviceOption(mvnc.DeviceOption.OPTIMISATIONLIST)
+    # opt = device_.GetDeviceOption(mvnc.DeviceOption.OPTIMISATIONLIST)
     # print('device opt:', opt)
     with open(graph_file_, mode='rb') as f:
         blob = f.read()
@@ -135,4 +130,3 @@ if __name__ == '__main__':
     set_marker(0, mark)
     print('clean_up_time:', clean_up_time, 'ms')
     set_marker('clean', mark)
-
