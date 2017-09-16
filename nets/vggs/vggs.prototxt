@@ -1,9 +1,11 @@
-name: "VGG_CNN_S"
+name: "vggs"
 input: "data"
-input_dim: 10
-input_dim: 3
-input_dim: 224
-input_dim: 224
+input_shape {
+  dim: 1
+  dim: 3
+  dim: 224
+  dim: 224
+}
 layers {
   bottom: "data"
   top: "conv1"

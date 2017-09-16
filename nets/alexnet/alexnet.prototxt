@@ -1,17 +1,12 @@
 name: "AlexNet"
-layer {
-  name: "data"
-  type: "Input"
-  top: "data"
-  input_param {
-    shape: { 
-      dim: 10 
-      dim: 3 
-      dim: 227 
-      dim: 227 
-    } 
-  }
+input: "data"
+input_shape {
+  dim: 1
+  dim: 3
+  dim: 227
+  dim: 227
 }
+
 layer {
   name: "conv1"
   type: "Convolution"
@@ -29,8 +24,6 @@ layer {
     num_output: 96
     kernel_size: 11
     stride: 4
-#    stride_w: 2
-#    stride_h: 1    
   }
 }
 layer {
