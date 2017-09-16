@@ -37,10 +37,14 @@ def parse_args():
                         help="input shape, e.g. 224,224,3")
     parser.add_argument("-i", "--iterations", type=int, default=1,
                         help="iterations to run the model")
+    parser.add_argument("-m", "--mark", action="store_true",
+                        help="whether to set ttl mark (for monsoon timestamp) or not")
     return parser.parse_args()
 
 
-def set_marker(state, channel=10):
+def set_marker(state, mark_, channel=10):
+    if not mark_:
+        return
     try:
         import RPi.GPIO as GPIO
         GPIO.setwarnings(False)
@@ -49,7 +53,7 @@ def set_marker(state, channel=10):
             print('cleaning up pin states')
             GPIO.cleanup()
         else:
-            print('setting up pin:', channel, 'to', state)
+            print('setting pin:', channel, 'state to', state)
             GPIO.setup(channel, GPIO.OUT, initial=state)
     except Exception as e:
         print(e)
@@ -118,23 +122,24 @@ if __name__ == '__main__':
     graph_file = args.graph_file
     input_shape = args.input_shape
     iterations = args.iterations
+    mark = args.mark
 
-    set_marker('clean')
+    set_marker('clean', mark)
     input_data = get_input_data(input_shape)
-    set_marker(1)
+    set_marker(1, mark)
     device = get_ncs_device()
-    set_marker(0)
+    set_marker(0, mark)
     graph, graph_load_time = load_graph(device, graph_file)
     print('graph_load_time:', graph_load_time, 'ms')
-    set_marker(1)
+    set_marker(1, mark)
     data_load_time = load_input(iterations)
     print('data_load_time:', data_load_time, 'ms')
-    set_marker(0)
+    set_marker(0, mark)
     _, inference_time = run_inference(graph)
     print('inference_time:', inference_time, 'ms')
-    set_marker(1)
+    set_marker(1, mark)
     clean_up_time = clean_up(device, graph)
-    set_marker(0)
+    set_marker(0, mark)
     print('clean_up_time:', clean_up_time, 'ms')
-    set_marker('clean')
+    set_marker('clean', mark)
 
