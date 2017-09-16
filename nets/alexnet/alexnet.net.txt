@@ -1,0 +1,42 @@
+Name   : Layer             top        bottom     (n, c, h, w)       
+
+data   : Input             ['data']   []        
+conv1  : Convolution       ['conv1']  ['data']   (96, 3, 11, 11)   
+relu1  : ReLU              ['conv1']  ['conv1'] 
+norm1  : LRN               ['norm1']  ['conv1'] 
+pool1  : Pooling           ['pool1']  ['norm1'] 
+conv2  : Convolution       ['conv2']  ['pool1']  (256, 48, 5, 5)   
+relu2  : ReLU              ['conv2']  ['conv2'] 
+norm2  : LRN               ['norm2']  ['conv2'] 
+pool2  : Pooling           ['pool2']  ['norm2'] 
+conv3  : Convolution       ['conv3']  ['pool2']  (384, 256, 3, 3)  
+relu3  : ReLU              ['conv3']  ['conv3'] 
+conv4  : Convolution       ['conv4']  ['conv3']  (384, 192, 3, 3)  
+relu4  : ReLU              ['conv4']  ['conv4'] 
+conv5  : Convolution       ['conv5']  ['conv4']  (256, 192, 3, 3)  
+relu5  : ReLU              ['conv5']  ['conv5'] 
+pool5  : Pooling           ['pool5']  ['conv5'] 
+fc6    : InnerProduct      ['fc6']    ['pool5']  (4096, 9216)      
+relu6  : ReLU              ['fc6']    ['fc6']   
+drop6  : Dropout           ['fc6']    ['fc6']   
+fc7    : InnerProduct      ['fc7']    ['fc6']    (4096, 4096)      
+relu7  : ReLU              ['fc7']    ['fc7']   
+drop7  : Dropout           ['fc7']    ['fc7']   
+fc8    : InnerProduct      ['fc8']    ['fc7']    (1000, 4096)      
+prob   : Softmax           ['prob']   ['fc8']   
+Blobs:
+data :  (10, 3, 227, 227)
+conv1:  (10, 96, 55, 55)
+norm1:  (10, 96, 55, 55)
+pool1:  (10, 96, 27, 27)
+conv2:  (10, 256, 27, 27)
+norm2:  (10, 256, 27, 27)
+pool2:  (10, 256, 13, 13)
+conv3:  (10, 384, 13, 13)
+conv4:  (10, 384, 13, 13)
+conv5:  (10, 256, 13, 13)
+pool5:  (10, 256, 6, 6)
+fc6  :  (10, 4096)
+fc7  :  (10, 4096)
+fc8  :  (10, 1000)
+prob :  (10, 1000)

@@ -1,0 +1,133 @@
+Name   : Layer             top        bottom     (n, c, h, w)       
+
+input  : Input             ['data']   []        
+conv1  : Convolution       ['conv1']  ['data']   (96, 3, 7, 7)     
+relu_conv1: ReLU              ['conv1']  ['conv1'] 
+pool1  : Pooling           ['pool1']  ['conv1'] 
+fire2/squeeze1x1: Convolution       ['fire2/squeeze1x1'] ['pool1']  (16, 96, 1, 1)    
+fire2/relu_squeeze1x1: ReLU              ['fire2/squeeze1x1'] ['fire2/squeeze1x1']
+fire2/squeeze1x1_fire2/relu_squeeze1x1_0_split: Split             ['fire2/squeeze1x1_fire2/relu_squeeze1x1_0_split_0', 'fire2/squeeze1x1_fire2/relu_squeeze1x1_0_split_1'] ['fire2/squeeze1x1']
+fire2/expand1x1: Convolution       ['fire2/expand1x1'] ['fire2/squeeze1x1_fire2/relu_squeeze1x1_0_split_0'] (64, 16, 1, 1)    
+fire2/relu_expand1x1: ReLU              ['fire2/expand1x1'] ['fire2/expand1x1']
+fire2/expand3x3: Convolution       ['fire2/expand3x3'] ['fire2/squeeze1x1_fire2/relu_squeeze1x1_0_split_1'] (64, 16, 3, 3)    
+fire2/relu_expand3x3: ReLU              ['fire2/expand3x3'] ['fire2/expand3x3']
+fire2/concat: Concat            ['fire2/concat'] ['fire2/expand1x1', 'fire2/expand3x3']
+fire3/squeeze1x1: Convolution       ['fire3/squeeze1x1'] ['fire2/concat'] (16, 128, 1, 1)   
+fire3/relu_squeeze1x1: ReLU              ['fire3/squeeze1x1'] ['fire3/squeeze1x1']
+fire3/squeeze1x1_fire3/relu_squeeze1x1_0_split: Split             ['fire3/squeeze1x1_fire3/relu_squeeze1x1_0_split_0', 'fire3/squeeze1x1_fire3/relu_squeeze1x1_0_split_1'] ['fire3/squeeze1x1']
+fire3/expand1x1: Convolution       ['fire3/expand1x1'] ['fire3/squeeze1x1_fire3/relu_squeeze1x1_0_split_0'] (64, 16, 1, 1)    
+fire3/relu_expand1x1: ReLU              ['fire3/expand1x1'] ['fire3/expand1x1']
+fire3/expand3x3: Convolution       ['fire3/expand3x3'] ['fire3/squeeze1x1_fire3/relu_squeeze1x1_0_split_1'] (64, 16, 3, 3)    
+fire3/relu_expand3x3: ReLU              ['fire3/expand3x3'] ['fire3/expand3x3']
+fire3/concat: Concat            ['fire3/concat'] ['fire3/expand1x1', 'fire3/expand3x3']
+fire4/squeeze1x1: Convolution       ['fire4/squeeze1x1'] ['fire3/concat'] (32, 128, 1, 1)   
+fire4/relu_squeeze1x1: ReLU              ['fire4/squeeze1x1'] ['fire4/squeeze1x1']
+fire4/squeeze1x1_fire4/relu_squeeze1x1_0_split: Split             ['fire4/squeeze1x1_fire4/relu_squeeze1x1_0_split_0', 'fire4/squeeze1x1_fire4/relu_squeeze1x1_0_split_1'] ['fire4/squeeze1x1']
+fire4/expand1x1: Convolution       ['fire4/expand1x1'] ['fire4/squeeze1x1_fire4/relu_squeeze1x1_0_split_0'] (128, 32, 1, 1)   
+fire4/relu_expand1x1: ReLU              ['fire4/expand1x1'] ['fire4/expand1x1']
+fire4/expand3x3: Convolution       ['fire4/expand3x3'] ['fire4/squeeze1x1_fire4/relu_squeeze1x1_0_split_1'] (128, 32, 3, 3)   
+fire4/relu_expand3x3: ReLU              ['fire4/expand3x3'] ['fire4/expand3x3']
+fire4/concat: Concat            ['fire4/concat'] ['fire4/expand1x1', 'fire4/expand3x3']
+pool4  : Pooling           ['pool4']  ['fire4/concat']
+fire5/squeeze1x1: Convolution       ['fire5/squeeze1x1'] ['pool4']  (32, 256, 1, 1)   
+fire5/relu_squeeze1x1: ReLU              ['fire5/squeeze1x1'] ['fire5/squeeze1x1']
+fire5/squeeze1x1_fire5/relu_squeeze1x1_0_split: Split             ['fire5/squeeze1x1_fire5/relu_squeeze1x1_0_split_0', 'fire5/squeeze1x1_fire5/relu_squeeze1x1_0_split_1'] ['fire5/squeeze1x1']
+fire5/expand1x1: Convolution       ['fire5/expand1x1'] ['fire5/squeeze1x1_fire5/relu_squeeze1x1_0_split_0'] (128, 32, 1, 1)   
+fire5/relu_expand1x1: ReLU              ['fire5/expand1x1'] ['fire5/expand1x1']
+fire5/expand3x3: Convolution       ['fire5/expand3x3'] ['fire5/squeeze1x1_fire5/relu_squeeze1x1_0_split_1'] (128, 32, 3, 3)   
+fire5/relu_expand3x3: ReLU              ['fire5/expand3x3'] ['fire5/expand3x3']
+fire5/concat: Concat            ['fire5/concat'] ['fire5/expand1x1', 'fire5/expand3x3']
+fire6/squeeze1x1: Convolution       ['fire6/squeeze1x1'] ['fire5/concat'] (48, 256, 1, 1)   
+fire6/relu_squeeze1x1: ReLU              ['fire6/squeeze1x1'] ['fire6/squeeze1x1']
+fire6/squeeze1x1_fire6/relu_squeeze1x1_0_split: Split             ['fire6/squeeze1x1_fire6/relu_squeeze1x1_0_split_0', 'fire6/squeeze1x1_fire6/relu_squeeze1x1_0_split_1'] ['fire6/squeeze1x1']
+fire6/expand1x1: Convolution       ['fire6/expand1x1'] ['fire6/squeeze1x1_fire6/relu_squeeze1x1_0_split_0'] (192, 48, 1, 1)   
+fire6/relu_expand1x1: ReLU              ['fire6/expand1x1'] ['fire6/expand1x1']
+fire6/expand3x3: Convolution       ['fire6/expand3x3'] ['fire6/squeeze1x1_fire6/relu_squeeze1x1_0_split_1'] (192, 48, 3, 3)   
+fire6/relu_expand3x3: ReLU              ['fire6/expand3x3'] ['fire6/expand3x3']
+fire6/concat: Concat            ['fire6/concat'] ['fire6/expand1x1', 'fire6/expand3x3']
+fire7/squeeze1x1: Convolution       ['fire7/squeeze1x1'] ['fire6/concat'] (48, 384, 1, 1)   
+fire7/relu_squeeze1x1: ReLU              ['fire7/squeeze1x1'] ['fire7/squeeze1x1']
+fire7/squeeze1x1_fire7/relu_squeeze1x1_0_split: Split             ['fire7/squeeze1x1_fire7/relu_squeeze1x1_0_split_0', 'fire7/squeeze1x1_fire7/relu_squeeze1x1_0_split_1'] ['fire7/squeeze1x1']
+fire7/expand1x1: Convolution       ['fire7/expand1x1'] ['fire7/squeeze1x1_fire7/relu_squeeze1x1_0_split_0'] (192, 48, 1, 1)   
+fire7/relu_expand1x1: ReLU              ['fire7/expand1x1'] ['fire7/expand1x1']
+fire7/expand3x3: Convolution       ['fire7/expand3x3'] ['fire7/squeeze1x1_fire7/relu_squeeze1x1_0_split_1'] (192, 48, 3, 3)   
+fire7/relu_expand3x3: ReLU              ['fire7/expand3x3'] ['fire7/expand3x3']
+fire7/concat: Concat            ['fire7/concat'] ['fire7/expand1x1', 'fire7/expand3x3']
+fire8/squeeze1x1: Convolution       ['fire8/squeeze1x1'] ['fire7/concat'] (64, 384, 1, 1)   
+fire8/relu_squeeze1x1: ReLU              ['fire8/squeeze1x1'] ['fire8/squeeze1x1']
+fire8/squeeze1x1_fire8/relu_squeeze1x1_0_split: Split             ['fire8/squeeze1x1_fire8/relu_squeeze1x1_0_split_0', 'fire8/squeeze1x1_fire8/relu_squeeze1x1_0_split_1'] ['fire8/squeeze1x1']
+fire8/expand1x1: Convolution       ['fire8/expand1x1'] ['fire8/squeeze1x1_fire8/relu_squeeze1x1_0_split_0'] (256, 64, 1, 1)   
+fire8/relu_expand1x1: ReLU              ['fire8/expand1x1'] ['fire8/expand1x1']
+fire8/expand3x3: Convolution       ['fire8/expand3x3'] ['fire8/squeeze1x1_fire8/relu_squeeze1x1_0_split_1'] (256, 64, 3, 3)   
+fire8/relu_expand3x3: ReLU              ['fire8/expand3x3'] ['fire8/expand3x3']
+fire8/concat: Concat            ['fire8/concat'] ['fire8/expand1x1', 'fire8/expand3x3']
+pool8  : Pooling           ['pool8']  ['fire8/concat']
+fire9/squeeze1x1: Convolution       ['fire9/squeeze1x1'] ['pool8']  (64, 512, 1, 1)   
+fire9/relu_squeeze1x1: ReLU              ['fire9/squeeze1x1'] ['fire9/squeeze1x1']
+fire9/squeeze1x1_fire9/relu_squeeze1x1_0_split: Split             ['fire9/squeeze1x1_fire9/relu_squeeze1x1_0_split_0', 'fire9/squeeze1x1_fire9/relu_squeeze1x1_0_split_1'] ['fire9/squeeze1x1']
+fire9/expand1x1: Convolution       ['fire9/expand1x1'] ['fire9/squeeze1x1_fire9/relu_squeeze1x1_0_split_0'] (256, 64, 1, 1)   
+fire9/relu_expand1x1: ReLU              ['fire9/expand1x1'] ['fire9/expand1x1']
+fire9/expand3x3: Convolution       ['fire9/expand3x3'] ['fire9/squeeze1x1_fire9/relu_squeeze1x1_0_split_1'] (256, 64, 3, 3)   
+fire9/relu_expand3x3: ReLU              ['fire9/expand3x3'] ['fire9/expand3x3']
+fire9/concat: Concat            ['fire9/concat'] ['fire9/expand1x1', 'fire9/expand3x3']
+conv10 : Convolution       ['conv10'] ['fire9/concat'] (1000, 512, 1, 1) 
+relu_conv10: ReLU              ['conv10'] ['conv10']
+pool10 : Pooling           ['pool10'] ['conv10']
+prob   : Softmax           ['prob']   ['pool10']
+Blobs:
+data :  (1, 3, 227, 227)
+conv1:  (1, 96, 111, 111)
+pool1:  (1, 96, 55, 55)
+fire2/squeeze1x1:  (1, 16, 55, 55)
+fire2/squeeze1x1_fire2/relu_squeeze1x1_0_split_0:  (1, 16, 55, 55)
+fire2/squeeze1x1_fire2/relu_squeeze1x1_0_split_1:  (1, 16, 55, 55)
+fire2/expand1x1:  (1, 64, 55, 55)
+fire2/expand3x3:  (1, 64, 55, 55)
+fire2/concat:  (1, 128, 55, 55)
+fire3/squeeze1x1:  (1, 16, 55, 55)
+fire3/squeeze1x1_fire3/relu_squeeze1x1_0_split_0:  (1, 16, 55, 55)
+fire3/squeeze1x1_fire3/relu_squeeze1x1_0_split_1:  (1, 16, 55, 55)
+fire3/expand1x1:  (1, 64, 55, 55)
+fire3/expand3x3:  (1, 64, 55, 55)
+fire3/concat:  (1, 128, 55, 55)
+fire4/squeeze1x1:  (1, 32, 55, 55)
+fire4/squeeze1x1_fire4/relu_squeeze1x1_0_split_0:  (1, 32, 55, 55)
+fire4/squeeze1x1_fire4/relu_squeeze1x1_0_split_1:  (1, 32, 55, 55)
+fire4/expand1x1:  (1, 128, 55, 55)
+fire4/expand3x3:  (1, 128, 55, 55)
+fire4/concat:  (1, 256, 55, 55)
+pool4:  (1, 256, 27, 27)
+fire5/squeeze1x1:  (1, 32, 27, 27)
+fire5/squeeze1x1_fire5/relu_squeeze1x1_0_split_0:  (1, 32, 27, 27)
+fire5/squeeze1x1_fire5/relu_squeeze1x1_0_split_1:  (1, 32, 27, 27)
+fire5/expand1x1:  (1, 128, 27, 27)
+fire5/expand3x3:  (1, 128, 27, 27)
+fire5/concat:  (1, 256, 27, 27)
+fire6/squeeze1x1:  (1, 48, 27, 27)
+fire6/squeeze1x1_fire6/relu_squeeze1x1_0_split_0:  (1, 48, 27, 27)
+fire6/squeeze1x1_fire6/relu_squeeze1x1_0_split_1:  (1, 48, 27, 27)
+fire6/expand1x1:  (1, 192, 27, 27)
+fire6/expand3x3:  (1, 192, 27, 27)
+fire6/concat:  (1, 384, 27, 27)
+fire7/squeeze1x1:  (1, 48, 27, 27)
+fire7/squeeze1x1_fire7/relu_squeeze1x1_0_split_0:  (1, 48, 27, 27)
+fire7/squeeze1x1_fire7/relu_squeeze1x1_0_split_1:  (1, 48, 27, 27)
+fire7/expand1x1:  (1, 192, 27, 27)
+fire7/expand3x3:  (1, 192, 27, 27)
+fire7/concat:  (1, 384, 27, 27)
+fire8/squeeze1x1:  (1, 64, 27, 27)
+fire8/squeeze1x1_fire8/relu_squeeze1x1_0_split_0:  (1, 64, 27, 27)
+fire8/squeeze1x1_fire8/relu_squeeze1x1_0_split_1:  (1, 64, 27, 27)
+fire8/expand1x1:  (1, 256, 27, 27)
+fire8/expand3x3:  (1, 256, 27, 27)
+fire8/concat:  (1, 512, 27, 27)
+pool8:  (1, 512, 13, 13)
+fire9/squeeze1x1:  (1, 64, 13, 13)
+fire9/squeeze1x1_fire9/relu_squeeze1x1_0_split_0:  (1, 64, 13, 13)
+fire9/squeeze1x1_fire9/relu_squeeze1x1_0_split_1:  (1, 64, 13, 13)
+fire9/expand1x1:  (1, 256, 13, 13)
+fire9/expand3x3:  (1, 256, 13, 13)
+fire9/concat:  (1, 512, 13, 13)
+conv10:  (1, 1000, 13, 13)
+pool10:  (1, 1000, 1, 1)
+prob :  (1, 1000, 1, 1)

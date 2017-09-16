@@ -1,0 +1,20 @@
+Name   : Layer             top        bottom     (n, c, h, w)       
+
+data   : Input             ['data']   []        
+conv1  : Convolution       ['conv1']  ['data']   (20, 1, 5, 5)     
+pool1  : Pooling           ['pool1']  ['conv1'] 
+conv2  : Convolution       ['conv2']  ['pool1']  (50, 20, 5, 5)    
+pool2  : Pooling           ['pool2']  ['conv2'] 
+ip1    : InnerProduct      ['ip1']    ['pool2']  (500, 800)        
+relu1  : ReLU              ['ip1']    ['ip1']   
+ip2    : InnerProduct      ['ip2']    ['ip1']    (10, 500)         
+prob   : Softmax           ['prob']   ['ip2']   
+Blobs:
+data :  (64, 1, 28, 28)
+conv1:  (64, 20, 24, 24)
+pool1:  (64, 20, 12, 12)
+conv2:  (64, 50, 8, 8)
+pool2:  (64, 50, 4, 4)
+ip1  :  (64, 500)
+ip2  :  (64, 10)
+prob :  (64, 10)

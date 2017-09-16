@@ -1,0 +1,354 @@
+Name   : Layer             top        bottom     (n, c, h, w)       
+
+data   : Input             ['data']   []        
+conv1  : Convolution       ['conv1']  ['data']   (64, 3, 7, 7)     
+bn_conv1: BatchNorm         ['conv1']  ['conv1']  (64,)             
+scale_conv1: Scale             ['conv1']  ['conv1']  (64,)             
+conv1_relu: ReLU              ['conv1']  ['conv1'] 
+pool1  : Pooling           ['pool1']  ['conv1'] 
+pool1_pool1_0_split: Split             ['pool1_pool1_0_split_0', 'pool1_pool1_0_split_1'] ['pool1'] 
+res2a_branch1: Convolution       ['res2a_branch1'] ['pool1_pool1_0_split_0'] (256, 64, 1, 1)   
+bn2a_branch1: BatchNorm         ['res2a_branch1'] ['res2a_branch1'] (256,)            
+scale2a_branch1: Scale             ['res2a_branch1'] ['res2a_branch1'] (256,)            
+res2a_branch2a: Convolution       ['res2a_branch2a'] ['pool1_pool1_0_split_1'] (64, 64, 1, 1)    
+bn2a_branch2a: BatchNorm         ['res2a_branch2a'] ['res2a_branch2a'] (64,)             
+scale2a_branch2a: Scale             ['res2a_branch2a'] ['res2a_branch2a'] (64,)             
+res2a_branch2a_relu: ReLU              ['res2a_branch2a'] ['res2a_branch2a']
+res2a_branch2b: Convolution       ['res2a_branch2b'] ['res2a_branch2a'] (64, 64, 3, 3)    
+bn2a_branch2b: BatchNorm         ['res2a_branch2b'] ['res2a_branch2b'] (64,)             
+scale2a_branch2b: Scale             ['res2a_branch2b'] ['res2a_branch2b'] (64,)             
+res2a_branch2b_relu: ReLU              ['res2a_branch2b'] ['res2a_branch2b']
+res2a_branch2c: Convolution       ['res2a_branch2c'] ['res2a_branch2b'] (256, 64, 1, 1)   
+bn2a_branch2c: BatchNorm         ['res2a_branch2c'] ['res2a_branch2c'] (256,)            
+scale2a_branch2c: Scale             ['res2a_branch2c'] ['res2a_branch2c'] (256,)            
+res2a  : Eltwise           ['res2a']  ['res2a_branch1', 'res2a_branch2c']
+res2a_relu: ReLU              ['res2a']  ['res2a'] 
+res2a_res2a_relu_0_split: Split             ['res2a_res2a_relu_0_split_0', 'res2a_res2a_relu_0_split_1'] ['res2a'] 
+res2b_branch2a: Convolution       ['res2b_branch2a'] ['res2a_res2a_relu_0_split_0'] (64, 256, 1, 1)   
+bn2b_branch2a: BatchNorm         ['res2b_branch2a'] ['res2b_branch2a'] (64,)             
+scale2b_branch2a: Scale             ['res2b_branch2a'] ['res2b_branch2a'] (64,)             
+res2b_branch2a_relu: ReLU              ['res2b_branch2a'] ['res2b_branch2a']
+res2b_branch2b: Convolution       ['res2b_branch2b'] ['res2b_branch2a'] (64, 64, 3, 3)    
+bn2b_branch2b: BatchNorm         ['res2b_branch2b'] ['res2b_branch2b'] (64,)             
+scale2b_branch2b: Scale             ['res2b_branch2b'] ['res2b_branch2b'] (64,)             
+res2b_branch2b_relu: ReLU              ['res2b_branch2b'] ['res2b_branch2b']
+res2b_branch2c: Convolution       ['res2b_branch2c'] ['res2b_branch2b'] (256, 64, 1, 1)   
+bn2b_branch2c: BatchNorm         ['res2b_branch2c'] ['res2b_branch2c'] (256,)            
+scale2b_branch2c: Scale             ['res2b_branch2c'] ['res2b_branch2c'] (256,)            
+res2b  : Eltwise           ['res2b']  ['res2a_res2a_relu_0_split_1', 'res2b_branch2c']
+res2b_relu: ReLU              ['res2b']  ['res2b'] 
+res2b_res2b_relu_0_split: Split             ['res2b_res2b_relu_0_split_0', 'res2b_res2b_relu_0_split_1'] ['res2b'] 
+res2c_branch2a: Convolution       ['res2c_branch2a'] ['res2b_res2b_relu_0_split_0'] (64, 256, 1, 1)   
+bn2c_branch2a: BatchNorm         ['res2c_branch2a'] ['res2c_branch2a'] (64,)             
+scale2c_branch2a: Scale             ['res2c_branch2a'] ['res2c_branch2a'] (64,)             
+res2c_branch2a_relu: ReLU              ['res2c_branch2a'] ['res2c_branch2a']
+res2c_branch2b: Convolution       ['res2c_branch2b'] ['res2c_branch2a'] (64, 64, 3, 3)    
+bn2c_branch2b: BatchNorm         ['res2c_branch2b'] ['res2c_branch2b'] (64,)             
+scale2c_branch2b: Scale             ['res2c_branch2b'] ['res2c_branch2b'] (64,)             
+res2c_branch2b_relu: ReLU              ['res2c_branch2b'] ['res2c_branch2b']
+res2c_branch2c: Convolution       ['res2c_branch2c'] ['res2c_branch2b'] (256, 64, 1, 1)   
+bn2c_branch2c: BatchNorm         ['res2c_branch2c'] ['res2c_branch2c'] (256,)            
+scale2c_branch2c: Scale             ['res2c_branch2c'] ['res2c_branch2c'] (256,)            
+res2c  : Eltwise           ['res2c']  ['res2b_res2b_relu_0_split_1', 'res2c_branch2c']
+res2c_relu: ReLU              ['res2c']  ['res2c'] 
+res2c_res2c_relu_0_split: Split             ['res2c_res2c_relu_0_split_0', 'res2c_res2c_relu_0_split_1'] ['res2c'] 
+res3a_branch1: Convolution       ['res3a_branch1'] ['res2c_res2c_relu_0_split_0'] (512, 256, 1, 1)  
+bn3a_branch1: BatchNorm         ['res3a_branch1'] ['res3a_branch1'] (512,)            
+scale3a_branch1: Scale             ['res3a_branch1'] ['res3a_branch1'] (512,)            
+res3a_branch2a: Convolution       ['res3a_branch2a'] ['res2c_res2c_relu_0_split_1'] (128, 256, 1, 1)  
+bn3a_branch2a: BatchNorm         ['res3a_branch2a'] ['res3a_branch2a'] (128,)            
+scale3a_branch2a: Scale             ['res3a_branch2a'] ['res3a_branch2a'] (128,)            
+res3a_branch2a_relu: ReLU              ['res3a_branch2a'] ['res3a_branch2a']
+res3a_branch2b: Convolution       ['res3a_branch2b'] ['res3a_branch2a'] (128, 128, 3, 3)  
+bn3a_branch2b: BatchNorm         ['res3a_branch2b'] ['res3a_branch2b'] (128,)            
+scale3a_branch2b: Scale             ['res3a_branch2b'] ['res3a_branch2b'] (128,)            
+res3a_branch2b_relu: ReLU              ['res3a_branch2b'] ['res3a_branch2b']
+res3a_branch2c: Convolution       ['res3a_branch2c'] ['res3a_branch2b'] (512, 128, 1, 1)  
+bn3a_branch2c: BatchNorm         ['res3a_branch2c'] ['res3a_branch2c'] (512,)            
+scale3a_branch2c: Scale             ['res3a_branch2c'] ['res3a_branch2c'] (512,)            
+res3a  : Eltwise           ['res3a']  ['res3a_branch1', 'res3a_branch2c']
+res3a_relu: ReLU              ['res3a']  ['res3a'] 
+res3a_res3a_relu_0_split: Split             ['res3a_res3a_relu_0_split_0', 'res3a_res3a_relu_0_split_1'] ['res3a'] 
+res3b_branch2a: Convolution       ['res3b_branch2a'] ['res3a_res3a_relu_0_split_0'] (128, 512, 1, 1)  
+bn3b_branch2a: BatchNorm         ['res3b_branch2a'] ['res3b_branch2a'] (128,)            
+scale3b_branch2a: Scale             ['res3b_branch2a'] ['res3b_branch2a'] (128,)            
+res3b_branch2a_relu: ReLU              ['res3b_branch2a'] ['res3b_branch2a']
+res3b_branch2b: Convolution       ['res3b_branch2b'] ['res3b_branch2a'] (128, 128, 3, 3)  
+bn3b_branch2b: BatchNorm         ['res3b_branch2b'] ['res3b_branch2b'] (128,)            
+scale3b_branch2b: Scale             ['res3b_branch2b'] ['res3b_branch2b'] (128,)            
+res3b_branch2b_relu: ReLU              ['res3b_branch2b'] ['res3b_branch2b']
+res3b_branch2c: Convolution       ['res3b_branch2c'] ['res3b_branch2b'] (512, 128, 1, 1)  
+bn3b_branch2c: BatchNorm         ['res3b_branch2c'] ['res3b_branch2c'] (512,)            
+scale3b_branch2c: Scale             ['res3b_branch2c'] ['res3b_branch2c'] (512,)            
+res3b  : Eltwise           ['res3b']  ['res3a_res3a_relu_0_split_1', 'res3b_branch2c']
+res3b_relu: ReLU              ['res3b']  ['res3b'] 
+res3b_res3b_relu_0_split: Split             ['res3b_res3b_relu_0_split_0', 'res3b_res3b_relu_0_split_1'] ['res3b'] 
+res3c_branch2a: Convolution       ['res3c_branch2a'] ['res3b_res3b_relu_0_split_0'] (128, 512, 1, 1)  
+bn3c_branch2a: BatchNorm         ['res3c_branch2a'] ['res3c_branch2a'] (128,)            
+scale3c_branch2a: Scale             ['res3c_branch2a'] ['res3c_branch2a'] (128,)            
+res3c_branch2a_relu: ReLU              ['res3c_branch2a'] ['res3c_branch2a']
+res3c_branch2b: Convolution       ['res3c_branch2b'] ['res3c_branch2a'] (128, 128, 3, 3)  
+bn3c_branch2b: BatchNorm         ['res3c_branch2b'] ['res3c_branch2b'] (128,)            
+scale3c_branch2b: Scale             ['res3c_branch2b'] ['res3c_branch2b'] (128,)            
+res3c_branch2b_relu: ReLU              ['res3c_branch2b'] ['res3c_branch2b']
+res3c_branch2c: Convolution       ['res3c_branch2c'] ['res3c_branch2b'] (512, 128, 1, 1)  
+bn3c_branch2c: BatchNorm         ['res3c_branch2c'] ['res3c_branch2c'] (512,)            
+scale3c_branch2c: Scale             ['res3c_branch2c'] ['res3c_branch2c'] (512,)            
+res3c  : Eltwise           ['res3c']  ['res3b_res3b_relu_0_split_1', 'res3c_branch2c']
+res3c_relu: ReLU              ['res3c']  ['res3c'] 
+res3c_res3c_relu_0_split: Split             ['res3c_res3c_relu_0_split_0', 'res3c_res3c_relu_0_split_1'] ['res3c'] 
+res3d_branch2a: Convolution       ['res3d_branch2a'] ['res3c_res3c_relu_0_split_0'] (128, 512, 1, 1)  
+bn3d_branch2a: BatchNorm         ['res3d_branch2a'] ['res3d_branch2a'] (128,)            
+scale3d_branch2a: Scale             ['res3d_branch2a'] ['res3d_branch2a'] (128,)            
+res3d_branch2a_relu: ReLU              ['res3d_branch2a'] ['res3d_branch2a']
+res3d_branch2b: Convolution       ['res3d_branch2b'] ['res3d_branch2a'] (128, 128, 3, 3)  
+bn3d_branch2b: BatchNorm         ['res3d_branch2b'] ['res3d_branch2b'] (128,)            
+scale3d_branch2b: Scale             ['res3d_branch2b'] ['res3d_branch2b'] (128,)            
+res3d_branch2b_relu: ReLU              ['res3d_branch2b'] ['res3d_branch2b']
+res3d_branch2c: Convolution       ['res3d_branch2c'] ['res3d_branch2b'] (512, 128, 1, 1)  
+bn3d_branch2c: BatchNorm         ['res3d_branch2c'] ['res3d_branch2c'] (512,)            
+scale3d_branch2c: Scale             ['res3d_branch2c'] ['res3d_branch2c'] (512,)            
+res3d  : Eltwise           ['res3d']  ['res3c_res3c_relu_0_split_1', 'res3d_branch2c']
+res3d_relu: ReLU              ['res3d']  ['res3d'] 
+res3d_res3d_relu_0_split: Split             ['res3d_res3d_relu_0_split_0', 'res3d_res3d_relu_0_split_1'] ['res3d'] 
+res4a_branch1: Convolution       ['res4a_branch1'] ['res3d_res3d_relu_0_split_0'] (1024, 512, 1, 1) 
+bn4a_branch1: BatchNorm         ['res4a_branch1'] ['res4a_branch1'] (1024,)           
+scale4a_branch1: Scale             ['res4a_branch1'] ['res4a_branch1'] (1024,)           
+res4a_branch2a: Convolution       ['res4a_branch2a'] ['res3d_res3d_relu_0_split_1'] (256, 512, 1, 1)  
+bn4a_branch2a: BatchNorm         ['res4a_branch2a'] ['res4a_branch2a'] (256,)            
+scale4a_branch2a: Scale             ['res4a_branch2a'] ['res4a_branch2a'] (256,)            
+res4a_branch2a_relu: ReLU              ['res4a_branch2a'] ['res4a_branch2a']
+res4a_branch2b: Convolution       ['res4a_branch2b'] ['res4a_branch2a'] (256, 256, 3, 3)  
+bn4a_branch2b: BatchNorm         ['res4a_branch2b'] ['res4a_branch2b'] (256,)            
+scale4a_branch2b: Scale             ['res4a_branch2b'] ['res4a_branch2b'] (256,)            
+res4a_branch2b_relu: ReLU              ['res4a_branch2b'] ['res4a_branch2b']
+res4a_branch2c: Convolution       ['res4a_branch2c'] ['res4a_branch2b'] (1024, 256, 1, 1) 
+bn4a_branch2c: BatchNorm         ['res4a_branch2c'] ['res4a_branch2c'] (1024,)           
+scale4a_branch2c: Scale             ['res4a_branch2c'] ['res4a_branch2c'] (1024,)           
+res4a  : Eltwise           ['res4a']  ['res4a_branch1', 'res4a_branch2c']
+res4a_relu: ReLU              ['res4a']  ['res4a'] 
+res4a_res4a_relu_0_split: Split             ['res4a_res4a_relu_0_split_0', 'res4a_res4a_relu_0_split_1'] ['res4a'] 
+res4b_branch2a: Convolution       ['res4b_branch2a'] ['res4a_res4a_relu_0_split_0'] (256, 1024, 1, 1) 
+bn4b_branch2a: BatchNorm         ['res4b_branch2a'] ['res4b_branch2a'] (256,)            
+scale4b_branch2a: Scale             ['res4b_branch2a'] ['res4b_branch2a'] (256,)            
+res4b_branch2a_relu: ReLU              ['res4b_branch2a'] ['res4b_branch2a']
+res4b_branch2b: Convolution       ['res4b_branch2b'] ['res4b_branch2a'] (256, 256, 3, 3)  
+bn4b_branch2b: BatchNorm         ['res4b_branch2b'] ['res4b_branch2b'] (256,)            
+scale4b_branch2b: Scale             ['res4b_branch2b'] ['res4b_branch2b'] (256,)            
+res4b_branch2b_relu: ReLU              ['res4b_branch2b'] ['res4b_branch2b']
+res4b_branch2c: Convolution       ['res4b_branch2c'] ['res4b_branch2b'] (1024, 256, 1, 1) 
+bn4b_branch2c: BatchNorm         ['res4b_branch2c'] ['res4b_branch2c'] (1024,)           
+scale4b_branch2c: Scale             ['res4b_branch2c'] ['res4b_branch2c'] (1024,)           
+res4b  : Eltwise           ['res4b']  ['res4a_res4a_relu_0_split_1', 'res4b_branch2c']
+res4b_relu: ReLU              ['res4b']  ['res4b'] 
+res4b_res4b_relu_0_split: Split             ['res4b_res4b_relu_0_split_0', 'res4b_res4b_relu_0_split_1'] ['res4b'] 
+res4c_branch2a: Convolution       ['res4c_branch2a'] ['res4b_res4b_relu_0_split_0'] (256, 1024, 1, 1) 
+bn4c_branch2a: BatchNorm         ['res4c_branch2a'] ['res4c_branch2a'] (256,)            
+scale4c_branch2a: Scale             ['res4c_branch2a'] ['res4c_branch2a'] (256,)            
+res4c_branch2a_relu: ReLU              ['res4c_branch2a'] ['res4c_branch2a']
+res4c_branch2b: Convolution       ['res4c_branch2b'] ['res4c_branch2a'] (256, 256, 3, 3)  
+bn4c_branch2b: BatchNorm         ['res4c_branch2b'] ['res4c_branch2b'] (256,)            
+scale4c_branch2b: Scale             ['res4c_branch2b'] ['res4c_branch2b'] (256,)            
+res4c_branch2b_relu: ReLU              ['res4c_branch2b'] ['res4c_branch2b']
+res4c_branch2c: Convolution       ['res4c_branch2c'] ['res4c_branch2b'] (1024, 256, 1, 1) 
+bn4c_branch2c: BatchNorm         ['res4c_branch2c'] ['res4c_branch2c'] (1024,)           
+scale4c_branch2c: Scale             ['res4c_branch2c'] ['res4c_branch2c'] (1024,)           
+res4c  : Eltwise           ['res4c']  ['res4b_res4b_relu_0_split_1', 'res4c_branch2c']
+res4c_relu: ReLU              ['res4c']  ['res4c'] 
+res4c_res4c_relu_0_split: Split             ['res4c_res4c_relu_0_split_0', 'res4c_res4c_relu_0_split_1'] ['res4c'] 
+res4d_branch2a: Convolution       ['res4d_branch2a'] ['res4c_res4c_relu_0_split_0'] (256, 1024, 1, 1) 
+bn4d_branch2a: BatchNorm         ['res4d_branch2a'] ['res4d_branch2a'] (256,)            
+scale4d_branch2a: Scale             ['res4d_branch2a'] ['res4d_branch2a'] (256,)            
+res4d_branch2a_relu: ReLU              ['res4d_branch2a'] ['res4d_branch2a']
+res4d_branch2b: Convolution       ['res4d_branch2b'] ['res4d_branch2a'] (256, 256, 3, 3)  
+bn4d_branch2b: BatchNorm         ['res4d_branch2b'] ['res4d_branch2b'] (256,)            
+scale4d_branch2b: Scale             ['res4d_branch2b'] ['res4d_branch2b'] (256,)            
+res4d_branch2b_relu: ReLU              ['res4d_branch2b'] ['res4d_branch2b']
+res4d_branch2c: Convolution       ['res4d_branch2c'] ['res4d_branch2b'] (1024, 256, 1, 1) 
+bn4d_branch2c: BatchNorm         ['res4d_branch2c'] ['res4d_branch2c'] (1024,)           
+scale4d_branch2c: Scale             ['res4d_branch2c'] ['res4d_branch2c'] (1024,)           
+res4d  : Eltwise           ['res4d']  ['res4c_res4c_relu_0_split_1', 'res4d_branch2c']
+res4d_relu: ReLU              ['res4d']  ['res4d'] 
+res4d_res4d_relu_0_split: Split             ['res4d_res4d_relu_0_split_0', 'res4d_res4d_relu_0_split_1'] ['res4d'] 
+res4e_branch2a: Convolution       ['res4e_branch2a'] ['res4d_res4d_relu_0_split_0'] (256, 1024, 1, 1) 
+bn4e_branch2a: BatchNorm         ['res4e_branch2a'] ['res4e_branch2a'] (256,)            
+scale4e_branch2a: Scale             ['res4e_branch2a'] ['res4e_branch2a'] (256,)            
+res4e_branch2a_relu: ReLU              ['res4e_branch2a'] ['res4e_branch2a']
+res4e_branch2b: Convolution       ['res4e_branch2b'] ['res4e_branch2a'] (256, 256, 3, 3)  
+bn4e_branch2b: BatchNorm         ['res4e_branch2b'] ['res4e_branch2b'] (256,)            
+scale4e_branch2b: Scale             ['res4e_branch2b'] ['res4e_branch2b'] (256,)            
+res4e_branch2b_relu: ReLU              ['res4e_branch2b'] ['res4e_branch2b']
+res4e_branch2c: Convolution       ['res4e_branch2c'] ['res4e_branch2b'] (1024, 256, 1, 1) 
+bn4e_branch2c: BatchNorm         ['res4e_branch2c'] ['res4e_branch2c'] (1024,)           
+scale4e_branch2c: Scale             ['res4e_branch2c'] ['res4e_branch2c'] (1024,)           
+res4e  : Eltwise           ['res4e']  ['res4d_res4d_relu_0_split_1', 'res4e_branch2c']
+res4e_relu: ReLU              ['res4e']  ['res4e'] 
+res4e_res4e_relu_0_split: Split             ['res4e_res4e_relu_0_split_0', 'res4e_res4e_relu_0_split_1'] ['res4e'] 
+res4f_branch2a: Convolution       ['res4f_branch2a'] ['res4e_res4e_relu_0_split_0'] (256, 1024, 1, 1) 
+bn4f_branch2a: BatchNorm         ['res4f_branch2a'] ['res4f_branch2a'] (256,)            
+scale4f_branch2a: Scale             ['res4f_branch2a'] ['res4f_branch2a'] (256,)            
+res4f_branch2a_relu: ReLU              ['res4f_branch2a'] ['res4f_branch2a']
+res4f_branch2b: Convolution       ['res4f_branch2b'] ['res4f_branch2a'] (256, 256, 3, 3)  
+bn4f_branch2b: BatchNorm         ['res4f_branch2b'] ['res4f_branch2b'] (256,)            
+scale4f_branch2b: Scale             ['res4f_branch2b'] ['res4f_branch2b'] (256,)            
+res4f_branch2b_relu: ReLU              ['res4f_branch2b'] ['res4f_branch2b']
+res4f_branch2c: Convolution       ['res4f_branch2c'] ['res4f_branch2b'] (1024, 256, 1, 1) 
+bn4f_branch2c: BatchNorm         ['res4f_branch2c'] ['res4f_branch2c'] (1024,)           
+scale4f_branch2c: Scale             ['res4f_branch2c'] ['res4f_branch2c'] (1024,)           
+res4f  : Eltwise           ['res4f']  ['res4e_res4e_relu_0_split_1', 'res4f_branch2c']
+res4f_relu: ReLU              ['res4f']  ['res4f'] 
+res4f_res4f_relu_0_split: Split             ['res4f_res4f_relu_0_split_0', 'res4f_res4f_relu_0_split_1'] ['res4f'] 
+res5a_branch1: Convolution       ['res5a_branch1'] ['res4f_res4f_relu_0_split_0'] (2048, 1024, 1, 1)
+bn5a_branch1: BatchNorm         ['res5a_branch1'] ['res5a_branch1'] (2048,)           
+scale5a_branch1: Scale             ['res5a_branch1'] ['res5a_branch1'] (2048,)           
+res5a_branch2a: Convolution       ['res5a_branch2a'] ['res4f_res4f_relu_0_split_1'] (512, 1024, 1, 1) 
+bn5a_branch2a: BatchNorm         ['res5a_branch2a'] ['res5a_branch2a'] (512,)            
+scale5a_branch2a: Scale             ['res5a_branch2a'] ['res5a_branch2a'] (512,)            
+res5a_branch2a_relu: ReLU              ['res5a_branch2a'] ['res5a_branch2a']
+res5a_branch2b: Convolution       ['res5a_branch2b'] ['res5a_branch2a'] (512, 512, 3, 3)  
+bn5a_branch2b: BatchNorm         ['res5a_branch2b'] ['res5a_branch2b'] (512,)            
+scale5a_branch2b: Scale             ['res5a_branch2b'] ['res5a_branch2b'] (512,)            
+res5a_branch2b_relu: ReLU              ['res5a_branch2b'] ['res5a_branch2b']
+res5a_branch2c: Convolution       ['res5a_branch2c'] ['res5a_branch2b'] (2048, 512, 1, 1) 
+bn5a_branch2c: BatchNorm         ['res5a_branch2c'] ['res5a_branch2c'] (2048,)           
+scale5a_branch2c: Scale             ['res5a_branch2c'] ['res5a_branch2c'] (2048,)           
+res5a  : Eltwise           ['res5a']  ['res5a_branch1', 'res5a_branch2c']
+res5a_relu: ReLU              ['res5a']  ['res5a'] 
+res5a_res5a_relu_0_split: Split             ['res5a_res5a_relu_0_split_0', 'res5a_res5a_relu_0_split_1'] ['res5a'] 
+res5b_branch2a: Convolution       ['res5b_branch2a'] ['res5a_res5a_relu_0_split_0'] (512, 2048, 1, 1) 
+bn5b_branch2a: BatchNorm         ['res5b_branch2a'] ['res5b_branch2a'] (512,)            
+scale5b_branch2a: Scale             ['res5b_branch2a'] ['res5b_branch2a'] (512,)            
+res5b_branch2a_relu: ReLU              ['res5b_branch2a'] ['res5b_branch2a']
+res5b_branch2b: Convolution       ['res5b_branch2b'] ['res5b_branch2a'] (512, 512, 3, 3)  
+bn5b_branch2b: BatchNorm         ['res5b_branch2b'] ['res5b_branch2b'] (512,)            
+scale5b_branch2b: Scale             ['res5b_branch2b'] ['res5b_branch2b'] (512,)            
+res5b_branch2b_relu: ReLU              ['res5b_branch2b'] ['res5b_branch2b']
+res5b_branch2c: Convolution       ['res5b_branch2c'] ['res5b_branch2b'] (2048, 512, 1, 1) 
+bn5b_branch2c: BatchNorm         ['res5b_branch2c'] ['res5b_branch2c'] (2048,)           
+scale5b_branch2c: Scale             ['res5b_branch2c'] ['res5b_branch2c'] (2048,)           
+res5b  : Eltwise           ['res5b']  ['res5a_res5a_relu_0_split_1', 'res5b_branch2c']
+res5b_relu: ReLU              ['res5b']  ['res5b'] 
+res5b_res5b_relu_0_split: Split             ['res5b_res5b_relu_0_split_0', 'res5b_res5b_relu_0_split_1'] ['res5b'] 
+res5c_branch2a: Convolution       ['res5c_branch2a'] ['res5b_res5b_relu_0_split_0'] (512, 2048, 1, 1) 
+bn5c_branch2a: BatchNorm         ['res5c_branch2a'] ['res5c_branch2a'] (512,)            
+scale5c_branch2a: Scale             ['res5c_branch2a'] ['res5c_branch2a'] (512,)            
+res5c_branch2a_relu: ReLU              ['res5c_branch2a'] ['res5c_branch2a']
+res5c_branch2b: Convolution       ['res5c_branch2b'] ['res5c_branch2a'] (512, 512, 3, 3)  
+bn5c_branch2b: BatchNorm         ['res5c_branch2b'] ['res5c_branch2b'] (512,)            
+scale5c_branch2b: Scale             ['res5c_branch2b'] ['res5c_branch2b'] (512,)            
+res5c_branch2b_relu: ReLU              ['res5c_branch2b'] ['res5c_branch2b']
+res5c_branch2c: Convolution       ['res5c_branch2c'] ['res5c_branch2b'] (2048, 512, 1, 1) 
+bn5c_branch2c: BatchNorm         ['res5c_branch2c'] ['res5c_branch2c'] (2048,)           
+scale5c_branch2c: Scale             ['res5c_branch2c'] ['res5c_branch2c'] (2048,)           
+res5c  : Eltwise           ['res5c']  ['res5b_res5b_relu_0_split_1', 'res5c_branch2c']
+res5c_relu: ReLU              ['res5c']  ['res5c'] 
+pool5  : Pooling           ['pool5']  ['res5c'] 
+fc1000 : InnerProduct      ['fc1000'] ['pool5']  (1000, 2048)      
+prob   : Softmax           ['prob']   ['fc1000']
+Blobs:
+data :  (1, 3, 224, 224)
+conv1:  (1, 64, 112, 112)
+pool1:  (1, 64, 56, 56)
+pool1_pool1_0_split_0:  (1, 64, 56, 56)
+pool1_pool1_0_split_1:  (1, 64, 56, 56)
+res2a_branch1:  (1, 256, 56, 56)
+res2a_branch2a:  (1, 64, 56, 56)
+res2a_branch2b:  (1, 64, 56, 56)
+res2a_branch2c:  (1, 256, 56, 56)
+res2a:  (1, 256, 56, 56)
+res2a_res2a_relu_0_split_0:  (1, 256, 56, 56)
+res2a_res2a_relu_0_split_1:  (1, 256, 56, 56)
+res2b_branch2a:  (1, 64, 56, 56)
+res2b_branch2b:  (1, 64, 56, 56)
+res2b_branch2c:  (1, 256, 56, 56)
+res2b:  (1, 256, 56, 56)
+res2b_res2b_relu_0_split_0:  (1, 256, 56, 56)
+res2b_res2b_relu_0_split_1:  (1, 256, 56, 56)
+res2c_branch2a:  (1, 64, 56, 56)
+res2c_branch2b:  (1, 64, 56, 56)
+res2c_branch2c:  (1, 256, 56, 56)
+res2c:  (1, 256, 56, 56)
+res2c_res2c_relu_0_split_0:  (1, 256, 56, 56)
+res2c_res2c_relu_0_split_1:  (1, 256, 56, 56)
+res3a_branch1:  (1, 512, 28, 28)
+res3a_branch2a:  (1, 128, 28, 28)
+res3a_branch2b:  (1, 128, 28, 28)
+res3a_branch2c:  (1, 512, 28, 28)
+res3a:  (1, 512, 28, 28)
+res3a_res3a_relu_0_split_0:  (1, 512, 28, 28)
+res3a_res3a_relu_0_split_1:  (1, 512, 28, 28)
+res3b_branch2a:  (1, 128, 28, 28)
+res3b_branch2b:  (1, 128, 28, 28)
+res3b_branch2c:  (1, 512, 28, 28)
+res3b:  (1, 512, 28, 28)
+res3b_res3b_relu_0_split_0:  (1, 512, 28, 28)
+res3b_res3b_relu_0_split_1:  (1, 512, 28, 28)
+res3c_branch2a:  (1, 128, 28, 28)
+res3c_branch2b:  (1, 128, 28, 28)
+res3c_branch2c:  (1, 512, 28, 28)
+res3c:  (1, 512, 28, 28)
+res3c_res3c_relu_0_split_0:  (1, 512, 28, 28)
+res3c_res3c_relu_0_split_1:  (1, 512, 28, 28)
+res3d_branch2a:  (1, 128, 28, 28)
+res3d_branch2b:  (1, 128, 28, 28)
+res3d_branch2c:  (1, 512, 28, 28)
+res3d:  (1, 512, 28, 28)
+res3d_res3d_relu_0_split_0:  (1, 512, 28, 28)
+res3d_res3d_relu_0_split_1:  (1, 512, 28, 28)
+res4a_branch1:  (1, 1024, 14, 14)
+res4a_branch2a:  (1, 256, 14, 14)
+res4a_branch2b:  (1, 256, 14, 14)
+res4a_branch2c:  (1, 1024, 14, 14)
+res4a:  (1, 1024, 14, 14)
+res4a_res4a_relu_0_split_0:  (1, 1024, 14, 14)
+res4a_res4a_relu_0_split_1:  (1, 1024, 14, 14)
+res4b_branch2a:  (1, 256, 14, 14)
+res4b_branch2b:  (1, 256, 14, 14)
+res4b_branch2c:  (1, 1024, 14, 14)
+res4b:  (1, 1024, 14, 14)
+res4b_res4b_relu_0_split_0:  (1, 1024, 14, 14)
+res4b_res4b_relu_0_split_1:  (1, 1024, 14, 14)
+res4c_branch2a:  (1, 256, 14, 14)
+res4c_branch2b:  (1, 256, 14, 14)
+res4c_branch2c:  (1, 1024, 14, 14)
+res4c:  (1, 1024, 14, 14)
+res4c_res4c_relu_0_split_0:  (1, 1024, 14, 14)
+res4c_res4c_relu_0_split_1:  (1, 1024, 14, 14)
+res4d_branch2a:  (1, 256, 14, 14)
+res4d_branch2b:  (1, 256, 14, 14)
+res4d_branch2c:  (1, 1024, 14, 14)
+res4d:  (1, 1024, 14, 14)
+res4d_res4d_relu_0_split_0:  (1, 1024, 14, 14)
+res4d_res4d_relu_0_split_1:  (1, 1024, 14, 14)
+res4e_branch2a:  (1, 256, 14, 14)
+res4e_branch2b:  (1, 256, 14, 14)
+res4e_branch2c:  (1, 1024, 14, 14)
+res4e:  (1, 1024, 14, 14)
+res4e_res4e_relu_0_split_0:  (1, 1024, 14, 14)
+res4e_res4e_relu_0_split_1:  (1, 1024, 14, 14)
+res4f_branch2a:  (1, 256, 14, 14)
+res4f_branch2b:  (1, 256, 14, 14)
+res4f_branch2c:  (1, 1024, 14, 14)
+res4f:  (1, 1024, 14, 14)
+res4f_res4f_relu_0_split_0:  (1, 1024, 14, 14)
+res4f_res4f_relu_0_split_1:  (1, 1024, 14, 14)
+res5a_branch1:  (1, 2048, 7, 7)
+res5a_branch2a:  (1, 512, 7, 7)
+res5a_branch2b:  (1, 512, 7, 7)
+res5a_branch2c:  (1, 2048, 7, 7)
+res5a:  (1, 2048, 7, 7)
+res5a_res5a_relu_0_split_0:  (1, 2048, 7, 7)
+res5a_res5a_relu_0_split_1:  (1, 2048, 7, 7)
+res5b_branch2a:  (1, 512, 7, 7)
+res5b_branch2b:  (1, 512, 7, 7)
+res5b_branch2c:  (1, 2048, 7, 7)
+res5b:  (1, 2048, 7, 7)
+res5b_res5b_relu_0_split_0:  (1, 2048, 7, 7)
+res5b_res5b_relu_0_split_1:  (1, 2048, 7, 7)
+res5c_branch2a:  (1, 512, 7, 7)
+res5c_branch2b:  (1, 512, 7, 7)
+res5c_branch2c:  (1, 2048, 7, 7)
+res5c:  (1, 2048, 7, 7)
+pool5:  (1, 2048, 1, 1)
+fc1000:  (1, 1000)
+prob :  (1, 1000)

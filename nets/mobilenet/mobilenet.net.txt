@@ -1,0 +1,144 @@
+Name   : Layer             top        bottom     (n, c, h, w)       
+
+input  : Input             ['data']   []        
+conv1  : Convolution       ['conv1']  ['data']   (16, 3, 3, 3)     
+conv1/bn: BatchNorm         ['conv1']  ['conv1']  (16,)             
+conv1/scale: Scale             ['conv1']  ['conv1']  (16,)             
+relu1  : ReLU              ['conv1']  ['conv1'] 
+conv2_1/dw: Convolution       ['conv2_1/dw'] ['conv1']  (16, 4, 3, 3)     
+conv2_1/dw/bn: BatchNorm         ['conv2_1/dw'] ['conv2_1/dw'] (16,)             
+conv2_1/dw/scale: Scale             ['conv2_1/dw'] ['conv2_1/dw'] (16,)             
+relu2_1/dw: ReLU              ['conv2_1/dw'] ['conv2_1/dw']
+conv2_1/sep: Convolution       ['conv2_1/sep'] ['conv2_1/dw'] (32, 16, 1, 1)    
+conv2_1/sep/bn: BatchNorm         ['conv2_1/sep'] ['conv2_1/sep'] (32,)             
+conv2_1/sep/scale: Scale             ['conv2_1/sep'] ['conv2_1/sep'] (32,)             
+relu2_1/sep: ReLU              ['conv2_1/sep'] ['conv2_1/sep']
+conv2_2/dw: Convolution       ['conv2_2/dw'] ['conv2_1/sep'] (32, 8, 3, 3)     
+conv2_2/dw/bn: BatchNorm         ['conv2_2/dw'] ['conv2_2/dw'] (32,)             
+conv2_2/dw/scale: Scale             ['conv2_2/dw'] ['conv2_2/dw'] (32,)             
+relu2_2/dw: ReLU              ['conv2_2/dw'] ['conv2_2/dw']
+conv2_2/sep: Convolution       ['conv2_2/sep'] ['conv2_2/dw'] (64, 32, 1, 1)    
+conv2_2/sep/bn: BatchNorm         ['conv2_2/sep'] ['conv2_2/sep'] (64,)             
+conv2_2/sep/scale: Scale             ['conv2_2/sep'] ['conv2_2/sep'] (64,)             
+relu2_2/sep: ReLU              ['conv2_2/sep'] ['conv2_2/sep']
+conv3_1/dw: Convolution       ['conv3_1/dw'] ['conv2_2/sep'] (64, 16, 3, 3)    
+conv3_1/dw/bn: BatchNorm         ['conv3_1/dw'] ['conv3_1/dw'] (64,)             
+conv3_1/dw/scale: Scale             ['conv3_1/dw'] ['conv3_1/dw'] (64,)             
+relu3_1/dw: ReLU              ['conv3_1/dw'] ['conv3_1/dw']
+conv3_1/sep: Convolution       ['conv3_1/sep'] ['conv3_1/dw'] (64, 64, 1, 1)    
+conv3_1/sep/bn: BatchNorm         ['conv3_1/sep'] ['conv3_1/sep'] (64,)             
+conv3_1/sep/scale: Scale             ['conv3_1/sep'] ['conv3_1/sep'] (64,)             
+relu3_1/sep: ReLU              ['conv3_1/sep'] ['conv3_1/sep']
+conv3_2/dw: Convolution       ['conv3_2/dw'] ['conv3_1/sep'] (64, 16, 3, 3)    
+conv3_2/dw/bn: BatchNorm         ['conv3_2/dw'] ['conv3_2/dw'] (64,)             
+conv3_2/dw/scale: Scale             ['conv3_2/dw'] ['conv3_2/dw'] (64,)             
+relu3_2/dw: ReLU              ['conv3_2/dw'] ['conv3_2/dw']
+conv3_2/sep: Convolution       ['conv3_2/sep'] ['conv3_2/dw'] (128, 64, 1, 1)   
+conv3_2/sep/bn: BatchNorm         ['conv3_2/sep'] ['conv3_2/sep'] (128,)            
+conv3_2/sep/scale: Scale             ['conv3_2/sep'] ['conv3_2/sep'] (128,)            
+relu3_2/sep: ReLU              ['conv3_2/sep'] ['conv3_2/sep']
+conv4_1/dw: Convolution       ['conv4_1/dw'] ['conv3_2/sep'] (128, 32, 3, 3)   
+conv4_1/dw/bn: BatchNorm         ['conv4_1/dw'] ['conv4_1/dw'] (128,)            
+conv4_1/dw/scale: Scale             ['conv4_1/dw'] ['conv4_1/dw'] (128,)            
+relu4_1/dw: ReLU              ['conv4_1/dw'] ['conv4_1/dw']
+conv4_1/sep: Convolution       ['conv4_1/sep'] ['conv4_1/dw'] (128, 128, 1, 1)  
+conv4_1/sep/bn: BatchNorm         ['conv4_1/sep'] ['conv4_1/sep'] (128,)            
+conv4_1/sep/scale: Scale             ['conv4_1/sep'] ['conv4_1/sep'] (128,)            
+relu4_1/sep: ReLU              ['conv4_1/sep'] ['conv4_1/sep']
+conv4_2/dw: Convolution       ['conv4_2/dw'] ['conv4_1/sep'] (128, 32, 3, 3)   
+conv4_2/dw/bn: BatchNorm         ['conv4_2/dw'] ['conv4_2/dw'] (128,)            
+conv4_2/dw/scale: Scale             ['conv4_2/dw'] ['conv4_2/dw'] (128,)            
+relu4_2/dw: ReLU              ['conv4_2/dw'] ['conv4_2/dw']
+conv4_2/sep: Convolution       ['conv4_2/sep'] ['conv4_2/dw'] (256, 128, 1, 1)  
+conv4_2/sep/bn: BatchNorm         ['conv4_2/sep'] ['conv4_2/sep'] (256,)            
+conv4_2/sep/scale: Scale             ['conv4_2/sep'] ['conv4_2/sep'] (256,)            
+relu4_2/sep: ReLU              ['conv4_2/sep'] ['conv4_2/sep']
+conv5_1/dw: Convolution       ['conv5_1/dw'] ['conv4_2/sep'] (256, 64, 3, 3)   
+conv5_1/dw/bn: BatchNorm         ['conv5_1/dw'] ['conv5_1/dw'] (256,)            
+conv5_1/dw/scale: Scale             ['conv5_1/dw'] ['conv5_1/dw'] (256,)            
+relu5_1/dw: ReLU              ['conv5_1/dw'] ['conv5_1/dw']
+conv5_1/sep: Convolution       ['conv5_1/sep'] ['conv5_1/dw'] (256, 256, 1, 1)  
+conv5_1/sep/bn: BatchNorm         ['conv5_1/sep'] ['conv5_1/sep'] (256,)            
+conv5_1/sep/scale: Scale             ['conv5_1/sep'] ['conv5_1/sep'] (256,)            
+relu5_1/sep: ReLU              ['conv5_1/sep'] ['conv5_1/sep']
+conv5_2/dw: Convolution       ['conv5_2/dw'] ['conv5_1/sep'] (256, 64, 3, 3)   
+conv5_2/dw/bn: BatchNorm         ['conv5_2/dw'] ['conv5_2/dw'] (256,)            
+conv5_2/dw/scale: Scale             ['conv5_2/dw'] ['conv5_2/dw'] (256,)            
+relu5_2/dw: ReLU              ['conv5_2/dw'] ['conv5_2/dw']
+conv5_2/sep: Convolution       ['conv5_2/sep'] ['conv5_2/dw'] (256, 256, 1, 1)  
+conv5_2/sep/bn: BatchNorm         ['conv5_2/sep'] ['conv5_2/sep'] (256,)            
+conv5_2/sep/scale: Scale             ['conv5_2/sep'] ['conv5_2/sep'] (256,)            
+relu5_2/sep: ReLU              ['conv5_2/sep'] ['conv5_2/sep']
+conv5_3/dw: Convolution       ['conv5_3/dw'] ['conv5_2/sep'] (256, 64, 3, 3)   
+conv5_3/dw/bn: BatchNorm         ['conv5_3/dw'] ['conv5_3/dw'] (256,)            
+conv5_3/dw/scale: Scale             ['conv5_3/dw'] ['conv5_3/dw'] (256,)            
+relu5_3/dw: ReLU              ['conv5_3/dw'] ['conv5_3/dw']
+conv5_3/sep: Convolution       ['conv5_3/sep'] ['conv5_3/dw'] (256, 256, 1, 1)  
+conv5_3/sep/bn: BatchNorm         ['conv5_3/sep'] ['conv5_3/sep'] (256,)            
+conv5_3/sep/scale: Scale             ['conv5_3/sep'] ['conv5_3/sep'] (256,)            
+relu5_3/sep: ReLU              ['conv5_3/sep'] ['conv5_3/sep']
+conv5_4/dw: Convolution       ['conv5_4/dw'] ['conv5_3/sep'] (256, 64, 3, 3)   
+conv5_4/dw/bn: BatchNorm         ['conv5_4/dw'] ['conv5_4/dw'] (256,)            
+conv5_4/dw/scale: Scale             ['conv5_4/dw'] ['conv5_4/dw'] (256,)            
+relu5_4/dw: ReLU              ['conv5_4/dw'] ['conv5_4/dw']
+conv5_4/sep: Convolution       ['conv5_4/sep'] ['conv5_4/dw'] (256, 256, 1, 1)  
+conv5_4/sep/bn: BatchNorm         ['conv5_4/sep'] ['conv5_4/sep'] (256,)            
+conv5_4/sep/scale: Scale             ['conv5_4/sep'] ['conv5_4/sep'] (256,)            
+relu5_4/sep: ReLU              ['conv5_4/sep'] ['conv5_4/sep']
+conv5_5/dw: Convolution       ['conv5_5/dw'] ['conv5_4/sep'] (256, 64, 3, 3)   
+conv5_5/dw/bn: BatchNorm         ['conv5_5/dw'] ['conv5_5/dw'] (256,)            
+conv5_5/dw/scale: Scale             ['conv5_5/dw'] ['conv5_5/dw'] (256,)            
+relu5_5/dw: ReLU              ['conv5_5/dw'] ['conv5_5/dw']
+conv5_5/sep: Convolution       ['conv5_5/sep'] ['conv5_5/dw'] (256, 256, 1, 1)  
+conv5_5/sep/bn: BatchNorm         ['conv5_5/sep'] ['conv5_5/sep'] (256,)            
+conv5_5/sep/scale: Scale             ['conv5_5/sep'] ['conv5_5/sep'] (256,)            
+relu5_5/sep: ReLU              ['conv5_5/sep'] ['conv5_5/sep']
+conv5_6/dw: Convolution       ['conv5_6/dw'] ['conv5_5/sep'] (256, 64, 3, 3)   
+conv5_6/dw/bn: BatchNorm         ['conv5_6/dw'] ['conv5_6/dw'] (256,)            
+conv5_6/dw/scale: Scale             ['conv5_6/dw'] ['conv5_6/dw'] (256,)            
+relu5_6/dw: ReLU              ['conv5_6/dw'] ['conv5_6/dw']
+conv5_6/sep: Convolution       ['conv5_6/sep'] ['conv5_6/dw'] (512, 256, 1, 1)  
+conv5_6/sep/bn: BatchNorm         ['conv5_6/sep'] ['conv5_6/sep'] (512,)            
+conv5_6/sep/scale: Scale             ['conv5_6/sep'] ['conv5_6/sep'] (512,)            
+relu5_6/sep: ReLU              ['conv5_6/sep'] ['conv5_6/sep']
+conv6/dw: Convolution       ['conv6/dw'] ['conv5_6/sep'] (512, 128, 3, 3)  
+conv6/dw/bn: BatchNorm         ['conv6/dw'] ['conv6/dw'] (512,)            
+conv6/dw/scale: Scale             ['conv6/dw'] ['conv6/dw'] (512,)            
+relu6/dw: ReLU              ['conv6/dw'] ['conv6/dw']
+conv6/sep: Convolution       ['conv6/sep'] ['conv6/dw'] (512, 512, 1, 1)  
+conv6/sep/bn: BatchNorm         ['conv6/sep'] ['conv6/sep'] (512,)            
+conv6/sep/scale: Scale             ['conv6/sep'] ['conv6/sep'] (512,)            
+relu6/sep: ReLU              ['conv6/sep'] ['conv6/sep']
+pool6  : Pooling           ['pool6']  ['conv6/sep']
+fc7    : Convolution       ['fc7']    ['pool6']  (1000, 512, 1, 1) 
+Blobs:
+data :  (1, 3, 224, 224)
+conv1:  (1, 16, 112, 112)
+conv2_1/dw:  (1, 16, 112, 112)
+conv2_1/sep:  (1, 32, 112, 112)
+conv2_2/dw:  (1, 32, 56, 56)
+conv2_2/sep:  (1, 64, 56, 56)
+conv3_1/dw:  (1, 64, 56, 56)
+conv3_1/sep:  (1, 64, 56, 56)
+conv3_2/dw:  (1, 64, 28, 28)
+conv3_2/sep:  (1, 128, 28, 28)
+conv4_1/dw:  (1, 128, 28, 28)
+conv4_1/sep:  (1, 128, 28, 28)
+conv4_2/dw:  (1, 128, 14, 14)
+conv4_2/sep:  (1, 256, 14, 14)
+conv5_1/dw:  (1, 256, 14, 14)
+conv5_1/sep:  (1, 256, 14, 14)
+conv5_2/dw:  (1, 256, 14, 14)
+conv5_2/sep:  (1, 256, 14, 14)
+conv5_3/dw:  (1, 256, 14, 14)
+conv5_3/sep:  (1, 256, 14, 14)
+conv5_4/dw:  (1, 256, 14, 14)
+conv5_4/sep:  (1, 256, 14, 14)
+conv5_5/dw:  (1, 256, 14, 14)
+conv5_5/sep:  (1, 256, 14, 14)
+conv5_6/dw:  (1, 256, 7, 7)
+conv5_6/sep:  (1, 512, 7, 7)
+conv6/dw:  (1, 512, 7, 7)
+conv6/sep:  (1, 512, 7, 7)
+pool6:  (1, 512, 1, 1)
+fc7  :  (1, 1000, 1, 1)
