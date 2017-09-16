@@ -10,7 +10,7 @@ except Exception as e:
     print(e)
 
 
-def vis_net(proto_file_, model_file_):
+def print_net(proto_file_, model_file_):
     net = caffe.Net(proto_file_, model_file_, caffe.TEST)
     print("{:<7}: {:17s} {:<10} {:<10} {:18s} \n".format("name", "layer", "top", "bottom", "(n, c, h, w)"))
     for name, layer in zip(net._layer_names, net.layers):
@@ -23,6 +23,9 @@ def vis_net(proto_file_, model_file_):
     print("Blobs:")
     for name, blob in net.blobs.items():
         print("{:<5}:  {}".format(str(name), str(blob.data.shape)))
+
+# todo: add visualization functionality
+# def visualize(net)
 
 
 def parse_args():
@@ -48,7 +51,7 @@ if __name__ == '__main__':
         weights_file = model_file.replace('.prototxt', '.caffemodel')
         check_file_existence(weights_file)
 
-    vis_net(model_file, weights_file)
+    print_net(model_file, weights_file)
 
     if args.text_format:
         print("saving weights to text file: {}.txt".format(weights_file))
