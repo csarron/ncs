@@ -35,7 +35,7 @@ def parse_args():
     parser.add_argument("-w", "--weights_file", type=check_file_existence,
                         help="caffe weights file (.caffemodel)")
     parser.add_argument("-t", "--text_format", action="store_true",
-                        help="whether to round weights to integers or not")
+                        help="whether to save weights file in text format or not")
     return parser.parse_args()
 
 
