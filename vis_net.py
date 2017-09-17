@@ -3,6 +3,9 @@ from __future__ import division
 from __future__ import print_function
 import argparse
 from helper import save_text, check_file_existence
+import os
+
+os.environ['GLOG_minloglevel'] = '2'
 
 try:
     import caffe
@@ -10,8 +13,8 @@ except Exception as e:
     print(e)
 
 
-def print_net(proto_file_, model_file_):
-    net = caffe.Net(proto_file_, model_file_, caffe.TEST)
+def print_net(proto_file_, weights_file_):
+    net = caffe.Net(proto_file_, caffe.TEST, weights=weights_file_)
     print("{:<7}: {:17s} {:<10} {:<10} {:18s} \n".format("name", "layer", "top", "bottom", "(n, c, h, w)"))
     for name, layer in zip(net._layer_names, net.layers):
         print("{:<7}: {:17s} {:<10} {:<10}".format(str(name), str(layer.type), str(net.top_names[name]),
@@ -23,6 +26,7 @@ def print_net(proto_file_, model_file_):
     print("Blobs:")
     for name, blob in net.blobs.items():
         print("{:<5}:  {}".format(str(name), str(blob.data.shape)))
+
 
 # todo: add visualization functionality
 # def visualize(net)
