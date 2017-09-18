@@ -7,7 +7,7 @@ output: 1000 # output dimension, used for last fc layer num_output
 # specify convolution layers
 conv:
   location: [1, 4, 7, 9, 11] # locations of convolution layers
-  kernel_size: [1, 3, 5, 7]
+  kernel_size: [1, 3, 5, 7, 9, 11]
   stride: [1, 2, 3, 4]
   num_output: [24, 36, 48, 64] #  number of filters
 
@@ -24,4 +24,4 @@ pool:
 # specify fully connected layers
 fc:
   location: [14, 16] # locations of pooling layer
-  num_output: [96, 128, 256, 384, 512]
+  num_output: [96, 128, 256, 384, 512, 1024, 2048, 4096]
