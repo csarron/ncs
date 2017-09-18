@@ -4,8 +4,9 @@ from __future__ import print_function
 import argparse
 import enum
 import itertools
+import json
 import os
-import numpy as np
+import random
 import tempfile
 
 from helper import check_file_existence, merge_dicts
@@ -57,22 +58,21 @@ def parse_param(param_file_):
     import yaml
     with open(param_file_, 'r') as f:
         net_params_ = yaml.load(f)
-        print(net_params_)
+        # print(net_params_)
     return net_params_
 
 
 def create_net_spec(net_params_):
     net_spec_ = caffe.NetSpec()
     ''' net_params_ example
-    net_params_ = [('data', [1, 1, 28, 28]),
-               ('conv1', [7, 3, 1, 1, 32]),
-               ('pool2', [5, 5, 2, 1]),
-               ('conv3', [5, 5, 1, 1, 64]),
-               ('pool4', [2, 2, 1, 1]),
-               ('fc5', 512),
-               ('relu6', ''),
-               ('output', 10)]
-    net_params_ = collections.OrderedDict(net_params_)
+    net_params_ = [0: ['data', [1, 1, 28, 28]],
+               1: ['conv', 7, 2, 32],
+               2: ['pool', 3, 2],
+               3: ['conv', 5, 1, 32],
+               4: ['pool', 2, 1],
+               5: ['fc', 512],
+               6: ['relu', ''],
+               7: ['output', 10]]
     '''
     last_layer_name = ''
     for layer_index, layer_spec in sorted(net_params_.items()):
@@ -204,6 +204,7 @@ def gen_one_net_params(net_params_):
             specs_ = list(layer_spec_)
             specs_[0] = layer_dict[specs_[0]]
             return specs_
+
         layer_indices = map(lambda s: s[0], layer_specs)
         layer_params = map(lambda s: f(s), layer_specs)
 
@@ -219,7 +220,67 @@ def gen_one_net_params(net_params_):
         yield i + 1, net_param_dict
 
 
-def create_net(param_file_):
+def gen_random_net_params(net_params_):
+    conv_loc = get_loc(Layer.CONV.value, net_params_)
+    pool_loc = get_loc(Layer.POOL.value, net_params_)
+    relu_loc = get_loc(Layer.RELU.value, net_params_)
+    fc_loc = get_loc(Layer.FC.value, net_params_)
+    layer_dict = merge_dicts(conv_loc, pool_loc, relu_loc, fc_loc)
+    # print('layer_dict:', layer_dict)
+
+    conv_kernel_sizes = net_params_[Layer.CONV.value]['kernel_size']
+    conv_strides = net_params_[Layer.CONV.value]['stride']
+    conv_nums = net_params_[Layer.CONV.value]['num_output']
+    n_conv_k = len(conv_kernel_sizes)
+    n_conv_s = len(conv_strides)
+    n_conv_n = len(conv_nums)
+
+    pool_kernel_sizes = net_params_[Layer.POOL.value]['kernel_size']
+    pool_strides = net_params_[Layer.POOL.value]['stride']
+    n_pool_k = len(pool_kernel_sizes)
+    n_pool_s = len(pool_strides)
+
+    fc_nums = net_params_[Layer.FC.value]['num_output']
+    n_fc_n = len(fc_nums)
+
+    net_param_dict = dict()
+    net_param_dict[0] = [Layer.DATA.value, net_params_[Layer.INPUT.value]]
+    ''' net_param_dict example
+    net_param_dict = [0: ['data', [1, 1, 28, 28]],
+               1: ['conv', 7, 2, 32],
+               2: ['pool', 3, 2],
+               3: ['conv', 5, 1, 32],
+               4: ['pool', 2, 1],
+               5: ['fc', 512],
+               6: ['relu', ''],
+               7: ['output', 10]]
+    '''
+    for layer_index, layer_name in sorted(layer_dict.items()):
+        # print(layer_index, layer_name)
+        layer_spec = [layer_name]
+        if layer_name == Layer.CONV.value:
+            k = conv_kernel_sizes[random.randrange(0, n_conv_k)]
+            s = conv_strides[random.randrange(0, n_conv_s)]
+            num = conv_nums[random.randrange(0, n_conv_n)]
+            layer_spec.extend([k, s, num])
+        elif layer_name == Layer.POOL.value:
+            k = pool_kernel_sizes[random.randrange(0, n_pool_k)]
+            s = pool_strides[random.randrange(0, n_pool_s)]
+            layer_spec.extend([k, s])
+        elif layer_name == Layer.RELU.value:
+            layer_spec.append('')
+        elif layer_name == Layer.FC.value:
+            num = fc_nums[random.randrange(0, n_fc_n)]
+            layer_spec.append(num)
+        else:
+            raise ValueError('unsupported layer:{}'.format(layer_name))
+
+        net_param_dict[layer_index] = layer_spec
+    net_param_dict[len(layer_dict) + 1] = [Layer.OUTPUT.value, net_params_[Layer.OUTPUT.value]]
+    return net_param_dict
+
+
+def create_net(param_file_, net_size_):
     net_params = parse_param(param_file_)
 
     net_path_prefix = os.path.splitext(param_file)[0]
@@ -229,7 +290,10 @@ def create_net(param_file_):
     if not os.path.exists(model_folder):
         os.makedirs(model_folder)
 
-    for model_suffix, one_net_params in gen_one_net_params(net_params):
+    for no in range(net_size_):
+        one_net_params = gen_random_net_params(net_params)
+        print(no, 'params:', one_net_params)
+        model_suffix = hash(json.dumps(one_net_params, sort_keys=True))
         model_name = '{}_{}'.format(model_base_name, model_suffix)
         net_spec = create_net_spec(one_net_params)
         save_net_spec(net_spec, model_folder, model_name)
@@ -251,11 +315,12 @@ def parse_args():
 if __name__ == '__main__':
     args = parse_args()
     param_file = args.param_file
+    net_size = args.net_size
 
     if not param_file:
         raise ValueError('please use -p to specify model parameters!')
 
     if args.seed:
-        np.random.seed(0)
+        random.seed(0)
 
-    create_net(param_file)
+    create_net(param_file, net_size)
