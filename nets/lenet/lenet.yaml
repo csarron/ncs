@@ -17,7 +17,7 @@ conv:
 
 # specify relu layers
 relu:
-  location: [5]
+  location: [6]
 
 # specify convolution layers
 pool:
