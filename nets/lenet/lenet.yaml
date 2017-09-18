@@ -7,13 +7,13 @@ output: 10 # output dimension, used for last fc layer num_output
 # specify convolution layers
 conv:
   location: [1, 3] # locations of convolution layers
-  kernel_size: [1, 3, 5, 7] # kernel height values
+  kernel_size: [5, 7] # kernel height values
 #  kernel_h: [1, 3, 5, 7] # kernel height values
 #  kernel_w: [1, 3, 5, 7] # kernel width values
-  stride: [1, 2, 3, 4] # stride height values
+  stride: [1, 2] # stride height values
 #  stride_h: [1, 2, 3, 4] # stride height values
 #  stride_w: [1, 2, 3, 4] # stride width values
-  num_output: [24, 36, 48, 64] #  number of filters
+  num_output: [24, 36] #  number of filters
 
 # specify relu layers
 relu:
@@ -22,14 +22,14 @@ relu:
 # specify convolution layers
 pool:
   location: [2, 4] # locations of pooling layer
-  kernel_size: [2, 3, 5] # kernel height values
+  kernel_size: [2, 3] # kernel height values
 #  kernel_h: [2, 3, 5] # kernel height values
 #  kernel_w: [2, 3, 5] # kernel width values
-  stride: [1, 2, 3, 4] # stride height values
+  stride: [1] # stride height values
 #  stride_h: [1, 2, 3, 4] # stride height values
 #  stride_w: [1, 2, 3, 4] # stride width values
 
 # specify fully connected layers
 fc:
   location: [5] # locations of pooling layer
-  num_output: [96, 128, 256, 384, 512]
+  num_output: [384, 512]

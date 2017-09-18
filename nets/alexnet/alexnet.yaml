@@ -7,10 +7,8 @@ output: 1000 # output dimension, used for last fc layer num_output
 # specify convolution layers
 conv:
   location: [1, 4, 7, 9, 11] # locations of convolution layers
-  kernel_h: [1, 3, 5, 7] # kernel height values
-  kernel_w: [1, 3, 5, 7] # kernel width values
-  stride_h: [1, 2, 3, 4] # stride height values
-  stride_w: [1, 2, 3, 4] # stride width values
+  kernel_size: [1, 3, 5, 7]
+  stride: [1, 2, 3, 4]
   num_output: [24, 36, 48, 64] #  number of filters
 
 # specify relu layers
@@ -20,10 +18,8 @@ relu:
 # specify convolution layers
 pool:
   location: [3, 6, 13] # locations of pooling layer
-  kernel_h: [2, 3, 5] # kernel height values
-  kernel_w: [2, 3, 5] # kernel width values
-  stride_h: [1, 2, 3, 4] # stride height values
-  stride_w: [1, 2, 3, 4] # stride width values
+  kernel_size: [2, 3, 5]
+  stride: [1, 2, 3, 4]
 
 # specify fully connected layers
 fc:
