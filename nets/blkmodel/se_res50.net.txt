@@ -23,9 +23,9 @@ conv2_1/x3/bn  : BatchNorm
 conv2_1/x3scale: Scale          
 conv2_1/x3split: Split          
 pool2_1/gap    : Pooling        (type: AVE, 0, 0)    (1, 1, 0, 0)
-fc2_1/sqz      : InnerProduct   
+fc2_1/sqz      : InnerProduct   (16, 256)           
 relu2_1/sqz    : ReLU           
-fc2_1/exc      : InnerProduct   
+fc2_1/exc      : InnerProduct   (256, 16)           
 sigm2_1/gate   : Sigmoid        
 scale2_1       : Scale          
 block_2_1      : Eltwise        
@@ -44,9 +44,9 @@ conv2_2/x3/bn  : BatchNorm
 conv2_2/x3scale: Scale          
 conv2_2/x3split: Split          
 pool2_2/gap    : Pooling        (type: AVE, 0, 0)    (1, 1, 0, 0)
-fc2_2/sqz      : InnerProduct   
+fc2_2/sqz      : InnerProduct   (16, 256)           
 relu2_2/sqz    : ReLU           
-fc2_2/exc      : InnerProduct   
+fc2_2/exc      : InnerProduct   (256, 16)           
 sigm2_2/gate   : Sigmoid        
 scale2_2       : Scale          
 block_2_2      : Eltwise        
@@ -65,9 +65,9 @@ conv2_3/x3/bn  : BatchNorm
 conv2_3/x3scale: Scale          
 conv2_3/x3split: Split          
 pool2_3/gap    : Pooling        (type: AVE, 0, 0)    (1, 1, 0, 0)
-fc2_3/sqz      : InnerProduct   
+fc2_3/sqz      : InnerProduct   (16, 256)           
 relu2_3/sqz    : ReLU           
-fc2_3/exc      : InnerProduct   
+fc2_3/exc      : InnerProduct   (256, 16)           
 sigm2_3/gate   : Sigmoid        
 scale2_3       : Scale          
 block_2_3      : Eltwise        
@@ -89,9 +89,9 @@ conv3_1/x3/bn  : BatchNorm
 conv3_1/x3scale: Scale          
 conv3_1/x3split: Split          
 pool3_1/gap    : Pooling        (type: AVE, 0, 0)    (1, 1, 0, 0)
-fc3_1/sqz      : InnerProduct   
+fc3_1/sqz      : InnerProduct   (32, 512)           
 relu3_1/sqz    : ReLU           
-fc3_1/exc      : InnerProduct   
+fc3_1/exc      : InnerProduct   (512, 32)           
 sigm3_1/gate   : Sigmoid        
 scale3_1       : Scale          
 block_3_1      : Eltwise        
@@ -110,9 +110,9 @@ conv3_2/x3/bn  : BatchNorm
 conv3_2/x3scale: Scale          
 conv3_2/x3split: Split          
 pool3_2/gap    : Pooling        (type: AVE, 0, 0)    (1, 1, 0, 0)
-fc3_2/sqz      : InnerProduct   
+fc3_2/sqz      : InnerProduct   (32, 512)           
 relu3_2/sqz    : ReLU           
-fc3_2/exc      : InnerProduct   
+fc3_2/exc      : InnerProduct   (512, 32)           
 sigm3_2/gate   : Sigmoid        
 scale3_2       : Scale          
 block_3_2      : Eltwise        
@@ -131,9 +131,9 @@ conv3_3/x3/bn  : BatchNorm
 conv3_3/x3scale: Scale          
 conv3_3/x3split: Split          
 pool3_3/gap    : Pooling        (type: AVE, 0, 0)    (1, 1, 0, 0)
-fc3_3/sqz      : InnerProduct   
+fc3_3/sqz      : InnerProduct   (32, 512)           
 relu3_3/sqz    : ReLU           
-fc3_3/exc      : InnerProduct   
+fc3_3/exc      : InnerProduct   (512, 32)           
 sigm3_3/gate   : Sigmoid        
 scale3_3       : Scale          
 block_3_3      : Eltwise        
@@ -152,9 +152,9 @@ conv3_4/x3/bn  : BatchNorm
 conv3_4/x3scale: Scale          
 conv3_4/x3split: Split          
 pool3_4/gap    : Pooling        (type: AVE, 0, 0)    (1, 1, 0, 0)
-fc3_4/sqz      : InnerProduct   
+fc3_4/sqz      : InnerProduct   (32, 512)           
 relu3_4/sqz    : ReLU           
-fc3_4/exc      : InnerProduct   
+fc3_4/exc      : InnerProduct   (512, 32)           
 sigm3_4/gate   : Sigmoid        
 scale3_4       : Scale          
 block_3_4      : Eltwise        
@@ -176,9 +176,9 @@ conv4_1/x3/bn  : BatchNorm
 conv4_1/x3scale: Scale          
 conv4_1/x3split: Split          
 pool4_1/gap    : Pooling        (type: AVE, 0, 0)    (1, 1, 0, 0)
-fc4_1/sqz      : InnerProduct   
+fc4_1/sqz      : InnerProduct   (64, 1024)          
 relu4_1/sqz    : ReLU           
-fc4_1/exc      : InnerProduct   
+fc4_1/exc      : InnerProduct   (1024, 64)          
 sigm4_1/gate   : Sigmoid        
 scale4_1       : Scale          
 block_4_1      : Eltwise        
@@ -197,9 +197,9 @@ conv4_2/x3/bn  : BatchNorm
 conv4_2/x3scale: Scale          
 conv4_2/x3split: Split          
 pool4_2/gap    : Pooling        (type: AVE, 0, 0)    (1, 1, 0, 0)
-fc4_2/sqz      : InnerProduct   
+fc4_2/sqz      : InnerProduct   (64, 1024)          
 relu4_2/sqz    : ReLU           
-fc4_2/exc      : InnerProduct   
+fc4_2/exc      : InnerProduct   (1024, 64)          
 sigm4_2/gate   : Sigmoid        
 scale4_2       : Scale          
 block_4_2      : Eltwise        
@@ -218,9 +218,9 @@ conv4_3/x3/bn  : BatchNorm
 conv4_3/x3scale: Scale          
 conv4_3/x3split: Split          
 pool4_3/gap    : Pooling        (type: AVE, 0, 0)    (1, 1, 0, 0)
-fc4_3/sqz      : InnerProduct   
+fc4_3/sqz      : InnerProduct   (64, 1024)          
 relu4_3/sqz    : ReLU           
-fc4_3/exc      : InnerProduct   
+fc4_3/exc      : InnerProduct   (1024, 64)          
 sigm4_3/gate   : Sigmoid        
 scale4_3       : Scale          
 block_4_3      : Eltwise        
@@ -239,9 +239,9 @@ conv4_4/x3/bn  : BatchNorm
 conv4_4/x3scale: Scale          
 conv4_4/x3split: Split          
 pool4_4/gap    : Pooling        (type: AVE, 0, 0)    (1, 1, 0, 0)
-fc4_4/sqz      : InnerProduct   
+fc4_4/sqz      : InnerProduct   (64, 1024)          
 relu4_4/sqz    : ReLU           
-fc4_4/exc      : InnerProduct   
+fc4_4/exc      : InnerProduct   (1024, 64)          
 sigm4_4/gate   : Sigmoid        
 scale4_4       : Scale          
 block_4_4      : Eltwise        
@@ -260,9 +260,9 @@ conv4_5/x3/bn  : BatchNorm
 conv4_5/x3scale: Scale          
 conv4_5/x3split: Split          
 pool4_5/gap    : Pooling        (type: AVE, 0, 0)    (1, 1, 0, 0)
-fc4_5/sqz      : InnerProduct   
+fc4_5/sqz      : InnerProduct   (64, 1024)          
 relu4_5/sqz    : ReLU           
-fc4_5/exc      : InnerProduct   
+fc4_5/exc      : InnerProduct   (1024, 64)          
 sigm4_5/gate   : Sigmoid        
 scale4_5       : Scale          
 block_4_5      : Eltwise        
@@ -281,9 +281,9 @@ conv4_6/x3/bn  : BatchNorm
 conv4_6/x3scale: Scale          
 conv4_6/x3split: Split          
 pool4_6/gap    : Pooling        (type: AVE, 0, 0)    (1, 1, 0, 0)
-fc4_6/sqz      : InnerProduct   
+fc4_6/sqz      : InnerProduct   (64, 1024)          
 relu4_6/sqz    : ReLU           
-fc4_6/exc      : InnerProduct   
+fc4_6/exc      : InnerProduct   (1024, 64)          
 sigm4_6/gate   : Sigmoid        
 scale4_6       : Scale          
 block_4_6      : Eltwise        
@@ -305,9 +305,9 @@ conv5_1/x3/bn  : BatchNorm
 conv5_1/x3scale: Scale          
 conv5_1/x3split: Split          
 pool5_1/gap    : Pooling        (type: AVE, 0, 0)    (1, 1, 0, 0)
-fc5_1/sqz      : InnerProduct   
+fc5_1/sqz      : InnerProduct   (128, 2048)         
 relu5_1/sqz    : ReLU           
-fc5_1/exc      : InnerProduct   
+fc5_1/exc      : InnerProduct   (2048, 128)         
 sigm5_1/gate   : Sigmoid        
 scale5_1       : Scale          
 block_5_1      : Eltwise        
@@ -326,9 +326,9 @@ conv5_2/x3/bn  : BatchNorm
 conv5_2/x3scale: Scale          
 conv5_2/x3split: Split          
 pool5_2/gap    : Pooling        (type: AVE, 0, 0)    (1, 1, 0, 0)
-fc5_2/sqz      : InnerProduct   
+fc5_2/sqz      : InnerProduct   (128, 2048)         
 relu5_2/sqz    : ReLU           
-fc5_2/exc      : InnerProduct   
+fc5_2/exc      : InnerProduct   (2048, 128)         
 sigm5_2/gate   : Sigmoid        
 scale5_2       : Scale          
 block_5_2      : Eltwise        
@@ -347,9 +347,9 @@ conv5_3/x3/bn  : BatchNorm
 conv5_3/x3scale: Scale          
 conv5_3/x3split: Split          
 pool5_3/gap    : Pooling        (type: AVE, 0, 0)    (1, 1, 0, 0)
-fc5_3/sqz      : InnerProduct   
+fc5_3/sqz      : InnerProduct   (128, 2048)         
 relu5_3/sqz    : ReLU           
-fc5_3/exc      : InnerProduct   
+fc5_3/exc      : InnerProduct   (2048, 128)         
 sigm5_3/gate   : Sigmoid        
 scale5_3       : Scale          
 block_5_3      : Eltwise        
@@ -358,7 +358,9 @@ pool5          : Pooling        (type: AVE, 0, 0)    (1, 1, 0, 0)
 fc6            : Convolution    (1000, 2048, 1, 1)   (1, 1, 0, 0)
 prob           : Softmax        
 
-Blobs:
+
+FeatureMaps    :  (b, c, h, w)
+
 data           :  (1, 3, 224, 224)
 conv1          :  (1, 64, 112, 112)
 pool1          :  (1, 64, 56, 56)

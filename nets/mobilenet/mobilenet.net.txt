@@ -112,7 +112,9 @@ relu6/sep      : ReLU
 pool6          : Pooling        (type: AVE, 0, 0)    (1, 1, 0, 0)
 fc7            : Convolution    (1000, 512, 1, 1)    (1, 1, 0, 0)
 
-Blobs:
+
+FeatureMaps    :  (b, c, h, w)
+
 data           :  (1, 3, 224, 224)
 conv1          :  (1, 16, 112, 112)
 conv2_1/dw     :  (1, 16, 112, 112)

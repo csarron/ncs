@@ -33,11 +33,11 @@ relu5_2        : ReLU
 conv5_3        : Convolution    (512, 512, 3, 3)     (1, 1, 1, 1)
 relu5_3        : ReLU           
 pool_5         : Pooling        (type: MAX, 2, 2)    (2, 2, 0, 0)
-fc6            : InnerProduct   
+fc6            : InnerProduct   (4096, 2048)        
 relu6          : ReLU           
-fc7            : InnerProduct   
+fc7            : InnerProduct   (4096, 4096)        
 relu7          : ReLU           
-fc8            : InnerProduct   
+fc8            : InnerProduct   (1000, 4096)        
 prob_1         : Softmax        
 conv_1_r1      : Convolution    (64, 3, 7, 7)        (2, 2, 3, 3)
 bn_1_r1        : BatchNorm      
@@ -214,11 +214,13 @@ scale_stagnch2b: Scale
 eltwise_stlock2: Eltwise        
 relu_stagelock2: ReLU           
 pool_r1        : Pooling        (type: AVE, 7, 7)    (1, 1, 0, 0)
-fc1000_r1      : InnerProduct   
+fc1000_r1      : InnerProduct   (1000, 512)         
 prob_2         : Softmax        
 prob           : Concat         
 
-Blobs:
+
+FeatureMaps    :  (b, c, h, w)
+
 data           :  (1, 3, 224, 224)
 data_data_lit_0:  (1, 3, 224, 224)
 data_data_lit_1:  (1, 3, 224, 224)
