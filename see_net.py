@@ -1,7 +1,10 @@
 from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function
+import os
 import sys
+
+os.environ['GLOG_minloglevel'] = '2'
 
 
 def prettify_name(name_):
@@ -38,7 +41,7 @@ def vis_net(proto_file_, model_file_):
     layers_def_dict = parse_net_def_layers(proto_file_)
 
     print("{:15s}: {:15s}{:20s} ({}, {}, {}, {})\n".format('Name', 'Layer', '(n, c, h, w)',
-                                                                    's_w', 's_h', 'p_w', 'p_h'))
+                                                           's_w', 's_h', 'p_w', 'p_h'))
     for name, layer in zip(net._layer_names, net.layers):
         print("{:15s}: {:15s}".format(prettify_name(name), layer.type), end='')
         layer_def = layers_def_dict.get(name, '')
