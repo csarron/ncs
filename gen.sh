@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 if [ "$1" == "-h" ]; then
-  echo -e "\033[36mUsage: `basename $0` [number of runs] [net param file, e.g. net.yaml]"
+  echo -e "\033[36mUsage: `basename $0` [net param file, e.g. net.yaml]  [number of runs] "
   exit 0
 fi
 
