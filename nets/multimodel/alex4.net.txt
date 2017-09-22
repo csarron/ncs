@@ -1,0 +1,161 @@
+Name           : Layer          (n, c, h, w)         (s_w, s_h, p_w, p_h)
+
+input          : Input          
+data_inputsplit: Split          
+conv1_1        : Convolution    (96, 3, 11, 11)      (4, 4, 0, 0)
+relu1_1        : ReLU           
+norm1_1        : LRN            
+pool1_1        : Pooling        (type: MAX, 3, 3)    (2, 2, 0, 0)
+conv2_1        : Convolution    (256, 48, 5, 5)      (1, 1, 2, 2)
+relu2_1        : ReLU           
+norm2_1        : LRN            
+pool2_1        : Pooling        (type: MAX, 3, 3)    (2, 2, 0, 0)
+conv3_1        : Convolution    (384, 256, 3, 3)     (1, 1, 1, 1)
+relu3_1        : ReLU           
+conv4_1        : Convolution    (384, 192, 3, 3)     (1, 1, 1, 1)
+relu4_1        : ReLU           
+conv5_1        : Convolution    (256, 192, 3, 3)     (1, 1, 1, 1)
+relu5_1        : ReLU           
+pool5_1        : Pooling        (type: MAX, 3, 3)    (2, 2, 0, 0)
+fc6_1          : InnerProduct   
+relu6_1        : ReLU           
+drop6_1        : Dropout        
+fc7_1          : InnerProduct   
+relu7_1        : ReLU           
+drop7_1        : Dropout        
+fc8_1          : InnerProduct   
+prob_1         : Softmax        
+conv1_2        : Convolution    (96, 3, 11, 11)      (4, 4, 0, 0)
+relu1_2        : ReLU           
+norm1_2        : LRN            
+pool1_2        : Pooling        (type: MAX, 3, 3)    (2, 2, 0, 0)
+conv2_2        : Convolution    (256, 48, 5, 5)      (1, 1, 2, 2)
+relu2_2        : ReLU           
+norm2_2        : LRN            
+pool2_2        : Pooling        (type: MAX, 3, 3)    (2, 2, 0, 0)
+conv3_2        : Convolution    (384, 256, 3, 3)     (1, 1, 1, 1)
+relu3_2        : ReLU           
+conv4_2        : Convolution    (384, 192, 3, 3)     (1, 1, 1, 1)
+relu4_2        : ReLU           
+conv5_2        : Convolution    (256, 192, 3, 3)     (1, 1, 1, 1)
+relu5_2        : ReLU           
+pool5_2        : Pooling        (type: MAX, 3, 3)    (2, 2, 0, 0)
+fc6_2          : InnerProduct   
+relu6_2        : ReLU           
+drop6_2        : Dropout        
+fc7_2          : InnerProduct   
+relu7_2        : ReLU           
+drop7_2        : Dropout        
+fc8_2          : InnerProduct   
+prob_2         : Softmax        
+conv1_3        : Convolution    (96, 3, 11, 11)      (4, 4, 0, 0)
+relu1_3        : ReLU           
+norm1_3        : LRN            
+pool1_3        : Pooling        (type: MAX, 3, 3)    (2, 2, 0, 0)
+conv2_3        : Convolution    (256, 48, 5, 5)      (1, 1, 2, 2)
+relu2_3        : ReLU           
+norm2_3        : LRN            
+pool2_3        : Pooling        (type: MAX, 3, 3)    (2, 2, 0, 0)
+conv3_3        : Convolution    (384, 256, 3, 3)     (1, 1, 1, 1)
+relu3_3        : ReLU           
+conv4_3        : Convolution    (384, 192, 3, 3)     (1, 1, 1, 1)
+relu4_3        : ReLU           
+conv5_3        : Convolution    (256, 192, 3, 3)     (1, 1, 1, 1)
+relu5_3        : ReLU           
+pool5_3        : Pooling        (type: MAX, 3, 3)    (2, 2, 0, 0)
+fc6_3          : InnerProduct   
+relu6_3        : ReLU           
+drop6_3        : Dropout        
+fc7_3          : InnerProduct   
+relu7_3        : ReLU           
+drop7_3        : Dropout        
+fc8_3          : InnerProduct   
+prob_3         : Softmax        
+conv1_4        : Convolution    (96, 3, 11, 11)      (4, 4, 0, 0)
+relu1_4        : ReLU           
+norm1_4        : LRN            
+pool1_4        : Pooling        (type: MAX, 3, 3)    (2, 2, 0, 0)
+conv2_4        : Convolution    (256, 48, 5, 5)      (1, 1, 2, 2)
+relu2_4        : ReLU           
+norm2_4        : LRN            
+pool2_4        : Pooling        (type: MAX, 3, 3)    (2, 2, 0, 0)
+conv3_4        : Convolution    (384, 256, 3, 3)     (1, 1, 1, 1)
+relu3_4        : ReLU           
+conv4_4        : Convolution    (384, 192, 3, 3)     (1, 1, 1, 1)
+relu4_4        : ReLU           
+conv5_4        : Convolution    (256, 192, 3, 3)     (1, 1, 1, 1)
+relu5_4        : ReLU           
+pool5_4        : Pooling        (type: MAX, 3, 3)    (2, 2, 0, 0)
+fc6_4          : InnerProduct   
+relu6_4        : ReLU           
+drop6_4        : Dropout        
+fc7_4          : InnerProduct   
+relu7_4        : ReLU           
+drop7_4        : Dropout        
+fc8_4          : InnerProduct   
+prob_4         : Softmax        
+prob           : Concat         
+
+Blobs:
+data           :  (1, 3, 227, 227)
+data_inputlit_0:  (1, 3, 227, 227)
+data_inputlit_1:  (1, 3, 227, 227)
+data_inputlit_2:  (1, 3, 227, 227)
+data_inputlit_3:  (1, 3, 227, 227)
+conv1_1        :  (1, 96, 55, 55)
+norm1_1        :  (1, 96, 55, 55)
+pool1_1        :  (1, 96, 27, 27)
+conv2_1        :  (1, 256, 27, 27)
+norm2_1        :  (1, 256, 27, 27)
+pool2_1        :  (1, 256, 13, 13)
+conv3_1        :  (1, 384, 13, 13)
+conv4_1        :  (1, 384, 13, 13)
+conv5_1        :  (1, 256, 13, 13)
+pool5_1        :  (1, 256, 6, 6)
+fc6_1          :  (1, 4096)
+fc7_1          :  (1, 4096)
+fc8_1          :  (1, 1000)
+prob_1         :  (1, 1000)
+conv1_2        :  (1, 96, 55, 55)
+norm1_2        :  (1, 96, 55, 55)
+pool1_2        :  (1, 96, 27, 27)
+conv2_2        :  (1, 256, 27, 27)
+norm2_2        :  (1, 256, 27, 27)
+pool2_2        :  (1, 256, 13, 13)
+conv3_2        :  (1, 384, 13, 13)
+conv4_2        :  (1, 384, 13, 13)
+conv5_2        :  (1, 256, 13, 13)
+pool5_2        :  (1, 256, 6, 6)
+fc6_2          :  (1, 4096)
+fc7_2          :  (1, 4096)
+fc8_2          :  (1, 1000)
+prob_2         :  (1, 1000)
+conv1_3        :  (1, 96, 55, 55)
+norm1_3        :  (1, 96, 55, 55)
+pool1_3        :  (1, 96, 27, 27)
+conv2_3        :  (1, 256, 27, 27)
+norm2_3        :  (1, 256, 27, 27)
+pool2_3        :  (1, 256, 13, 13)
+conv3_3        :  (1, 384, 13, 13)
+conv4_3        :  (1, 384, 13, 13)
+conv5_3        :  (1, 256, 13, 13)
+pool5_3        :  (1, 256, 6, 6)
+fc6_3          :  (1, 4096)
+fc7_3          :  (1, 4096)
+fc8_3          :  (1, 1000)
+prob_3         :  (1, 1000)
+conv1_4        :  (1, 96, 55, 55)
+norm1_4        :  (1, 96, 55, 55)
+pool1_4        :  (1, 96, 27, 27)
+conv2_4        :  (1, 256, 27, 27)
+norm2_4        :  (1, 256, 27, 27)
+pool2_4        :  (1, 256, 13, 13)
+conv3_4        :  (1, 384, 13, 13)
+conv4_4        :  (1, 384, 13, 13)
+conv5_4        :  (1, 256, 13, 13)
+pool5_4        :  (1, 256, 6, 6)
+fc6_4          :  (1, 4096)
+fc7_4          :  (1, 4096)
+fc8_4          :  (1, 1000)
+prob_4         :  (1, 1000)
+prob           :  (1, 4000)

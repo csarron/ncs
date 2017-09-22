@@ -1,0 +1,563 @@
+Name           : Layer          (n, c, h, w)         (s_w, s_h, p_w, p_h)
+
+input          : Input          
+conv1          : Convolution    (64, 3, 7, 7)        (2, 2, 3, 3)
+conv1/bn       : BatchNorm      
+conv1/scale    : Scale          
+relu1          : ReLU           
+pool1          : Pooling        (type: MAX, 3, 3)    (2, 2, 0, 0)
+pool1_poolsplit: Split          
+conv2_1/prj    : Convolution    (256, 64, 1, 1)      (1, 1, 0, 0)
+conv2_1/prj/bn : BatchNorm      
+conv2_1/prscale: Scale          
+conv2_1/x1     : Convolution    (64, 64, 1, 1)       (1, 1, 0, 0)
+conv2_1/x1/bn  : BatchNorm      
+conv2_1/x1scale: Scale          
+relu2_1/x1     : ReLU           
+conv2_1/x2     : Convolution    (64, 64, 3, 3)       (1, 1, 1, 1)
+conv2_1/x2/bn  : BatchNorm      
+conv2_1/x2scale: Scale          
+relu2_1/x2     : ReLU           
+conv2_1/x3     : Convolution    (256, 64, 1, 1)      (1, 1, 0, 0)
+conv2_1/x3/bn  : BatchNorm      
+conv2_1/x3scale: Scale          
+conv2_1/x3split: Split          
+pool2_1/gap    : Pooling        (type: AVE, 0, 0)    (1, 1, 0, 0)
+fc2_1/sqz      : InnerProduct   
+relu2_1/sqz    : ReLU           
+fc2_1/exc      : InnerProduct   
+sigm2_1/gate   : Sigmoid        
+scale2_1       : Scale          
+block_2_1      : Eltwise        
+relu2_1        : ReLU           
+block_2_1_split: Split          
+conv2_2/x1     : Convolution    (64, 256, 1, 1)      (1, 1, 0, 0)
+conv2_2/x1/bn  : BatchNorm      
+conv2_2/x1scale: Scale          
+relu2_2/x1     : ReLU           
+conv2_2/x2     : Convolution    (64, 64, 3, 3)       (1, 1, 1, 1)
+conv2_2/x2/bn  : BatchNorm      
+conv2_2/x2scale: Scale          
+relu2_2/x2     : ReLU           
+conv2_2/x3     : Convolution    (256, 64, 1, 1)      (1, 1, 0, 0)
+conv2_2/x3/bn  : BatchNorm      
+conv2_2/x3scale: Scale          
+conv2_2/x3split: Split          
+pool2_2/gap    : Pooling        (type: AVE, 0, 0)    (1, 1, 0, 0)
+fc2_2/sqz      : InnerProduct   
+relu2_2/sqz    : ReLU           
+fc2_2/exc      : InnerProduct   
+sigm2_2/gate   : Sigmoid        
+scale2_2       : Scale          
+block_2_2      : Eltwise        
+relu2_2        : ReLU           
+block_2_2_split: Split          
+conv2_3/x1     : Convolution    (64, 256, 1, 1)      (1, 1, 0, 0)
+conv2_3/x1/bn  : BatchNorm      
+conv2_3/x1scale: Scale          
+relu2_3/x1     : ReLU           
+conv2_3/x2     : Convolution    (64, 64, 3, 3)       (1, 1, 1, 1)
+conv2_3/x2/bn  : BatchNorm      
+conv2_3/x2scale: Scale          
+relu2_3/x2     : ReLU           
+conv2_3/x3     : Convolution    (256, 64, 1, 1)      (1, 1, 0, 0)
+conv2_3/x3/bn  : BatchNorm      
+conv2_3/x3scale: Scale          
+conv2_3/x3split: Split          
+pool2_3/gap    : Pooling        (type: AVE, 0, 0)    (1, 1, 0, 0)
+fc2_3/sqz      : InnerProduct   
+relu2_3/sqz    : ReLU           
+fc2_3/exc      : InnerProduct   
+sigm2_3/gate   : Sigmoid        
+scale2_3       : Scale          
+block_2_3      : Eltwise        
+relu2_3        : ReLU           
+block_2_3_split: Split          
+conv3_1/prj    : Convolution    (512, 256, 1, 1)     (2, 2, 0, 0)
+conv3_1/prj/bn : BatchNorm      
+conv3_1/prscale: Scale          
+conv3_1/x1     : Convolution    (128, 256, 1, 1)     (1, 1, 0, 0)
+conv3_1/x1/bn  : BatchNorm      
+conv3_1/x1scale: Scale          
+relu3_1/x1     : ReLU           
+conv3_1/x2     : Convolution    (128, 128, 3, 3)     (2, 2, 1, 1)
+conv3_1/x2/bn  : BatchNorm      
+conv3_1/x2scale: Scale          
+relu3_1/x2     : ReLU           
+conv3_1/x3     : Convolution    (512, 128, 1, 1)     (1, 1, 0, 0)
+conv3_1/x3/bn  : BatchNorm      
+conv3_1/x3scale: Scale          
+conv3_1/x3split: Split          
+pool3_1/gap    : Pooling        (type: AVE, 0, 0)    (1, 1, 0, 0)
+fc3_1/sqz      : InnerProduct   
+relu3_1/sqz    : ReLU           
+fc3_1/exc      : InnerProduct   
+sigm3_1/gate   : Sigmoid        
+scale3_1       : Scale          
+block_3_1      : Eltwise        
+relu3_1        : ReLU           
+block_3_1_split: Split          
+conv3_2/x1     : Convolution    (128, 512, 1, 1)     (1, 1, 0, 0)
+conv3_2/x1/bn  : BatchNorm      
+conv3_2/x1scale: Scale          
+relu3_2/x1     : ReLU           
+conv3_2/x2     : Convolution    (128, 128, 3, 3)     (1, 1, 1, 1)
+conv3_2/x2/bn  : BatchNorm      
+conv3_2/x2scale: Scale          
+relu3_2/x2     : ReLU           
+conv3_2/x3     : Convolution    (512, 128, 1, 1)     (1, 1, 0, 0)
+conv3_2/x3/bn  : BatchNorm      
+conv3_2/x3scale: Scale          
+conv3_2/x3split: Split          
+pool3_2/gap    : Pooling        (type: AVE, 0, 0)    (1, 1, 0, 0)
+fc3_2/sqz      : InnerProduct   
+relu3_2/sqz    : ReLU           
+fc3_2/exc      : InnerProduct   
+sigm3_2/gate   : Sigmoid        
+scale3_2       : Scale          
+block_3_2      : Eltwise        
+relu3_2        : ReLU           
+block_3_2_split: Split          
+conv3_3/x1     : Convolution    (128, 512, 1, 1)     (1, 1, 0, 0)
+conv3_3/x1/bn  : BatchNorm      
+conv3_3/x1scale: Scale          
+relu3_3/x1     : ReLU           
+conv3_3/x2     : Convolution    (128, 128, 3, 3)     (1, 1, 1, 1)
+conv3_3/x2/bn  : BatchNorm      
+conv3_3/x2scale: Scale          
+relu3_3/x2     : ReLU           
+conv3_3/x3     : Convolution    (512, 128, 1, 1)     (1, 1, 0, 0)
+conv3_3/x3/bn  : BatchNorm      
+conv3_3/x3scale: Scale          
+conv3_3/x3split: Split          
+pool3_3/gap    : Pooling        (type: AVE, 0, 0)    (1, 1, 0, 0)
+fc3_3/sqz      : InnerProduct   
+relu3_3/sqz    : ReLU           
+fc3_3/exc      : InnerProduct   
+sigm3_3/gate   : Sigmoid        
+scale3_3       : Scale          
+block_3_3      : Eltwise        
+relu3_3        : ReLU           
+block_3_3_split: Split          
+conv3_4/x1     : Convolution    (128, 512, 1, 1)     (1, 1, 0, 0)
+conv3_4/x1/bn  : BatchNorm      
+conv3_4/x1scale: Scale          
+relu3_4/x1     : ReLU           
+conv3_4/x2     : Convolution    (128, 128, 3, 3)     (1, 1, 1, 1)
+conv3_4/x2/bn  : BatchNorm      
+conv3_4/x2scale: Scale          
+relu3_4/x2     : ReLU           
+conv3_4/x3     : Convolution    (512, 128, 1, 1)     (1, 1, 0, 0)
+conv3_4/x3/bn  : BatchNorm      
+conv3_4/x3scale: Scale          
+conv3_4/x3split: Split          
+pool3_4/gap    : Pooling        (type: AVE, 0, 0)    (1, 1, 0, 0)
+fc3_4/sqz      : InnerProduct   
+relu3_4/sqz    : ReLU           
+fc3_4/exc      : InnerProduct   
+sigm3_4/gate   : Sigmoid        
+scale3_4       : Scale          
+block_3_4      : Eltwise        
+relu3_4        : ReLU           
+block_3_4_split: Split          
+conv4_1/prj    : Convolution    (1024, 512, 1, 1)    (2, 2, 0, 0)
+conv4_1/prj/bn : BatchNorm      
+conv4_1/prscale: Scale          
+conv4_1/x1     : Convolution    (256, 512, 1, 1)     (1, 1, 0, 0)
+conv4_1/x1/bn  : BatchNorm      
+conv4_1/x1scale: Scale          
+relu4_1/x1     : ReLU           
+conv4_1/x2     : Convolution    (256, 256, 3, 3)     (2, 2, 1, 1)
+conv4_1/x2/bn  : BatchNorm      
+conv4_1/x2scale: Scale          
+relu4_1/x2     : ReLU           
+conv4_1/x3     : Convolution    (1024, 256, 1, 1)    (1, 1, 0, 0)
+conv4_1/x3/bn  : BatchNorm      
+conv4_1/x3scale: Scale          
+conv4_1/x3split: Split          
+pool4_1/gap    : Pooling        (type: AVE, 0, 0)    (1, 1, 0, 0)
+fc4_1/sqz      : InnerProduct   
+relu4_1/sqz    : ReLU           
+fc4_1/exc      : InnerProduct   
+sigm4_1/gate   : Sigmoid        
+scale4_1       : Scale          
+block_4_1      : Eltwise        
+relu4_1        : ReLU           
+block_4_1_split: Split          
+conv4_2/x1     : Convolution    (256, 1024, 1, 1)    (1, 1, 0, 0)
+conv4_2/x1/bn  : BatchNorm      
+conv4_2/x1scale: Scale          
+relu4_2/x1     : ReLU           
+conv4_2/x2     : Convolution    (256, 256, 3, 3)     (1, 1, 1, 1)
+conv4_2/x2/bn  : BatchNorm      
+conv4_2/x2scale: Scale          
+relu4_2/x2     : ReLU           
+conv4_2/x3     : Convolution    (1024, 256, 1, 1)    (1, 1, 0, 0)
+conv4_2/x3/bn  : BatchNorm      
+conv4_2/x3scale: Scale          
+conv4_2/x3split: Split          
+pool4_2/gap    : Pooling        (type: AVE, 0, 0)    (1, 1, 0, 0)
+fc4_2/sqz      : InnerProduct   
+relu4_2/sqz    : ReLU           
+fc4_2/exc      : InnerProduct   
+sigm4_2/gate   : Sigmoid        
+scale4_2       : Scale          
+block_4_2      : Eltwise        
+relu4_2        : ReLU           
+block_4_2_split: Split          
+conv4_3/x1     : Convolution    (256, 1024, 1, 1)    (1, 1, 0, 0)
+conv4_3/x1/bn  : BatchNorm      
+conv4_3/x1scale: Scale          
+relu4_3/x1     : ReLU           
+conv4_3/x2     : Convolution    (256, 256, 3, 3)     (1, 1, 1, 1)
+conv4_3/x2/bn  : BatchNorm      
+conv4_3/x2scale: Scale          
+relu4_3/x2     : ReLU           
+conv4_3/x3     : Convolution    (1024, 256, 1, 1)    (1, 1, 0, 0)
+conv4_3/x3/bn  : BatchNorm      
+conv4_3/x3scale: Scale          
+conv4_3/x3split: Split          
+pool4_3/gap    : Pooling        (type: AVE, 0, 0)    (1, 1, 0, 0)
+fc4_3/sqz      : InnerProduct   
+relu4_3/sqz    : ReLU           
+fc4_3/exc      : InnerProduct   
+sigm4_3/gate   : Sigmoid        
+scale4_3       : Scale          
+block_4_3      : Eltwise        
+relu4_3        : ReLU           
+block_4_3_split: Split          
+conv4_4/x1     : Convolution    (256, 1024, 1, 1)    (1, 1, 0, 0)
+conv4_4/x1/bn  : BatchNorm      
+conv4_4/x1scale: Scale          
+relu4_4/x1     : ReLU           
+conv4_4/x2     : Convolution    (256, 256, 3, 3)     (1, 1, 1, 1)
+conv4_4/x2/bn  : BatchNorm      
+conv4_4/x2scale: Scale          
+relu4_4/x2     : ReLU           
+conv4_4/x3     : Convolution    (1024, 256, 1, 1)    (1, 1, 0, 0)
+conv4_4/x3/bn  : BatchNorm      
+conv4_4/x3scale: Scale          
+conv4_4/x3split: Split          
+pool4_4/gap    : Pooling        (type: AVE, 0, 0)    (1, 1, 0, 0)
+fc4_4/sqz      : InnerProduct   
+relu4_4/sqz    : ReLU           
+fc4_4/exc      : InnerProduct   
+sigm4_4/gate   : Sigmoid        
+scale4_4       : Scale          
+block_4_4      : Eltwise        
+relu4_4        : ReLU           
+block_4_4_split: Split          
+conv4_5/x1     : Convolution    (256, 1024, 1, 1)    (1, 1, 0, 0)
+conv4_5/x1/bn  : BatchNorm      
+conv4_5/x1scale: Scale          
+relu4_5/x1     : ReLU           
+conv4_5/x2     : Convolution    (256, 256, 3, 3)     (1, 1, 1, 1)
+conv4_5/x2/bn  : BatchNorm      
+conv4_5/x2scale: Scale          
+relu4_5/x2     : ReLU           
+conv4_5/x3     : Convolution    (1024, 256, 1, 1)    (1, 1, 0, 0)
+conv4_5/x3/bn  : BatchNorm      
+conv4_5/x3scale: Scale          
+conv4_5/x3split: Split          
+pool4_5/gap    : Pooling        (type: AVE, 0, 0)    (1, 1, 0, 0)
+fc4_5/sqz      : InnerProduct   
+relu4_5/sqz    : ReLU           
+fc4_5/exc      : InnerProduct   
+sigm4_5/gate   : Sigmoid        
+scale4_5       : Scale          
+block_4_5      : Eltwise        
+relu4_5        : ReLU           
+block_4_5_split: Split          
+conv4_6/x1     : Convolution    (256, 1024, 1, 1)    (1, 1, 0, 0)
+conv4_6/x1/bn  : BatchNorm      
+conv4_6/x1scale: Scale          
+relu4_6/x1     : ReLU           
+conv4_6/x2     : Convolution    (256, 256, 3, 3)     (1, 1, 1, 1)
+conv4_6/x2/bn  : BatchNorm      
+conv4_6/x2scale: Scale          
+relu4_6/x2     : ReLU           
+conv4_6/x3     : Convolution    (1024, 256, 1, 1)    (1, 1, 0, 0)
+conv4_6/x3/bn  : BatchNorm      
+conv4_6/x3scale: Scale          
+conv4_6/x3split: Split          
+pool4_6/gap    : Pooling        (type: AVE, 0, 0)    (1, 1, 0, 0)
+fc4_6/sqz      : InnerProduct   
+relu4_6/sqz    : ReLU           
+fc4_6/exc      : InnerProduct   
+sigm4_6/gate   : Sigmoid        
+scale4_6       : Scale          
+block_4_6      : Eltwise        
+relu4_6        : ReLU           
+block_4_6_split: Split          
+conv5_1/prj    : Convolution    (2048, 1024, 1, 1)   (2, 2, 0, 0)
+conv5_1/prj/bn : BatchNorm      
+conv5_1/prscale: Scale          
+conv5_1/x1     : Convolution    (512, 1024, 1, 1)    (1, 1, 0, 0)
+conv5_1/x1/bn  : BatchNorm      
+conv5_1/x1scale: Scale          
+relu5_1/x1     : ReLU           
+conv5_1/x2     : Convolution    (512, 512, 3, 3)     (2, 2, 1, 1)
+conv5_1/x2/bn  : BatchNorm      
+conv5_1/x2scale: Scale          
+relu5_1/x2     : ReLU           
+conv5_1/x3     : Convolution    (2048, 512, 1, 1)    (1, 1, 0, 0)
+conv5_1/x3/bn  : BatchNorm      
+conv5_1/x3scale: Scale          
+conv5_1/x3split: Split          
+pool5_1/gap    : Pooling        (type: AVE, 0, 0)    (1, 1, 0, 0)
+fc5_1/sqz      : InnerProduct   
+relu5_1/sqz    : ReLU           
+fc5_1/exc      : InnerProduct   
+sigm5_1/gate   : Sigmoid        
+scale5_1       : Scale          
+block_5_1      : Eltwise        
+relu5_1        : ReLU           
+block_5_1_split: Split          
+conv5_2/x1     : Convolution    (512, 2048, 1, 1)    (1, 1, 0, 0)
+conv5_2/x1/bn  : BatchNorm      
+conv5_2/x1scale: Scale          
+relu5_2/x1     : ReLU           
+conv5_2/x2     : Convolution    (512, 512, 3, 3)     (1, 1, 1, 1)
+conv5_2/x2/bn  : BatchNorm      
+conv5_2/x2scale: Scale          
+relu5_2/x2     : ReLU           
+conv5_2/x3     : Convolution    (2048, 512, 1, 1)    (1, 1, 0, 0)
+conv5_2/x3/bn  : BatchNorm      
+conv5_2/x3scale: Scale          
+conv5_2/x3split: Split          
+pool5_2/gap    : Pooling        (type: AVE, 0, 0)    (1, 1, 0, 0)
+fc5_2/sqz      : InnerProduct   
+relu5_2/sqz    : ReLU           
+fc5_2/exc      : InnerProduct   
+sigm5_2/gate   : Sigmoid        
+scale5_2       : Scale          
+block_5_2      : Eltwise        
+relu5_2        : ReLU           
+block_5_2_split: Split          
+conv5_3/x1     : Convolution    (512, 2048, 1, 1)    (1, 1, 0, 0)
+conv5_3/x1/bn  : BatchNorm      
+conv5_3/x1scale: Scale          
+relu5_3/x1     : ReLU           
+conv5_3/x2     : Convolution    (512, 512, 3, 3)     (1, 1, 1, 1)
+conv5_3/x2/bn  : BatchNorm      
+conv5_3/x2scale: Scale          
+relu5_3/x2     : ReLU           
+conv5_3/x3     : Convolution    (2048, 512, 1, 1)    (1, 1, 0, 0)
+conv5_3/x3/bn  : BatchNorm      
+conv5_3/x3scale: Scale          
+conv5_3/x3split: Split          
+pool5_3/gap    : Pooling        (type: AVE, 0, 0)    (1, 1, 0, 0)
+fc5_3/sqz      : InnerProduct   
+relu5_3/sqz    : ReLU           
+fc5_3/exc      : InnerProduct   
+sigm5_3/gate   : Sigmoid        
+scale5_3       : Scale          
+block_5_3      : Eltwise        
+relu5_3        : ReLU           
+pool5          : Pooling        (type: AVE, 0, 0)    (1, 1, 0, 0)
+fc6            : Convolution    (1000, 2048, 1, 1)   (1, 1, 0, 0)
+prob           : Softmax        
+
+Blobs:
+data           :  (1, 3, 224, 224)
+conv1          :  (1, 64, 112, 112)
+pool1          :  (1, 64, 56, 56)
+pool1_poollit_0:  (1, 64, 56, 56)
+pool1_poollit_1:  (1, 64, 56, 56)
+conv2_1/prj    :  (1, 256, 56, 56)
+conv2_1/x1     :  (1, 64, 56, 56)
+conv2_1/x2     :  (1, 64, 56, 56)
+conv2_1/x3     :  (1, 256, 56, 56)
+conv2_1/x3lit_0:  (1, 256, 56, 56)
+conv2_1/x3lit_1:  (1, 256, 56, 56)
+pool2_1/gap    :  (1, 256, 1, 1)
+fc2_1/sqz      :  (1, 16)
+fc2_1/exc      :  (1, 256)
+scale2_1       :  (1, 256, 56, 56)
+block_2_1      :  (1, 256, 56, 56)
+block_2_1_lit_0:  (1, 256, 56, 56)
+block_2_1_lit_1:  (1, 256, 56, 56)
+conv2_2/x1     :  (1, 64, 56, 56)
+conv2_2/x2     :  (1, 64, 56, 56)
+conv2_2/x3     :  (1, 256, 56, 56)
+conv2_2/x3lit_0:  (1, 256, 56, 56)
+conv2_2/x3lit_1:  (1, 256, 56, 56)
+pool2_2/gap    :  (1, 256, 1, 1)
+fc2_2/sqz      :  (1, 16)
+fc2_2/exc      :  (1, 256)
+scale2_2       :  (1, 256, 56, 56)
+block_2_2      :  (1, 256, 56, 56)
+block_2_2_lit_0:  (1, 256, 56, 56)
+block_2_2_lit_1:  (1, 256, 56, 56)
+conv2_3/x1     :  (1, 64, 56, 56)
+conv2_3/x2     :  (1, 64, 56, 56)
+conv2_3/x3     :  (1, 256, 56, 56)
+conv2_3/x3lit_0:  (1, 256, 56, 56)
+conv2_3/x3lit_1:  (1, 256, 56, 56)
+pool2_3/gap    :  (1, 256, 1, 1)
+fc2_3/sqz      :  (1, 16)
+fc2_3/exc      :  (1, 256)
+scale2_3       :  (1, 256, 56, 56)
+block_2_3      :  (1, 256, 56, 56)
+block_2_3_lit_0:  (1, 256, 56, 56)
+block_2_3_lit_1:  (1, 256, 56, 56)
+conv3_1/prj    :  (1, 512, 28, 28)
+conv3_1/x1     :  (1, 128, 56, 56)
+conv3_1/x2     :  (1, 128, 28, 28)
+conv3_1/x3     :  (1, 512, 28, 28)
+conv3_1/x3lit_0:  (1, 512, 28, 28)
+conv3_1/x3lit_1:  (1, 512, 28, 28)
+pool3_1/gap    :  (1, 512, 1, 1)
+fc3_1/sqz      :  (1, 32)
+fc3_1/exc      :  (1, 512)
+scale3_1       :  (1, 512, 28, 28)
+block_3_1      :  (1, 512, 28, 28)
+block_3_1_lit_0:  (1, 512, 28, 28)
+block_3_1_lit_1:  (1, 512, 28, 28)
+conv3_2/x1     :  (1, 128, 28, 28)
+conv3_2/x2     :  (1, 128, 28, 28)
+conv3_2/x3     :  (1, 512, 28, 28)
+conv3_2/x3lit_0:  (1, 512, 28, 28)
+conv3_2/x3lit_1:  (1, 512, 28, 28)
+pool3_2/gap    :  (1, 512, 1, 1)
+fc3_2/sqz      :  (1, 32)
+fc3_2/exc      :  (1, 512)
+scale3_2       :  (1, 512, 28, 28)
+block_3_2      :  (1, 512, 28, 28)
+block_3_2_lit_0:  (1, 512, 28, 28)
+block_3_2_lit_1:  (1, 512, 28, 28)
+conv3_3/x1     :  (1, 128, 28, 28)
+conv3_3/x2     :  (1, 128, 28, 28)
+conv3_3/x3     :  (1, 512, 28, 28)
+conv3_3/x3lit_0:  (1, 512, 28, 28)
+conv3_3/x3lit_1:  (1, 512, 28, 28)
+pool3_3/gap    :  (1, 512, 1, 1)
+fc3_3/sqz      :  (1, 32)
+fc3_3/exc      :  (1, 512)
+scale3_3       :  (1, 512, 28, 28)
+block_3_3      :  (1, 512, 28, 28)
+block_3_3_lit_0:  (1, 512, 28, 28)
+block_3_3_lit_1:  (1, 512, 28, 28)
+conv3_4/x1     :  (1, 128, 28, 28)
+conv3_4/x2     :  (1, 128, 28, 28)
+conv3_4/x3     :  (1, 512, 28, 28)
+conv3_4/x3lit_0:  (1, 512, 28, 28)
+conv3_4/x3lit_1:  (1, 512, 28, 28)
+pool3_4/gap    :  (1, 512, 1, 1)
+fc3_4/sqz      :  (1, 32)
+fc3_4/exc      :  (1, 512)
+scale3_4       :  (1, 512, 28, 28)
+block_3_4      :  (1, 512, 28, 28)
+block_3_4_lit_0:  (1, 512, 28, 28)
+block_3_4_lit_1:  (1, 512, 28, 28)
+conv4_1/prj    :  (1, 1024, 14, 14)
+conv4_1/x1     :  (1, 256, 28, 28)
+conv4_1/x2     :  (1, 256, 14, 14)
+conv4_1/x3     :  (1, 1024, 14, 14)
+conv4_1/x3lit_0:  (1, 1024, 14, 14)
+conv4_1/x3lit_1:  (1, 1024, 14, 14)
+pool4_1/gap    :  (1, 1024, 1, 1)
+fc4_1/sqz      :  (1, 64)
+fc4_1/exc      :  (1, 1024)
+scale4_1       :  (1, 1024, 14, 14)
+block_4_1      :  (1, 1024, 14, 14)
+block_4_1_lit_0:  (1, 1024, 14, 14)
+block_4_1_lit_1:  (1, 1024, 14, 14)
+conv4_2/x1     :  (1, 256, 14, 14)
+conv4_2/x2     :  (1, 256, 14, 14)
+conv4_2/x3     :  (1, 1024, 14, 14)
+conv4_2/x3lit_0:  (1, 1024, 14, 14)
+conv4_2/x3lit_1:  (1, 1024, 14, 14)
+pool4_2/gap    :  (1, 1024, 1, 1)
+fc4_2/sqz      :  (1, 64)
+fc4_2/exc      :  (1, 1024)
+scale4_2       :  (1, 1024, 14, 14)
+block_4_2      :  (1, 1024, 14, 14)
+block_4_2_lit_0:  (1, 1024, 14, 14)
+block_4_2_lit_1:  (1, 1024, 14, 14)
+conv4_3/x1     :  (1, 256, 14, 14)
+conv4_3/x2     :  (1, 256, 14, 14)
+conv4_3/x3     :  (1, 1024, 14, 14)
+conv4_3/x3lit_0:  (1, 1024, 14, 14)
+conv4_3/x3lit_1:  (1, 1024, 14, 14)
+pool4_3/gap    :  (1, 1024, 1, 1)
+fc4_3/sqz      :  (1, 64)
+fc4_3/exc      :  (1, 1024)
+scale4_3       :  (1, 1024, 14, 14)
+block_4_3      :  (1, 1024, 14, 14)
+block_4_3_lit_0:  (1, 1024, 14, 14)
+block_4_3_lit_1:  (1, 1024, 14, 14)
+conv4_4/x1     :  (1, 256, 14, 14)
+conv4_4/x2     :  (1, 256, 14, 14)
+conv4_4/x3     :  (1, 1024, 14, 14)
+conv4_4/x3lit_0:  (1, 1024, 14, 14)
+conv4_4/x3lit_1:  (1, 1024, 14, 14)
+pool4_4/gap    :  (1, 1024, 1, 1)
+fc4_4/sqz      :  (1, 64)
+fc4_4/exc      :  (1, 1024)
+scale4_4       :  (1, 1024, 14, 14)
+block_4_4      :  (1, 1024, 14, 14)
+block_4_4_lit_0:  (1, 1024, 14, 14)
+block_4_4_lit_1:  (1, 1024, 14, 14)
+conv4_5/x1     :  (1, 256, 14, 14)
+conv4_5/x2     :  (1, 256, 14, 14)
+conv4_5/x3     :  (1, 1024, 14, 14)
+conv4_5/x3lit_0:  (1, 1024, 14, 14)
+conv4_5/x3lit_1:  (1, 1024, 14, 14)
+pool4_5/gap    :  (1, 1024, 1, 1)
+fc4_5/sqz      :  (1, 64)
+fc4_5/exc      :  (1, 1024)
+scale4_5       :  (1, 1024, 14, 14)
+block_4_5      :  (1, 1024, 14, 14)
+block_4_5_lit_0:  (1, 1024, 14, 14)
+block_4_5_lit_1:  (1, 1024, 14, 14)
+conv4_6/x1     :  (1, 256, 14, 14)
+conv4_6/x2     :  (1, 256, 14, 14)
+conv4_6/x3     :  (1, 1024, 14, 14)
+conv4_6/x3lit_0:  (1, 1024, 14, 14)
+conv4_6/x3lit_1:  (1, 1024, 14, 14)
+pool4_6/gap    :  (1, 1024, 1, 1)
+fc4_6/sqz      :  (1, 64)
+fc4_6/exc      :  (1, 1024)
+scale4_6       :  (1, 1024, 14, 14)
+block_4_6      :  (1, 1024, 14, 14)
+block_4_6_lit_0:  (1, 1024, 14, 14)
+block_4_6_lit_1:  (1, 1024, 14, 14)
+conv5_1/prj    :  (1, 2048, 7, 7)
+conv5_1/x1     :  (1, 512, 14, 14)
+conv5_1/x2     :  (1, 512, 7, 7)
+conv5_1/x3     :  (1, 2048, 7, 7)
+conv5_1/x3lit_0:  (1, 2048, 7, 7)
+conv5_1/x3lit_1:  (1, 2048, 7, 7)
+pool5_1/gap    :  (1, 2048, 1, 1)
+fc5_1/sqz      :  (1, 128)
+fc5_1/exc      :  (1, 2048)
+scale5_1       :  (1, 2048, 7, 7)
+block_5_1      :  (1, 2048, 7, 7)
+block_5_1_lit_0:  (1, 2048, 7, 7)
+block_5_1_lit_1:  (1, 2048, 7, 7)
+conv5_2/x1     :  (1, 512, 7, 7)
+conv5_2/x2     :  (1, 512, 7, 7)
+conv5_2/x3     :  (1, 2048, 7, 7)
+conv5_2/x3lit_0:  (1, 2048, 7, 7)
+conv5_2/x3lit_1:  (1, 2048, 7, 7)
+pool5_2/gap    :  (1, 2048, 1, 1)
+fc5_2/sqz      :  (1, 128)
+fc5_2/exc      :  (1, 2048)
+scale5_2       :  (1, 2048, 7, 7)
+block_5_2      :  (1, 2048, 7, 7)
+block_5_2_lit_0:  (1, 2048, 7, 7)
+block_5_2_lit_1:  (1, 2048, 7, 7)
+conv5_3/x1     :  (1, 512, 7, 7)
+conv5_3/x2     :  (1, 512, 7, 7)
+conv5_3/x3     :  (1, 2048, 7, 7)
+conv5_3/x3lit_0:  (1, 2048, 7, 7)
+conv5_3/x3lit_1:  (1, 2048, 7, 7)
+pool5_3/gap    :  (1, 2048, 1, 1)
+fc5_3/sqz      :  (1, 128)
+fc5_3/exc      :  (1, 2048)
+scale5_3       :  (1, 2048, 7, 7)
+block_5_3      :  (1, 2048, 7, 7)
+pool5          :  (1, 2048, 1, 1)
+fc6            :  (1, 1000, 1, 1)
+prob           :  (1, 1000, 1, 1)

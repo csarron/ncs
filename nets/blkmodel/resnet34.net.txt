@@ -1,0 +1,374 @@
+Name           : Layer          (n, c, h, w)         (s_w, s_h, p_w, p_h)
+
+data           : Input          
+conv_1         : Convolution    (64, 3, 7, 7)        (2, 2, 3, 3)
+bn_1           : BatchNorm      
+scale_1        : Scale          
+relu_1         : ReLU           
+pool1          : Pooling        (type: MAX, 3, 3)    (2, 2, 0, 0)
+pool1_poolsplit: Split          
+conv_stagench2a: Convolution    (64, 64, 3, 3)       (1, 1, 1, 1)
+bn_stage0_nch2a: BatchNorm      
+scale_stagnch2a: Scale          
+relu_stagench2a: ReLU           
+conv_stagench2b: Convolution    (64, 64, 3, 3)       (1, 1, 1, 1)
+bn_stage0_nch2b: BatchNorm      
+scale_stagnch2b: Scale          
+eltwise_stlock0: Eltwise        
+relu_stagelock0: ReLU           
+relu_stagesplit: Split          
+conv_stagench2a: Convolution    (64, 64, 3, 3)       (1, 1, 1, 1)
+bn_stage0_nch2a: BatchNorm      
+scale_stagnch2a: Scale          
+relu_stagench2a: ReLU           
+conv_stagench2b: Convolution    (64, 64, 3, 3)       (1, 1, 1, 1)
+bn_stage0_nch2b: BatchNorm      
+scale_stagnch2b: Scale          
+eltwise_stlock1: Eltwise        
+relu_stagelock1: ReLU           
+relu_stagesplit: Split          
+conv_stagench2a: Convolution    (64, 64, 3, 3)       (1, 1, 1, 1)
+bn_stage0_nch2a: BatchNorm      
+scale_stagnch2a: Scale          
+relu_stagench2a: ReLU           
+conv_stagench2b: Convolution    (64, 64, 3, 3)       (1, 1, 1, 1)
+bn_stage0_nch2b: BatchNorm      
+scale_stagnch2b: Scale          
+eltwise_stlock2: Eltwise        
+relu_stagelock2: ReLU           
+relu_stagesplit: Split          
+conv_stagertcut: Convolution    (128, 64, 1, 1)      (2, 2, 0, 0)
+bn_stage1_rtcut: BatchNorm      
+scale_stagrtcut: Scale          
+conv_stagench2a: Convolution    (128, 64, 3, 3)      (2, 2, 1, 1)
+bn_stage1_nch2a: BatchNorm      
+scale_stagnch2a: Scale          
+relu_stagench2a: ReLU           
+conv_stagench2b: Convolution    (128, 128, 3, 3)     (1, 1, 1, 1)
+bn_stage1_nch2b: BatchNorm      
+scale_stagnch2b: Scale          
+eltwise_stlock0: Eltwise        
+relu_stagelock0: ReLU           
+relu_stagesplit: Split          
+conv_stagench2a: Convolution    (128, 128, 3, 3)     (1, 1, 1, 1)
+bn_stage1_nch2a: BatchNorm      
+scale_stagnch2a: Scale          
+relu_stagench2a: ReLU           
+conv_stagench2b: Convolution    (128, 128, 3, 3)     (1, 1, 1, 1)
+bn_stage1_nch2b: BatchNorm      
+scale_stagnch2b: Scale          
+eltwise_stlock1: Eltwise        
+relu_stagelock1: ReLU           
+relu_stagesplit: Split          
+conv_stagench2a: Convolution    (128, 128, 3, 3)     (1, 1, 1, 1)
+bn_stage1_nch2a: BatchNorm      
+scale_stagnch2a: Scale          
+relu_stagench2a: ReLU           
+conv_stagench2b: Convolution    (128, 128, 3, 3)     (1, 1, 1, 1)
+bn_stage1_nch2b: BatchNorm      
+scale_stagnch2b: Scale          
+eltwise_stlock2: Eltwise        
+relu_stagelock2: ReLU           
+relu_stagesplit: Split          
+conv_stagench2a: Convolution    (128, 128, 3, 3)     (1, 1, 1, 1)
+bn_stage1_nch2a: BatchNorm      
+scale_stagnch2a: Scale          
+relu_stagench2a: ReLU           
+conv_stagench2b: Convolution    (128, 128, 3, 3)     (1, 1, 1, 1)
+bn_stage1_nch2b: BatchNorm      
+scale_stagnch2b: Scale          
+eltwise_stlock3: Eltwise        
+relu_stagelock3: ReLU           
+relu_stagesplit: Split          
+conv_stagertcut: Convolution    (256, 128, 1, 1)     (2, 2, 0, 0)
+bn_stage2_rtcut: BatchNorm      
+scale_stagrtcut: Scale          
+conv_stagench2a: Convolution    (256, 128, 3, 3)     (2, 2, 1, 1)
+bn_stage2_nch2a: BatchNorm      
+scale_stagnch2a: Scale          
+relu_stagench2a: ReLU           
+conv_stagench2b: Convolution    (256, 256, 3, 3)     (1, 1, 1, 1)
+bn_stage2_nch2b: BatchNorm      
+scale_stagnch2b: Scale          
+eltwise_stlock0: Eltwise        
+relu_stagelock0: ReLU           
+relu_stagesplit: Split          
+conv_stagench2a: Convolution    (256, 256, 3, 3)     (1, 1, 1, 1)
+bn_stage2_nch2a: BatchNorm      
+scale_stagnch2a: Scale          
+relu_stagench2a: ReLU           
+conv_stagench2b: Convolution    (256, 256, 3, 3)     (1, 1, 1, 1)
+bn_stage2_nch2b: BatchNorm      
+scale_stagnch2b: Scale          
+eltwise_stlock1: Eltwise        
+relu_stagelock1: ReLU           
+relu_stagesplit: Split          
+conv_stagench2a: Convolution    (256, 256, 3, 3)     (1, 1, 1, 1)
+bn_stage2_nch2a: BatchNorm      
+scale_stagnch2a: Scale          
+relu_stagench2a: ReLU           
+conv_stagench2b: Convolution    (256, 256, 3, 3)     (1, 1, 1, 1)
+bn_stage2_nch2b: BatchNorm      
+scale_stagnch2b: Scale          
+eltwise_stlock2: Eltwise        
+relu_stagelock2: ReLU           
+relu_stagesplit: Split          
+conv_stagench2a: Convolution    (256, 256, 3, 3)     (1, 1, 1, 1)
+bn_stage2_nch2a: BatchNorm      
+scale_stagnch2a: Scale          
+relu_stagench2a: ReLU           
+conv_stagench2b: Convolution    (256, 256, 3, 3)     (1, 1, 1, 1)
+bn_stage2_nch2b: BatchNorm      
+scale_stagnch2b: Scale          
+eltwise_stlock3: Eltwise        
+relu_stagelock3: ReLU           
+relu_stagesplit: Split          
+conv_stagench2a: Convolution    (256, 256, 3, 3)     (1, 1, 1, 1)
+bn_stage2_nch2a: BatchNorm      
+scale_stagnch2a: Scale          
+relu_stagench2a: ReLU           
+conv_stagench2b: Convolution    (256, 256, 3, 3)     (1, 1, 1, 1)
+bn_stage2_nch2b: BatchNorm      
+scale_stagnch2b: Scale          
+eltwise_stlock4: Eltwise        
+relu_stagelock4: ReLU           
+relu_stagesplit: Split          
+conv_stagench2a: Convolution    (256, 256, 3, 3)     (1, 1, 1, 1)
+bn_stage2_nch2a: BatchNorm      
+scale_stagnch2a: Scale          
+relu_stagench2a: ReLU           
+conv_stagench2b: Convolution    (256, 256, 3, 3)     (1, 1, 1, 1)
+bn_stage2_nch2b: BatchNorm      
+scale_stagnch2b: Scale          
+eltwise_stlock5: Eltwise        
+relu_stagelock5: ReLU           
+relu_stagesplit: Split          
+conv_stagertcut: Convolution    (512, 256, 1, 1)     (2, 2, 0, 0)
+bn_stage3_rtcut: BatchNorm      
+scale_stagrtcut: Scale          
+conv_stagench2a: Convolution    (512, 256, 3, 3)     (2, 2, 1, 1)
+bn_stage3_nch2a: BatchNorm      
+scale_stagnch2a: Scale          
+relu_stagench2a: ReLU           
+conv_stagench2b: Convolution    (512, 512, 3, 3)     (1, 1, 1, 1)
+bn_stage3_nch2b: BatchNorm      
+scale_stagnch2b: Scale          
+eltwise_stlock0: Eltwise        
+relu_stagelock0: ReLU           
+relu_stagesplit: Split          
+conv_stagench2a: Convolution    (512, 512, 3, 3)     (1, 1, 1, 1)
+bn_stage3_nch2a: BatchNorm      
+scale_stagnch2a: Scale          
+relu_stagench2a: ReLU           
+conv_stagench2b: Convolution    (512, 512, 3, 3)     (1, 1, 1, 1)
+bn_stage3_nch2b: BatchNorm      
+scale_stagnch2b: Scale          
+eltwise_stlock1: Eltwise        
+relu_stagelock1: ReLU           
+relu_stagesplit: Split          
+conv_stagench2a: Convolution    (512, 512, 3, 3)     (1, 1, 1, 1)
+bn_stage3_nch2a: BatchNorm      
+scale_stagnch2a: Scale          
+relu_stagench2a: ReLU           
+conv_stagench2b: Convolution    (512, 512, 3, 3)     (1, 1, 1, 1)
+bn_stage3_nch2b: BatchNorm      
+scale_stagnch2b: Scale          
+eltwise_stlock2: Eltwise        
+relu_stagelock2: ReLU           
+pool           : Pooling        (type: AVE, 7, 7)    (1, 1, 0, 0)
+fc1000         : InnerProduct   
+
+Blobs:
+data           :  (1, 3, 224, 224)
+conv_1         :  (1, 64, 112, 112)
+bn_1           :  (1, 64, 112, 112)
+scale_1        :  (1, 64, 112, 112)
+relu_1         :  (1, 64, 112, 112)
+pool1          :  (1, 64, 56, 56)
+pool1_poollit_0:  (1, 64, 56, 56)
+pool1_poollit_1:  (1, 64, 56, 56)
+conv_stagench2a:  (1, 64, 56, 56)
+bn_stage0_nch2a:  (1, 64, 56, 56)
+scale_stagnch2a:  (1, 64, 56, 56)
+relu_stagench2a:  (1, 64, 56, 56)
+conv_stagench2b:  (1, 64, 56, 56)
+bn_stage0_nch2b:  (1, 64, 56, 56)
+scale_stagnch2b:  (1, 64, 56, 56)
+eltwise_stlock0:  (1, 64, 56, 56)
+relu_stagelock0:  (1, 64, 56, 56)
+relu_stagelit_0:  (1, 64, 56, 56)
+relu_stagelit_1:  (1, 64, 56, 56)
+conv_stagench2a:  (1, 64, 56, 56)
+bn_stage0_nch2a:  (1, 64, 56, 56)
+scale_stagnch2a:  (1, 64, 56, 56)
+relu_stagench2a:  (1, 64, 56, 56)
+conv_stagench2b:  (1, 64, 56, 56)
+bn_stage0_nch2b:  (1, 64, 56, 56)
+scale_stagnch2b:  (1, 64, 56, 56)
+eltwise_stlock1:  (1, 64, 56, 56)
+relu_stagelock1:  (1, 64, 56, 56)
+relu_stagelit_0:  (1, 64, 56, 56)
+relu_stagelit_1:  (1, 64, 56, 56)
+conv_stagench2a:  (1, 64, 56, 56)
+bn_stage0_nch2a:  (1, 64, 56, 56)
+scale_stagnch2a:  (1, 64, 56, 56)
+relu_stagench2a:  (1, 64, 56, 56)
+conv_stagench2b:  (1, 64, 56, 56)
+bn_stage0_nch2b:  (1, 64, 56, 56)
+scale_stagnch2b:  (1, 64, 56, 56)
+eltwise_stlock2:  (1, 64, 56, 56)
+relu_stagelock2:  (1, 64, 56, 56)
+relu_stagelit_0:  (1, 64, 56, 56)
+relu_stagelit_1:  (1, 64, 56, 56)
+conv_stagertcut:  (1, 128, 28, 28)
+bn_stage1_rtcut:  (1, 128, 28, 28)
+scale_stagrtcut:  (1, 128, 28, 28)
+conv_stagench2a:  (1, 128, 28, 28)
+bn_stage1_nch2a:  (1, 128, 28, 28)
+scale_stagnch2a:  (1, 128, 28, 28)
+relu_stagench2a:  (1, 128, 28, 28)
+conv_stagench2b:  (1, 128, 28, 28)
+bn_stage1_nch2b:  (1, 128, 28, 28)
+scale_stagnch2b:  (1, 128, 28, 28)
+eltwise_stlock0:  (1, 128, 28, 28)
+relu_stagelock0:  (1, 128, 28, 28)
+relu_stagelit_0:  (1, 128, 28, 28)
+relu_stagelit_1:  (1, 128, 28, 28)
+conv_stagench2a:  (1, 128, 28, 28)
+bn_stage1_nch2a:  (1, 128, 28, 28)
+scale_stagnch2a:  (1, 128, 28, 28)
+relu_stagench2a:  (1, 128, 28, 28)
+conv_stagench2b:  (1, 128, 28, 28)
+bn_stage1_nch2b:  (1, 128, 28, 28)
+scale_stagnch2b:  (1, 128, 28, 28)
+eltwise_stlock1:  (1, 128, 28, 28)
+relu_stagelock1:  (1, 128, 28, 28)
+relu_stagelit_0:  (1, 128, 28, 28)
+relu_stagelit_1:  (1, 128, 28, 28)
+conv_stagench2a:  (1, 128, 28, 28)
+bn_stage1_nch2a:  (1, 128, 28, 28)
+scale_stagnch2a:  (1, 128, 28, 28)
+relu_stagench2a:  (1, 128, 28, 28)
+conv_stagench2b:  (1, 128, 28, 28)
+bn_stage1_nch2b:  (1, 128, 28, 28)
+scale_stagnch2b:  (1, 128, 28, 28)
+eltwise_stlock2:  (1, 128, 28, 28)
+relu_stagelock2:  (1, 128, 28, 28)
+relu_stagelit_0:  (1, 128, 28, 28)
+relu_stagelit_1:  (1, 128, 28, 28)
+conv_stagench2a:  (1, 128, 28, 28)
+bn_stage1_nch2a:  (1, 128, 28, 28)
+scale_stagnch2a:  (1, 128, 28, 28)
+relu_stagench2a:  (1, 128, 28, 28)
+conv_stagench2b:  (1, 128, 28, 28)
+bn_stage1_nch2b:  (1, 128, 28, 28)
+scale_stagnch2b:  (1, 128, 28, 28)
+eltwise_stlock3:  (1, 128, 28, 28)
+relu_stagelock3:  (1, 128, 28, 28)
+relu_stagelit_0:  (1, 128, 28, 28)
+relu_stagelit_1:  (1, 128, 28, 28)
+conv_stagertcut:  (1, 256, 14, 14)
+bn_stage2_rtcut:  (1, 256, 14, 14)
+scale_stagrtcut:  (1, 256, 14, 14)
+conv_stagench2a:  (1, 256, 14, 14)
+bn_stage2_nch2a:  (1, 256, 14, 14)
+scale_stagnch2a:  (1, 256, 14, 14)
+relu_stagench2a:  (1, 256, 14, 14)
+conv_stagench2b:  (1, 256, 14, 14)
+bn_stage2_nch2b:  (1, 256, 14, 14)
+scale_stagnch2b:  (1, 256, 14, 14)
+eltwise_stlock0:  (1, 256, 14, 14)
+relu_stagelock0:  (1, 256, 14, 14)
+relu_stagelit_0:  (1, 256, 14, 14)
+relu_stagelit_1:  (1, 256, 14, 14)
+conv_stagench2a:  (1, 256, 14, 14)
+bn_stage2_nch2a:  (1, 256, 14, 14)
+scale_stagnch2a:  (1, 256, 14, 14)
+relu_stagench2a:  (1, 256, 14, 14)
+conv_stagench2b:  (1, 256, 14, 14)
+bn_stage2_nch2b:  (1, 256, 14, 14)
+scale_stagnch2b:  (1, 256, 14, 14)
+eltwise_stlock1:  (1, 256, 14, 14)
+relu_stagelock1:  (1, 256, 14, 14)
+relu_stagelit_0:  (1, 256, 14, 14)
+relu_stagelit_1:  (1, 256, 14, 14)
+conv_stagench2a:  (1, 256, 14, 14)
+bn_stage2_nch2a:  (1, 256, 14, 14)
+scale_stagnch2a:  (1, 256, 14, 14)
+relu_stagench2a:  (1, 256, 14, 14)
+conv_stagench2b:  (1, 256, 14, 14)
+bn_stage2_nch2b:  (1, 256, 14, 14)
+scale_stagnch2b:  (1, 256, 14, 14)
+eltwise_stlock2:  (1, 256, 14, 14)
+relu_stagelock2:  (1, 256, 14, 14)
+relu_stagelit_0:  (1, 256, 14, 14)
+relu_stagelit_1:  (1, 256, 14, 14)
+conv_stagench2a:  (1, 256, 14, 14)
+bn_stage2_nch2a:  (1, 256, 14, 14)
+scale_stagnch2a:  (1, 256, 14, 14)
+relu_stagench2a:  (1, 256, 14, 14)
+conv_stagench2b:  (1, 256, 14, 14)
+bn_stage2_nch2b:  (1, 256, 14, 14)
+scale_stagnch2b:  (1, 256, 14, 14)
+eltwise_stlock3:  (1, 256, 14, 14)
+relu_stagelock3:  (1, 256, 14, 14)
+relu_stagelit_0:  (1, 256, 14, 14)
+relu_stagelit_1:  (1, 256, 14, 14)
+conv_stagench2a:  (1, 256, 14, 14)
+bn_stage2_nch2a:  (1, 256, 14, 14)
+scale_stagnch2a:  (1, 256, 14, 14)
+relu_stagench2a:  (1, 256, 14, 14)
+conv_stagench2b:  (1, 256, 14, 14)
+bn_stage2_nch2b:  (1, 256, 14, 14)
+scale_stagnch2b:  (1, 256, 14, 14)
+eltwise_stlock4:  (1, 256, 14, 14)
+relu_stagelock4:  (1, 256, 14, 14)
+relu_stagelit_0:  (1, 256, 14, 14)
+relu_stagelit_1:  (1, 256, 14, 14)
+conv_stagench2a:  (1, 256, 14, 14)
+bn_stage2_nch2a:  (1, 256, 14, 14)
+scale_stagnch2a:  (1, 256, 14, 14)
+relu_stagench2a:  (1, 256, 14, 14)
+conv_stagench2b:  (1, 256, 14, 14)
+bn_stage2_nch2b:  (1, 256, 14, 14)
+scale_stagnch2b:  (1, 256, 14, 14)
+eltwise_stlock5:  (1, 256, 14, 14)
+relu_stagelock5:  (1, 256, 14, 14)
+relu_stagelit_0:  (1, 256, 14, 14)
+relu_stagelit_1:  (1, 256, 14, 14)
+conv_stagertcut:  (1, 512, 7, 7)
+bn_stage3_rtcut:  (1, 512, 7, 7)
+scale_stagrtcut:  (1, 512, 7, 7)
+conv_stagench2a:  (1, 512, 7, 7)
+bn_stage3_nch2a:  (1, 512, 7, 7)
+scale_stagnch2a:  (1, 512, 7, 7)
+relu_stagench2a:  (1, 512, 7, 7)
+conv_stagench2b:  (1, 512, 7, 7)
+bn_stage3_nch2b:  (1, 512, 7, 7)
+scale_stagnch2b:  (1, 512, 7, 7)
+eltwise_stlock0:  (1, 512, 7, 7)
+relu_stagelock0:  (1, 512, 7, 7)
+relu_stagelit_0:  (1, 512, 7, 7)
+relu_stagelit_1:  (1, 512, 7, 7)
+conv_stagench2a:  (1, 512, 7, 7)
+bn_stage3_nch2a:  (1, 512, 7, 7)
+scale_stagnch2a:  (1, 512, 7, 7)
+relu_stagench2a:  (1, 512, 7, 7)
+conv_stagench2b:  (1, 512, 7, 7)
+bn_stage3_nch2b:  (1, 512, 7, 7)
+scale_stagnch2b:  (1, 512, 7, 7)
+eltwise_stlock1:  (1, 512, 7, 7)
+relu_stagelock1:  (1, 512, 7, 7)
+relu_stagelit_0:  (1, 512, 7, 7)
+relu_stagelit_1:  (1, 512, 7, 7)
+conv_stagench2a:  (1, 512, 7, 7)
+bn_stage3_nch2a:  (1, 512, 7, 7)
+scale_stagnch2a:  (1, 512, 7, 7)
+relu_stagench2a:  (1, 512, 7, 7)
+conv_stagench2b:  (1, 512, 7, 7)
+bn_stage3_nch2b:  (1, 512, 7, 7)
+scale_stagnch2b:  (1, 512, 7, 7)
+eltwise_stlock2:  (1, 512, 7, 7)
+relu_stagelock2:  (1, 512, 7, 7)
+pool           :  (1, 512, 1, 1)
+fc1000         :  (1, 1000)
