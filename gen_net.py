@@ -259,9 +259,17 @@ def gen_random_net_params(net_params_):
         # print(layer_index, layer_name)
         layer_spec = [layer_name]
         if layer_name == Layer.CONV.value:
-            k = conv_kernel_sizes[random.randrange(0, n_conv_k)]
-            s = conv_strides[random.randrange(0, n_conv_s)]
-            num = conv_nums[random.randrange(0, n_conv_n)]
+            if layer_index < 3:
+                start_pos = 3
+                end_pos_k = n_conv_k
+                end_pos_s = n_conv_s
+            else:
+                start_pos = 0
+                end_pos_k = 2
+                end_pos_s = 2
+            k = conv_kernel_sizes[random.randrange(start_pos, end_pos_k)]
+            s = conv_strides[random.randrange(start_pos, end_pos_s)]
+            num = conv_nums[random.randrange(start_pos, n_conv_n)]
             layer_spec.extend([k, s, num])
         elif layer_name == Layer.POOL.value:
             k = pool_kernel_sizes[random.randrange(0, n_pool_k)]
