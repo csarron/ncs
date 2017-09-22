@@ -21,10 +21,10 @@ def parse_net_def_layers(net_proto_file_):
     #     print(net_def.layer) # print whole prototxt
     if net_def.layers:
         layers = net_def.layers
-        print('using layers')
+        # print('using layers')
     else:
         layers = net_def.layer
-        print('using layer')
+        # print('using layer')
 
     layer_names = map(lambda layer: layer.name, layers)
     layers_dict = dict(zip(layer_names, layers))
