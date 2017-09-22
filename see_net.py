@@ -34,7 +34,7 @@ def parse_net_def_layers(net_proto_file_):
     return layers_dict
 
 
-def vis_net(proto_file_, model_file_):
+def print_net(proto_file_, model_file_):
     import caffe
     from caffe.proto import caffe_pb2
     net = caffe.Net(proto_file_, caffe.TEST, weights=model_file_)
@@ -101,4 +101,4 @@ if __name__ == '__main__':
 
     proto_file = sys.argv[1]
 
-    vis_net(proto_file, model_file)
+    print_net(proto_file, model_file)
