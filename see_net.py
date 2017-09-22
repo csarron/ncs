@@ -69,11 +69,18 @@ def vis_net(proto_file_, model_file_):
             k_w = layer_def.pooling_param.kernel_w if layer_def.pooling_param.kernel_w else kernel
 
             pool_type = caffe_pb2.PoolingParameter.PoolMethod.Name(layer_def.pooling_param.pool)
-            print("{:20s} ({}, {}, {}, {})".format('(type: {}, {}, {})'.format(pool_type, k_h, k_w), s_w, s_h, p_w, p_h))
+            print("{:20s} ({}, {}, {}, {})".format('(type: {}, {}, {})'.format(pool_type, k_h, k_w),
+                                                   s_w, s_h, p_w, p_h))
+        elif layer_def.type == "InnerProduct" or layer_def.type == caffe_pb2.V1LayerParameter.INNER_PRODUCT:  # 14
+            data_shape = net.params[name][0].data.shape
+            if len(data_shape) > 1:  # ignore bias shape
+                print("{:20s}".format(str(data_shape)))
+            else:
+                print()
         else:
             print()
 
-    print("\nBlobs:")
+    print("\n\n{:15s}:  {}\n".format('FeatureMaps', '(b, c, h, w)'))
     for name, blob in net.blobs.items():
         print("{:15s}:  {}".format(prettify_name(name), str(blob.data.shape)))
 
