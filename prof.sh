@@ -24,7 +24,7 @@ do
     do
         echo -e "\x1b[1mprofiling (${count}/${total}) ${name}, using ${i} cores.\x1b[0m"
         profile_file="${profile_dir}/${name}_${i}.txt"
-        if [ ! -f ${profile_file}  ]; then
+        if [ -f ${profile_file}  ]; then
             echo "${profile_file} already profiled, skip"
             continue
         fi
