@@ -41,7 +41,7 @@ if __name__ == '__main__':
         weights_file = model_file.replace('.prototxt', '.caffemodel')
         check_file_existence(weights_file)
 
-    print_net(model_file, weights_file)
+    print_net(model_file)
 
     if args.text_format:
         print("saving weights to text file: {}.txt".format(weights_file))
