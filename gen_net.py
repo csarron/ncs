@@ -7,9 +7,9 @@ import itertools
 import json
 import os
 import random
-import tempfile
 
 from helper import check_file_existence, merge_dicts
+from gen_weights import save_net_weights
 
 os.environ['GLOG_minloglevel'] = '2'
 
@@ -35,23 +35,6 @@ def save_net_spec(model_spec_, model_path_, model_name_):
     proto_file = os.path.join(model_path_, '{}.prototxt'.format(model_name_))
     with open(proto_file, 'w') as f:
         f.write(str(model_proto))
-
-
-def save_net_weights(model_folder_, model_name_):
-    from caffe.proto import caffe_pb2
-    solver_param = caffe_pb2.SolverParameter()
-    proto_file_ = os.path.join(model_folder_, '{}.prototxt'.format(model_name_))
-    weights_file_ = os.path.join(model_folder_, '{}.caffemodel'.format(model_name_))
-    solver_param.train_net = os.path.abspath(proto_file_)
-
-    with tempfile.NamedTemporaryFile(delete=False) as solver_file:
-        # print('solver file:', solver_file.name)
-        solver_file.write(str(solver_param).encode())
-        solver_file.close()
-        caffe.set_mode_cpu()
-        solver = caffe.SGDSolver(solver_file.name)
-        solver.net.save(weights_file_)
-        os.remove(solver_file.name)
 
 
 def parse_param(param_file_):
@@ -305,7 +288,8 @@ def create_net(param_file_, net_size_):
         model_name = '{}_{}'.format(model_base_name, model_suffix)
         net_spec = create_net_spec(one_net_params)
         save_net_spec(net_spec, model_folder, model_name)
-        save_net_weights(model_folder, model_name)
+        proto_file = os.path.join(model_folder, '{}.prototxt'.format(model_name))
+        save_net_weights(proto_file)
 
 
 def parse_args():
