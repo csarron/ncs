@@ -37,9 +37,11 @@ def parse_net_def_layers(net_proto_file_):
 def print_net(proto_file_, model_file_):
     import caffe
     from caffe.proto import caffe_pb2
+    import numpy as np
     net = caffe.Net(proto_file_, caffe.TEST, weights=model_file_)
     layers_def_dict = parse_net_def_layers(proto_file_)
 
+    param_sum = 0
     print("{:15s}: {:15s}{:20s} ({}, {}, {}, {})\n".format('Name', 'Layer', '(n, c, h, w)',
                                                            's_w', 's_h', 'p_w', 'p_h'))
     for name, layer in zip(net._layer_names, net.layers):
@@ -57,6 +59,7 @@ def print_net(proto_file_, model_file_):
             p_w = layer_def.convolution_param.pad_w if layer_def.convolution_param.pad_w else pad
             data_shape = net.params[name][0].data.shape
             if len(data_shape) > 1:  # ignore bias shape
+                param_sum += np.prod(data_shape)
                 print("{:20s} ({}, {}, {}, {})".format(str(data_shape), s_w, s_h, p_w, p_h))
             else:
                 print()
@@ -78,14 +81,19 @@ def print_net(proto_file_, model_file_):
             data_shape = net.params[name][0].data.shape
             if len(data_shape) > 1:  # ignore bias shape
                 print("{:20s}".format(str(data_shape)))
+                param_sum += np.prod(data_shape)
             else:
                 print()
         else:
             print()
+    print("param_sum:", param_sum)
 
+    fm_sum = 0
     print("\n\n{:15s}:  {}\n".format('FeatureMaps', '(b, c, h, w)'))
     for name, blob in net.blobs.items():
         print("{:15s}:  {}".format(prettify_name(name), str(blob.data.shape)))
+        fm_sum += np.prod(blob.data.shape)
+    print("feature_map_sum:", fm_sum)
 
 
 if __name__ == '__main__':
