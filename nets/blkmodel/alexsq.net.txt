@@ -1,34 +1,13 @@
 Name           : Layer          (n, c, h, w)         (s_w, s_h, p_w, p_h)
 
 data           : Input          
-conv1          : Convolution    (96, 3, 7, 7)        (2, 2, 3, 3)
-relu_conv1     : ReLU           
+conv1          : Convolution    (96, 3, 11, 11)      (4, 4, 4, 4)
+relu1          : ReLU           
+norm1          : LRN            
 pool1          : Pooling        (type: MAX, 3, 3)    (2, 2, 0, 0)
-fire2/squeze1x1: Convolution    (16, 96, 1, 1)       (1, 1, 0, 0)
-fire2/reluze1x1: ReLU           
-fire2/squesplit: Split          
-fire2/expand1x1: Convolution    (64, 16, 1, 1)       (1, 1, 0, 0)
-fire2/relund1x1: ReLU           
-fire2/expand3x3: Convolution    (64, 16, 3, 3)       (1, 1, 1, 1)
-fire2/relund3x3: ReLU           
-fire2/concat   : Concat         
-fire3/squeze1x1: Convolution    (16, 128, 1, 1)      (1, 1, 0, 0)
-fire3/reluze1x1: ReLU           
-fire3/squesplit: Split          
-fire3/expand1x1: Convolution    (64, 16, 1, 1)       (1, 1, 0, 0)
-fire3/relund1x1: ReLU           
-fire3/expand3x3: Convolution    (64, 16, 3, 3)       (1, 1, 1, 1)
-fire3/relund3x3: ReLU           
-fire3/concat   : Concat         
-fire4/squeze1x1: Convolution    (32, 128, 1, 1)      (1, 1, 0, 0)
-fire4/reluze1x1: ReLU           
-fire4/squesplit: Split          
-fire4/expand1x1: Convolution    (128, 32, 1, 1)      (1, 1, 0, 0)
-fire4/relund1x1: ReLU           
-fire4/expand3x3: Convolution    (128, 32, 3, 3)      (1, 1, 1, 1)
-fire4/relund3x3: ReLU           
-fire4/concat   : Concat         
-pool4          : Pooling        (type: MAX, 3, 3)    (2, 2, 0, 0)
+conv2          : Convolution    (256, 48, 5, 5)      (1, 1, 2, 2)
+relu2          : ReLU           
+norm2          : LRN            
 fire5/squeze1x1: Convolution    (32, 256, 1, 1)      (1, 1, 0, 0)
 fire5/reluze1x1: ReLU           
 fire5/squesplit: Split          
@@ -74,33 +53,17 @@ conv10         : Convolution    (1000, 512, 1, 1)    (1, 1, 0, 0)
 relu_conv10    : ReLU           
 pool10         : Pooling        (type: AVE, 0, 0)    (1, 1, 0, 0)
 prob           : Softmax        
-param_sum: 1244448
+param_sum: 1503264
 
 
 FeatureMaps    :  (b, c, h, w)
 
 data           :  (1, 3, 224, 224)
-conv1          :  (1, 96, 112, 112)
-pool1          :  (1, 96, 56, 56)
-fire2/squeze1x1:  (1, 16, 56, 56)
-fire2/squelit_0:  (1, 16, 56, 56)
-fire2/squelit_1:  (1, 16, 56, 56)
-fire2/expand1x1:  (1, 64, 56, 56)
-fire2/expand3x3:  (1, 64, 56, 56)
-fire2/concat   :  (1, 128, 56, 56)
-fire3/squeze1x1:  (1, 16, 56, 56)
-fire3/squelit_0:  (1, 16, 56, 56)
-fire3/squelit_1:  (1, 16, 56, 56)
-fire3/expand1x1:  (1, 64, 56, 56)
-fire3/expand3x3:  (1, 64, 56, 56)
-fire3/concat   :  (1, 128, 56, 56)
-fire4/squeze1x1:  (1, 32, 56, 56)
-fire4/squelit_0:  (1, 32, 56, 56)
-fire4/squelit_1:  (1, 32, 56, 56)
-fire4/expand1x1:  (1, 128, 56, 56)
-fire4/expand3x3:  (1, 128, 56, 56)
-fire4/concat   :  (1, 256, 56, 56)
-pool4          :  (1, 256, 28, 28)
+conv1          :  (1, 96, 56, 56)
+norm1          :  (1, 96, 56, 56)
+pool1          :  (1, 96, 28, 28)
+conv2          :  (1, 256, 28, 28)
+norm2          :  (1, 256, 28, 28)
 fire5/squeze1x1:  (1, 32, 28, 28)
 fire5/squelit_0:  (1, 32, 28, 28)
 fire5/squelit_1:  (1, 32, 28, 28)
@@ -135,4 +98,4 @@ fire9/concat   :  (1, 512, 14, 14)
 conv10         :  (1, 1000, 14, 14)
 pool10         :  (1, 1000, 1, 1)
 prob           :  (1, 1000, 1, 1)
-feature_map_sum: 9066608
+feature_map_sum: 4626032

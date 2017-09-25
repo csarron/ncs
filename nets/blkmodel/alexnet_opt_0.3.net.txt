@@ -26,6 +26,7 @@ relu7          : ReLU
 drop7          : Dropout        
 fc8            : InnerProduct   (1000, 4096)        
 prob           : Softmax        
+param_sum: 17159456
 
 
 FeatureMaps    :  (b, c, h, w)
@@ -47,3 +48,4 @@ fc7_fact1      :  (1, 406)
 fc7_fact2      :  (1, 4096)
 fc8            :  (1, 1000)
 prob           :  (1, 1000)
+feature_map_sum: 1503779
