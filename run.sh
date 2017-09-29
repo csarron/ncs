@@ -18,7 +18,7 @@ do
     echo ${yaml_file}
     name=$(basename ${yaml_file} ".yaml")
     echo -e "\x1b[1mrunning (${count}/${total}) ${name}\x1b[0m"
-    python plain.py ${yaml_file}
+    python gen_plain.py ${yaml_file}
     python see_net.py "${gen_dir}/${name}.prototxt" -s
     ((count++))
 done;
