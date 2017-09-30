@@ -1,0 +1,4 @@
+alexsq, 151492, 29138 , layer_006 (conv2), 37842 , layer_002 (conv1), 21511 , layer_034 (fire8/expand3x3), 14944 , layer_006 (conv2) 5314 , layer_045 (conv10) 2703 , layer_034 (fire8/expand3x3) 2527
+sqalex, 253104, 44300, layer_002 (conv1), 40340 , layer_056 (conv3), 32490 , layer_023 (fire4/expand3x3), 19970 , layer_056 (conv3), 9375 , layer_002 (conv1), 3895 , layer_058 (conv4), 3404
+squ3, 561376, 79523, layer_002 (conv1_1) 44083, layer_067 (conv1_2) 29812, layer_132 (conv1_3) 29186, layer_132 (conv1_3) 4630, layer_002 (conv1_1) 4626, layer_067 (conv1_2) 4613
+vgg16_1, 196892, 41446, layer_004 (conv1_2), 28570, layer_009 (conv2_2), 17577, layer_021 (conv4_2), 16151, layer_021 (conv4_2), 4232, layer_023 (conv4_3), 4226, layer_035 (fc7), 3784

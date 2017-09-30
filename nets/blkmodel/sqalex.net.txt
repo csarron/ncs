@@ -62,19 +62,24 @@ fire8/expand3x3: Convolution    (256, 64, 3, 3)      (1, 1, 1, 1)
 fire8/relund3x3: ReLU           
 fire8/concat   : Concat         
 pool8          : Pooling        (type: MAX, 3, 3)    (2, 2, 0, 0)
-fire9/squeze1x1: Convolution    (64, 512, 1, 1)      (1, 1, 0, 0)
-fire9/reluze1x1: ReLU           
-fire9/squesplit: Split          
-fire9/expand1x1: Convolution    (256, 64, 1, 1)      (1, 1, 0, 0)
-fire9/relund1x1: ReLU           
-fire9/expand3x3: Convolution    (256, 64, 3, 3)      (1, 1, 1, 1)
-fire9/relund3x3: ReLU           
-fire9/concat   : Concat         
-conv10         : Convolution    (1000, 512, 1, 1)    (1, 1, 0, 0)
-relu_conv10    : ReLU           
-pool10         : Pooling        (type: AVE, 0, 0)    (1, 1, 0, 0)
+conv3          : Convolution    (384, 512, 3, 3)     (1, 1, 1, 1)
+relu3          : ReLU           
+conv4          : Convolution    (384, 192, 3, 3)     (1, 1, 1, 1)
+relu4          : ReLU           
+conv5          : Convolution    (256, 192, 3, 3)     (1, 1, 1, 1)
+relu5          : ReLU           
+pool5          : Pooling        (type: MAX, 3, 3)    (2, 2, 0, 0)
+fc6_fact1      : InnerProduct   (445, 12544)        
+fc6_fact2      : InnerProduct   (4096, 445)         
+relu6          : ReLU           
+drop6          : Dropout        
+fc7_fact1      : InnerProduct   (406, 4096)         
+fc7_fact2      : InnerProduct   (4096, 406)         
+relu7          : ReLU           
+drop7          : Dropout        
+fc8            : InnerProduct   (1000, 4096)        
 prob           : Softmax        
-param_sum: 1244448
+param_sum: 18237984
 
 
 FeatureMaps    :  (b, c, h, w)
@@ -126,13 +131,14 @@ fire8/expand1x1:  (1, 256, 28, 28)
 fire8/expand3x3:  (1, 256, 28, 28)
 fire8/concat   :  (1, 512, 28, 28)
 pool8          :  (1, 512, 14, 14)
-fire9/squeze1x1:  (1, 64, 14, 14)
-fire9/squelit_0:  (1, 64, 14, 14)
-fire9/squelit_1:  (1, 64, 14, 14)
-fire9/expand1x1:  (1, 256, 14, 14)
-fire9/expand3x3:  (1, 256, 14, 14)
-fire9/concat   :  (1, 512, 14, 14)
-conv10         :  (1, 1000, 14, 14)
-pool10         :  (1, 1000, 1, 1)
-prob           :  (1, 1000, 1, 1)
-feature_map_sum: 9066608
+conv3          :  (1, 384, 14, 14)
+conv4          :  (1, 384, 14, 14)
+conv5          :  (1, 256, 14, 14)
+pool5          :  (1, 256, 7, 7)
+fc6_fact1      :  (1, 445)
+fc6_fact2      :  (1, 4096)
+fc7_fact1      :  (1, 406)
+fc7_fact2      :  (1, 4096)
+fc8            :  (1, 1000)
+prob           :  (1, 1000)
+feature_map_sum: 8854563

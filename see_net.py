@@ -124,7 +124,7 @@ def print_net(proto_file_, save_print=False):
 
     if save_print:
         save_file = os.path.splitext(proto_file_)[0] + '.net.txt'
-        print(save_file)
+        print('\nabove info saved to:', save_file)
         with open(save_file, 'w') as f:
             f.write(print_info)
 
