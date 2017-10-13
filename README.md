@@ -41,8 +41,11 @@ example net arch generation:
 other args same as original code
 
 `python app/imagenet/build_resnet.py -m normal -b 3 4 6 3  -n 32 --no-fc_layers -f resnet34-1x32d -s`
+
 `python app/imagenet/build_resnet.py -m bottleneck -b 3 8 36 3 -n 128 --no-fc_layers -f resnet152_1x32d -s`
+
 `python app/imagenet/build_resnet.py -m bottleneck -b 3 30 48 8 -n 32 --no-fc_layers -f resnet269_1 -s`
+
 `python app/imagenet/build_resnet.py -m normal -b 2 2 2 2 -n 256 --no-fc_layers -f wrn18-3 -s`
 
 
