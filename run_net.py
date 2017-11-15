@@ -30,7 +30,7 @@ def parse_args():
     return parser.parse_args()
 
 
-def set_marker(state, mark_, channel=10):
+def set_marker(state, mark_, channel=8):
     if not mark_:
         return
     try:
@@ -112,7 +112,6 @@ if __name__ == '__main__':
     iterations = args.iterations
     mark = args.mark
 
-    set_marker('clean', mark)
     input_data = get_input_data(input_shape)
     device = get_ncs_device()
     graph, graph_load_time = load_graph(device, graph_file)
