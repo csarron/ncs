@@ -4665,19 +4665,11 @@ layer {
     global_pooling: true
   }
 }
-layer {
-  name: "pool_8x8_s1_drop"
-  type: "Dropout"
-  bottom: "pool_8x8_s1"
-  top: "pool_8x8_s1_drop"
-  dropout_param {
-    dropout_ratio: 0.2
-  }
-}
+
 layer {
   name: "classifier"
   type: "InnerProduct"
-  bottom: "pool_8x8_s1_drop"
+  bottom: "pool_8x8_s1"
   top: "classifier"
   param {
     lr_mult: 1
