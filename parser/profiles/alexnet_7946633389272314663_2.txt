@@ -1,0 +1,28 @@
+[1mmvNCProfile v02.00, Copyright @ Movidius Ltd 2016[0m
+
+USB: Transferring Data...
+[94mTime to Execute :  28.18  ms[39m
+USB: Myriad Execution Finished
+[94mTime to Execute :  26.98  ms[39m
+USB: Myriad Execution Finished
+Network Summary
+
+Detailed Per Layer Profile
+Layer      Name                                 MFLOPs    Bandwidth MB/s        time(ms)
+========================================================================================
+0          conv1                                94.090           2676.12            8.94
+1          pool3                                 0.420           1195.65            0.31
+2          conv4                                 1.204            390.65            0.24
+3          pool6                                 0.032            285.55            0.06
+4          conv7                                 0.779            126.60            0.16
+5          conv9                                 0.113            235.90            0.07
+6          conv11                                0.037             81.24            0.05
+7          pool13                                0.001             54.43            0.03
+8          fc14                                  0.000           1106.67            0.08
+9          fc16                                  0.002           2101.68            3.81
+10         output                                0.008           2631.95            2.97
+----------------------------------------------------------------------------------------
+           Total inference time                                                    16.73
+----------------------------------------------------------------------------------------
+
+Generating Profile Report 'output_report.html'...

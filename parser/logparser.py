@@ -34,7 +34,6 @@ class ARCHITECTURE(object):
                 if parse_res:
                     result[target].append(parse_res)
 
-
         return result
 
     def parse_net_runtime_file(self, filename):
@@ -44,15 +43,15 @@ class ARCHITECTURE(object):
         with open(filename, 'r') as fp:
             for line in fp:
                 fields = list(map(lambda x: x.strip(), line.strip().split('    ')))
-                #print(fields)
-                #print(len(fields))
+                # print(fields)
+                # print(len(fields))
 
                 # Neglecting empty lines
                 if len(fields) < 5 or fields[0].startswith('Layer'):
                     continue
 
                 fields_fil = list(filter(lambda x: x != '', fields))
-                #print(fields_fil)
+                # print(fields_fil)
 
                 if fields[0].strip().startswith('Total'):
                     result['total_inference_time'] = float(fields_fil[-1])
@@ -63,30 +62,30 @@ class ARCHITECTURE(object):
 
     def parse_net_runtime(self, net_filename, ncore=12):
         net_data = self.parse_net_architecture_file(net_filename)
-        #print(net_data)
+        # print(net_data)
         net_data['run_time'] = []
 
         core_file_available = [False] * 12
 
-        #print(net_filename)
+        # print(net_filename)
         min_inferece_time = np.inf
         for i in range(1, ncore + 1):
             runtime_file = '{:s}_{:d}.txt'.format(net_filename.split('.')[0], i)
 
             if os.path.exists(runtime_file):
-                #print('Parsing file: {:s}'.format(runtime_file))
-                core_file_available[i-1] = True
+                # print('Parsing file: {:s}'.format(runtime_file))
+                core_file_available[i - 1] = True
 
                 # Parse the runtime file here
                 result = self.parse_net_runtime_file(runtime_file)
-                #print(result)
-                net_data['run_time'].append({i : result})
+                # print(result)
+                net_data['run_time'].append({i: result})
 
                 if min_inferece_time > result['total_inference_time']:
                     min_inferece_time = result['total_inference_time']
                     net_data['min_inference_time'] = min_inferece_time
             else:
-                #print('File: {:s} Not Found!!!'.format(runtime_file))
+                # print('File: {:s} Not Found!!!'.format(runtime_file))
                 pass
 
         if np.sum(core_file_available) == 0:
@@ -106,21 +105,21 @@ class ARCHITECTURE(object):
             return None, None
 
         if fields[1].startswith('Convolution'):
-            conv_param = fields[-1].split('   ')
+            conv_param = fields[-1].split('    ')
 
             kernels = conv_param[1].strip()[1:-1]
             kernels = list(map(int, kernels.split(',')))
-            #print(kernels)
+            # print(kernels)
 
             strides = conv_param[-1].strip()[1:-1]
             strides = list(map(int, strides.split(',')))
-            #print(strides)
+            # print(strides)
 
             return {fields[0]: [kernels, strides]}, 'arch'
 
         if fields[1].startswith('Pooling'):
             param = fields[-1].split('  ')
-            #print(param)
+            # print(param)
             types = param[0][:-1].split(',')
             strides = param[-1].strip()[1:-1]
             strides = list(map(int, strides.split(',')))
@@ -132,7 +131,7 @@ class ARCHITECTURE(object):
 
         if fields[1].startswith('InnerProduct'):
             param = fields[-1].split('  ')
-            #print(param)
+            # print(param)
             param = param[-1].strip()[1:-1]
             param = list(map(int, param.split(',')))
             return {fields[0]: param}, 'arch'
@@ -146,7 +145,7 @@ class ARCHITECTURE(object):
         if fields[0].strip() == 'FeatureMaps':
             return None, None
 
-        #print(fields[1])
+        # print(fields[1])
         return {fields[0]: list(map(int, fields[1][1:-1].split(',')))}, 'feature_maps'
 
 
@@ -181,26 +180,24 @@ def get_param_inferencetime_featuremap(net_data):
 
 def plot1(data_file):
     fig = plt.figure()
-    #ax = fig.add_subplot(111, projection='3d')
+    # ax = fig.add_subplot(111, projection='3d')
     ax = fig.add_subplot(111)
 
     data = np.load(data_file)
 
-    #ax.scatter(data[:, 0], data[:, 1], data[:, 2], c='r', marker='o')
+    # ax.scatter(data[:, 0], data[:, 1], data[:, 2], c='r', marker='o')
     ax.scatter(data[:, 0] * data[:, 1], data[:, 2], c='r', marker='o')
     ax.set_xlabel('param_sum * feature_map_sum')
-    #ax.set_ylabel('feature_map_sum')
+    # ax.set_ylabel('feature_map_sum')
     ax.set_ylabel('min_inference_time')
-    #plt.savefig("res.pdf", bbox_inches='tight')
+    # plt.savefig("res.pdf", bbox_inches='tight')
 
     plt.show()
 
 
-
 if __name__ == '__main__':
-
-    #parsed_data = parse()
-    #data = get_param_inferencetime_featuremap(parsed_data)
-    #print(data)
+    parsed_data = parse()
+    data = get_param_inferencetime_featuremap(parsed_data)
+    # print(data)
 
     plot1('net_data.npy')
