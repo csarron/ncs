@@ -19,7 +19,7 @@ def check_input_shape(input_shape_):
 
 def parse_args():
     parser = argparse.ArgumentParser()
-    parser.add_argument("-g", "--graph_file", type=check_file_existence, default='../networks/AlexNet/graph',
+    parser.add_argument("-g", "--graph_file", type=check_file_existence, default='/home/pi/dev/ncsdk/examples/caffe/SqueezeNet/graph',
                         help="model graph file")
     parser.add_argument("-s", "--input_shape", type=check_input_shape, default='227,227,3',
                         help="input shape, e.g. 224,224,3")
