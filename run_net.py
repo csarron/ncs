@@ -114,19 +114,18 @@ if __name__ == '__main__':
 
     set_marker('clean', mark)
     input_data = get_input_data(input_shape)
-    set_marker(1, mark)
     device = get_ncs_device()
-    set_marker(0, mark)
     graph, graph_load_time = load_graph(device, graph_file)
     print('graph_load_time:', graph_load_time, 'ms')
-    set_marker(1, mark)
+
     data_load_time = load_input(iterations)
     print('data_load_time:', data_load_time, 'ms')
-    set_marker(0, mark)
+
+    set_marker(1, mark)
     _, inference_time = run_inference(graph)
     print('inference_time:', inference_time, 'ms')
-    set_marker(1, mark)
-    clean_up_time = clean_up(device, graph)
     set_marker(0, mark)
+
+    clean_up_time = clean_up(device, graph)
     print('clean_up_time:', clean_up_time, 'ms')
     set_marker('clean', mark)
