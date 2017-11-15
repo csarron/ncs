@@ -5,3 +5,6 @@
 *.caffemodel*
 *.html
 *gen/
+_power_measurement_logs
+*.pyc
+
