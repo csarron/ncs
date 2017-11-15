@@ -1,0 +1,36 @@
+[1mmvNCProfile v02.00, Copyright @ Movidius Ltd 2016[0m
+
+USB: Transferring Data...
+[94mTime to Execute :  103.86  ms[39m
+USB: Myriad Execution Finished
+[94mTime to Execute :  98.11  ms[39m
+USB: Myriad Execution Finished
+USB: Myriad Connection Closing.
+USB: Myriad Connection Closed.
+Network Summary
+
+Detailed Per Layer Profile
+                                                               Bandwidth   time
+#    Name                                                MFLOPs  (MB/s)    (ms)
+===============================================================================
+0    conv1                                                240.3  1909.4   7.381
+1    pool3                                                  0.8  1716.5   0.908
+2    conv4                                                530.8   485.1   9.894
+3    pool6                                                  0.2   855.1   0.370
+4    conv7                                                 95.6   435.8   2.280
+5    conv9                                                 95.6   434.8   2.285
+6    conv11                                                95.6   435.8   2.280
+7    conv13                                                95.6   433.0   2.295
+8    conv15                                                95.6   434.1   2.288
+9    conv17                                                95.6   435.6   2.280
+10   conv19                                                95.6   435.7   2.280
+11   conv21                                                95.6   425.3   2.336
+12   conv23                                               191.1   255.6   4.987
+13   pool25                                                 0.1  1306.3   0.121
+14   fc26                                                  75.5  2141.6  33.628
+15   fc28                                                  33.6  2127.0  15.048
+16   output                                                 8.2  2616.4   2.989
+-------------------------------------------------------------------------------
+                                   Total inference time                   93.65
+-------------------------------------------------------------------------------
+Generating Profile Report 'output_report.html'...

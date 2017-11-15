@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 if [ "$1" == "-h" ]; then
-  echo -e "\033[36mUsage: `basename $0` [net param file dir, e.g. nets/alexnet/gen/]"
+  echo -e "\033[36mUsage: `basename $0` [net param file dir, e.g. net_configs/alexnet/gen/]"
   exit 0
 fi
 
-net=$1 #'nets/alexnet/gen/' 
+net=$1 #'net_configs/alexnet/gen/'
 echo "net dir: ${net}"
 profile_dir="${net}/prof"
 mkdir -p ${profile_dir}

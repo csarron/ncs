@@ -294,7 +294,7 @@ def create_net(param_file_, net_size_):
 
 def parse_args():
     parser = argparse.ArgumentParser()
-    parser.add_argument("-p", "--param_file", type=check_file_existence, default='nets/alexnet/alexnet.yaml',
+    parser.add_argument("-p", "--param_file", type=check_file_existence, default='net_configs/alexnet/alexnet.yaml',
                         help="caffe model parameter file (.param.yaml)")
     parser.add_argument("-s", "--net_size", type=int, default=100,
                         help="number of networks to generate")

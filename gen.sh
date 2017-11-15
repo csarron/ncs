@@ -4,7 +4,7 @@ if [ "$1" == "-h" ]; then
   exit 0
 fi
 
-net=$1 #'nets/alexnet/alexnet.yaml'
+net=$1 #'net_configs/alexnet/alexnet.yaml'
 nums=$2 
 echo "net:"${net}
 echo "nums:"${nums}
@@ -27,7 +27,7 @@ do
         fi
     done;
     echo
-    echo -e "\x1b[1mrun: "${i}", current nets:"${count}"\x1b[0m"
+    echo -e "\x1b[1mrun: "${i}", current net_configs:"${count}"\x1b[0m"
     echo
 done;
 

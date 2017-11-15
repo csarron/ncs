@@ -1,0 +1,54 @@
+[1mmvNCProfile v02.00, Copyright @ Movidius Ltd 2016[0m
+
+USB: Transferring Data...
+[94mTime to Execute :  383.88  ms[39m
+USB: Myriad Execution Finished
+[94mTime to Execute :  379.75  ms[39m
+USB: Myriad Execution Finished
+USB: Myriad Connection Closing.
+USB: Myriad Connection Closed.
+Network Summary
+
+Detailed Per Layer Profile
+                                                               Bandwidth   time
+#    Name                                                MFLOPs  (MB/s)    (ms)
+===============================================================================
+0    conv1                                                240.3   340.9  41.336
+1    pool3                                                  0.8   824.2   1.891
+2    conv4                                                530.8    59.3  80.874
+3    pool6                                                  0.2   484.2   0.654
+4    conv7                                                 21.2    40.6   3.487
+5    conv9                                                 42.5    37.7   7.522
+6    conv11                                                42.5    37.7   7.521
+7    conv13                                                42.5    37.6   7.523
+8    conv15                                                42.5    37.6   7.528
+9    conv17                                                42.5    37.7   7.522
+10   conv19                                                42.5    37.7   7.522
+11   conv21                                                42.5    37.6   7.525
+12   conv23                                                42.5    37.7   7.522
+13   conv25                                                42.5    37.6   7.527
+14   conv27                                                42.5    37.7   7.523
+15   conv29                                                42.5    37.6   7.531
+16   conv31                                                42.5    37.7   7.522
+17   conv33                                                42.5    37.7   7.522
+18   conv35                                                42.5    37.5   7.552
+19   conv37                                                42.5    37.6   7.524
+20   conv39                                                42.5    37.7   7.522
+21   conv41                                                42.5    37.6   7.532
+22   conv43                                                42.5    37.7   7.522
+23   conv45                                                42.5    37.7   7.521
+24   conv47                                                42.5    37.5   7.547
+25   conv49                                                42.5    37.6   7.525
+26   conv51                                                42.5    37.7   7.521
+27   conv53                                                42.5    37.6   7.526
+28   conv55                                                42.5    37.6   7.523
+29   conv57                                                42.5    37.7   7.522
+30   conv59                                                42.5    37.6   7.529
+31   pool61                                                 0.1   892.5   0.177
+32   fc62                                                  75.5  2146.7  33.548
+33   fc64                                                  33.6  2136.2  14.983
+34   output                                                 8.2  2612.5   2.993
+-------------------------------------------------------------------------------
+                                   Total inference time                  375.62
+-------------------------------------------------------------------------------
+Generating Profile Report 'output_report.html'...

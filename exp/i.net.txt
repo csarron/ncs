@@ -1,0 +1,57 @@
+Name           : Layer          (n, c, h, w)         (s_w, s_h, p_w, p_h)
+
+data           : Input          
+conv1          : Convolution    (64, 3, 7, 7)        (2, 2, 4, 4)
+relu2          : ReLU           
+pool3          : Pooling        (type: MAX, 3, 3)    (3, 3, 0, 0)
+conv4          : Convolution    (64, 64, 3, 3)       (1, 1, 1, 1)
+relu5          : ReLU           
+conv6          : Convolution    (64, 64, 3, 3)       (1, 1, 1, 1)
+relu7          : ReLU           
+conv8          : Convolution    (64, 64, 3, 3)       (1, 1, 1, 1)
+relu9          : ReLU           
+conv10         : Convolution    (128, 64, 3, 3)      (1, 1, 0, 0)
+relu11         : ReLU           
+pool12         : Pooling        (type: MAX, 2, 2)    (2, 2, 0, 0)
+conv13         : Convolution    (256, 128, 2, 2)     (1, 1, 1, 1)
+relu14         : ReLU           
+conv15         : Convolution    (256, 256, 2, 2)     (1, 1, 1, 1)
+relu16         : ReLU           
+conv17         : Convolution    (256, 256, 2, 2)     (1, 1, 1, 1)
+relu18         : ReLU           
+conv19         : Convolution    (256, 256, 2, 2)     (1, 1, 0, 0)
+relu20         : ReLU           
+conv21         : Convolution    (256, 256, 2, 2)     (1, 1, 0, 0)
+relu22         : ReLU           
+conv23         : Convolution    (256, 256, 2, 2)     (1, 1, 0, 0)
+relu24         : ReLU           
+pool25         : Pooling        (type: MAX, 3, 3)    (3, 3, 0, 0)
+fc26           : InnerProduct   (4096, 9216)        
+relu27         : ReLU           
+fc28           : InnerProduct   (4096, 4096)        
+relu29         : ReLU           
+output         : InnerProduct   (1000, 4096)        
+param_sum: 60257472
+
+
+FeatureMaps    :  (b, c, h, w)
+
+data           :  (1, 3, 224, 224)
+conv1          :  (1, 64, 113, 113)
+pool3          :  (1, 64, 38, 38)
+conv4          :  (1, 64, 38, 38)
+conv6          :  (1, 64, 38, 38)
+conv8          :  (1, 64, 38, 38)
+conv10         :  (1, 128, 36, 36)
+pool12         :  (1, 128, 18, 18)
+conv13         :  (1, 256, 19, 19)
+conv15         :  (1, 256, 20, 20)
+conv17         :  (1, 256, 21, 21)
+conv19         :  (1, 256, 20, 20)
+conv21         :  (1, 256, 19, 19)
+conv23         :  (1, 256, 18, 18)
+pool25         :  (1, 256, 6, 6)
+fc26           :  (1, 4096)
+fc28           :  (1, 4096)
+output         :  (1, 1000)
+feature_map_sum: 2148648

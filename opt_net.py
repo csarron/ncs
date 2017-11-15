@@ -37,7 +37,7 @@ def factorize_weights(net, retain_ratio):
 def parse_args():
     parser = argparse.ArgumentParser()
     parser.add_argument("-p", "--proto_file", type=str,
-                        default='nets/create_net_spec/create_net_spec.prototxt',
+                        default='net_configs/create_net_spec/create_net_spec.prototxt',
                         help="caffe proto file (.prototxt)")
     parser.add_argument("-m", "--model_file", type=str, default='',
                         help="caffe model file (.caffemodel)")

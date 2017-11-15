@@ -1,0 +1,34 @@
+[1mmvNCProfile v02.00, Copyright @ Movidius Ltd 2016[0m
+
+USB: Transferring Data...
+[94mTime to Execute :  114.55  ms[39m
+USB: Myriad Execution Finished
+[94mTime to Execute :  106.24  ms[39m
+USB: Myriad Execution Finished
+USB: Myriad Connection Closing.
+USB: Myriad Connection Closed.
+Network Summary
+
+Detailed Per Layer Profile
+                                                               Bandwidth   time
+#    Name                                                MFLOPs  (MB/s)    (ms)
+===============================================================================
+0    conv1                                                240.3  1908.5   7.384
+1    pool3                                                  0.8  1716.3   0.908
+2    conv4                                                212.9   397.1   4.351
+3    conv6                                                382.2   466.0   7.413
+4    pool8                                                  0.2   845.2   0.374
+5    conv9                                                 94.6   220.6   2.568
+6    conv11                                               209.7   235.7   5.112
+7    conv13                                               231.2   225.2   5.690
+8    conv15                                               209.7   245.2   5.552
+9    conv17                                               189.3   213.9   5.991
+10   conv19                                               169.9   255.1   4.724
+11   pool21                                                 0.1  1341.7   0.118
+12   fc22                                                  75.5  2138.3  33.680
+13   fc24                                                  33.6  2120.6  15.094
+14   output                                                 8.2  2613.3   2.993
+-------------------------------------------------------------------------------
+                                   Total inference time                  101.95
+-------------------------------------------------------------------------------
+Generating Profile Report 'output_report.html'...

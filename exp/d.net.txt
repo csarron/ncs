@@ -1,0 +1,51 @@
+Name           : Layer          (n, c, h, w)         (s_w, s_h, p_w, p_h)
+
+data           : Input          
+conv1          : Convolution    (64, 3, 7, 7)        (2, 2, 4, 4)
+relu2          : ReLU           
+pool3          : Pooling        (type: MAX, 3, 3)    (3, 3, 0, 0)
+conv4          : Convolution    (128, 64, 3, 3)      (1, 1, 1, 1)
+relu5          : ReLU           
+conv6          : Convolution    (128, 128, 3, 3)     (1, 1, 0, 0)
+relu7          : ReLU           
+pool8          : Pooling        (type: MAX, 2, 2)    (2, 2, 0, 0)
+conv9          : Convolution    (256, 128, 2, 2)     (1, 1, 1, 1)
+relu10         : ReLU           
+conv11         : Convolution    (256, 256, 2, 2)     (1, 1, 1, 1)
+relu12         : ReLU           
+conv13         : Convolution    (256, 256, 2, 2)     (1, 1, 1, 1)
+relu14         : ReLU           
+conv15         : Convolution    (256, 256, 2, 2)     (1, 1, 0, 0)
+relu16         : ReLU           
+conv17         : Convolution    (256, 256, 2, 2)     (1, 1, 0, 0)
+relu18         : ReLU           
+conv19         : Convolution    (256, 256, 2, 2)     (1, 1, 0, 0)
+relu20         : ReLU           
+pool21         : Pooling        (type: MAX, 3, 3)    (3, 3, 0, 0)
+fc22           : InnerProduct   (4096, 9216)        
+relu23         : ReLU           
+fc24           : InnerProduct   (4096, 4096)        
+relu25         : ReLU           
+output         : InnerProduct   (1000, 4096)        
+param_sum: 60294336
+
+
+FeatureMaps    :  (b, c, h, w)
+
+data           :  (1, 3, 224, 224)
+conv1          :  (1, 64, 113, 113)
+pool3          :  (1, 64, 38, 38)
+conv4          :  (1, 128, 38, 38)
+conv6          :  (1, 128, 36, 36)
+pool8          :  (1, 128, 18, 18)
+conv9          :  (1, 256, 19, 19)
+conv11         :  (1, 256, 20, 20)
+conv13         :  (1, 256, 21, 21)
+conv15         :  (1, 256, 20, 20)
+conv17         :  (1, 256, 19, 19)
+conv19         :  (1, 256, 18, 18)
+pool21         :  (1, 256, 6, 6)
+fc22           :  (1, 4096)
+fc24           :  (1, 4096)
+output         :  (1, 1000)
+feature_map_sum: 2056232
