@@ -74,6 +74,7 @@ conv10         : Convolution    (1000, 512, 1, 1)    (1, 1, 0, 0)
 relu_conv10    : ReLU           
 pool10         : Pooling        (type: AVE, 0, 0)    (1, 1, 0, 0)
 prob           : Softmax        
+param_sum: 1244448
 
 
 FeatureMaps    :  (b, c, h, w)
@@ -134,3 +135,4 @@ fire9/concat   :  (1, 512, 13, 13)
 conv10         :  (1, 1000, 13, 13)
 pool10         :  (1, 1000, 1, 1)
 prob           :  (1, 1000, 1, 1)
+feature_map_sum: 8615251
