@@ -18,9 +18,11 @@ except Exception as e:
 class Layer(enum.Enum):
     DATA = 'data'
     INPUT = 'input'
+    MODULE = 'module'
     CONV = 'conv'
     POOL = 'pool'
     FC = 'fc'
+    SOFTMAX = 'softmax'
     OUTPUT = 'output'
 
 
@@ -58,7 +60,7 @@ def create_net_spec(net_params_):
     previous_layer_name = Layer.DATA.value
     layer_index = 1
     for layer_spec in net_params_['spec']:
-        layer_name = layer_spec['layer']
+        layer_name = layer_spec.get('layer', 'module')
         layer_type = Layer(layer_name)
 
         num = layer_spec.get('num', 0)
@@ -86,8 +88,52 @@ def create_net_spec(net_params_):
 
         repeat = layer_spec.get('repeat', 1)
 
-        if layer_type is Layer.CONV:
-            for i in range(repeat):
+        if layer_type is Layer.MODULE:
+            layer_name = layer_spec['module']
+            module_config = net_params_[layer_name]
+            squeeze_ratio = module_config['ratio']
+            num = num if num else module_config['num']
+            kernel_config = module_config['kernel']
+            stride_config = module_config['stride']
+            pad_config = module_config['pad']
+            assert len(kernel_config) == len(stride_config) == len(pad_config)
+            for _ in range(repeat):
+                # build squeeze and expand layer
+                expand_layers = []
+                previous_layer = getattr(net_spec_, previous_layer_name)
+                layer = caffe.layers.Convolution(previous_layer, num_output=num,
+                                                 kernel_size=kernel_config[0],
+                                                 stride=stride_config[0],
+                                                 pad=pad_config[0],
+                                                 weight_filler=dict(type='xavier'),
+                                                 bias_filler=dict(type='constant'))
+                squeeze_layer_name = '%s%d/squeeze_%dx%d' % (layer_name, layer_index,
+                                                             kernel_config[0], kernel_config[0])
+                setattr(net_spec_, squeeze_layer_name, layer)
+                for i in range(1, len(kernel_config)):
+                    previous_layer = getattr(net_spec_, squeeze_layer_name)
+                    layer = caffe.layers.Convolution(previous_layer, num_output=num * squeeze_ratio,
+                                                     kernel_size=kernel_config[i],
+                                                     stride=stride_config[i],
+                                                     pad=pad_config[i],
+                                                     weight_filler=dict(type='xavier'),
+                                                     bias_filler=dict(type='constant'))
+                    layer_name_str = '%s%d/expand%dx%d' % (layer_name, layer_index,
+                                                           kernel_config[i], kernel_config[i])
+                    setattr(net_spec_, layer_name_str, layer)
+                    expand_layers.append(layer)
+                    # attach relu
+                    layer = caffe.layers.ReLU(layer, in_place=True)
+                    setattr(net_spec_, layer_name_str + '_relu', layer)
+
+                # concat layer
+                layer = caffe.layers.Concat(*expand_layers)
+                setattr(net_spec_, '%s%d/concat' % (layer_name, layer_index), layer)
+                previous_layer_name = '%s%d/concat' % (layer_name, layer_index)
+                layer_index += 1
+
+        elif layer_type is Layer.CONV:
+            for _ in range(repeat):
                 previous_layer = getattr(net_spec_, previous_layer_name)
                 layer = caffe.layers.Convolution(previous_layer, num_output=num,
                                                  kernel_h=k_h, kernel_w=k_w,
@@ -106,16 +152,21 @@ def create_net_spec(net_params_):
 
         elif layer_type is Layer.POOL:
             previous_layer = getattr(net_spec_, previous_layer_name)
-            layer = caffe.layers.Pooling(previous_layer, pool=caffe.params.Pooling.MAX,
-                                         kernel_h=k_h, kernel_w=k_w,
-                                         stride_h=s_h, stride_w=s_w,
-                                         pad_h=p_h, pad_w=p_w)
+            pool_type = layer_spec.get('type', 0)
+            global_pooling = layer_spec.get('global', False)
+            if global_pooling:
+                layer = caffe.layers.Pooling(previous_layer, pool=pool_type, global_pooling=global_pooling)
+            else:
+                layer = caffe.layers.Pooling(previous_layer, pool=pool_type,
+                                             kernel_h=k_h, kernel_w=k_w,
+                                             stride_h=s_h, stride_w=s_w,
+                                             pad_h=p_h, pad_w=p_w, global_pooling=global_pooling)
             setattr(net_spec_, layer_name + str(layer_index), layer)
             previous_layer_name = layer_name + str(layer_index)
             layer_index += 1
 
         elif layer_type == Layer.FC:
-            for i in range(repeat):
+            for _ in range(repeat):
                 previous_layer = getattr(net_spec_, previous_layer_name)
 
                 layer = caffe.layers.InnerProduct(previous_layer, num_output=num,
@@ -129,15 +180,13 @@ def create_net_spec(net_params_):
                 setattr(net_spec_, 'relu' + str(layer_index), layer)
                 previous_layer_name = 'relu' + str(layer_index)
                 layer_index += 1
-
+        elif layer_type == Layer.SOFTMAX:
+            previous_layer = getattr(net_spec_, previous_layer_name)
+            layer = caffe.layers.Softmax(previous_layer)
+            setattr(net_spec_, Layer.SOFTMAX.value, layer)
         else:
             raise ValueError('unsupported layer:{}'.format(layer_name))
 
-    previous_layer = getattr(net_spec_, previous_layer_name)
-    layer = caffe.layers.InnerProduct(previous_layer, num_output=net_params_['output'],
-                                      weight_filler=dict(type='xavier'),
-                                      bias_filler=dict(type='constant'))
-    setattr(net_spec_, Layer.OUTPUT.value, layer)
     return net_spec_
 
 
