@@ -1,0 +1,60 @@
+
+# specify input and output shapes
+input: [1,3,227,227] #input shape, separated by comma
+
+fire_c:
+  num: 16
+  ratio: 4
+  kernel: [1, 1, 1, 1, 1] # first is squeeze filter size, others are expands'
+  stride: [1, 1, 1, 1 ,1]
+  pad: [0,0,0,0,0]
+
+
+spec:
+  - layer: conv
+    num: 96
+    kernel: 7
+    stride: 2
+
+  - layer: pool
+    type: 0 # 0 is MAX, 1 is AVG
+    kernel: 3
+    stride: 2
+
+  - module: fire_c
+    repeat: 2
+
+  - module: fire_c
+    num: 32 # override default num
+
+  - layer: pool
+    kernel: 3
+    stride: 2
+
+  - module: fire_c
+    num: 32
+
+  - module: fire_c
+    num: 48
+    repeat: 2
+
+  - module: fire_c
+    num: 64
+
+  - layer: pool
+    kernel: 3
+    stride: 2
+
+  - module: fire_c
+    num: 64
+
+  - layer: conv
+    num: 1000
+    kernel: 1
+
+  - layer: pool
+    global: yes
+    type: 1
+    stride: 1
+
+  - layer: softmax

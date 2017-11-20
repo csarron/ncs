@@ -107,25 +107,45 @@ def create_net_spec(net_params_):
                                                  pad=pad_config[0],
                                                  weight_filler=dict(type='xavier'),
                                                  bias_filler=dict(type='constant'))
-                squeeze_layer_name = '%s%d/squeeze_%dx%d' % (layer_name, layer_index,
-                                                             kernel_config[0], kernel_config[0])
+                squeeze_layer_name = '%s_%d/squeeze_%dx%d' % (layer_name, layer_index,
+                                                              kernel_config[0], kernel_config[0])
                 setattr(net_spec_, squeeze_layer_name, layer)
-                for i in range(1, len(kernel_config)):
-                    previous_layer = getattr(net_spec_, squeeze_layer_name)
+
+                # first expand conv
+                previous_layer = getattr(net_spec_, squeeze_layer_name)
+                layer = caffe.layers.Convolution(previous_layer, num_output=num * squeeze_ratio,
+                                                 kernel_size=kernel_config[1],
+                                                 stride=stride_config[1],
+                                                 pad=pad_config[1],
+                                                 weight_filler=dict(type='xavier'),
+                                                 bias_filler=dict(type='constant'))
+                layer_name_str = '%s_%d/expand%dx%d' % (layer_name, layer_index,
+                                                        kernel_config[1], kernel_config[1])
+                setattr(net_spec_, layer_name_str, layer)
+                # attach relu
+                layer = caffe.layers.ReLU(layer, in_place=True)
+                setattr(net_spec_, layer_name_str + '_relu', layer)
+
+                expand_layers.append(layer)
+
+                previous_layer_name = squeeze_layer_name
+                for i in range(2, len(kernel_config)):
+                    previous_layer = getattr(net_spec_, previous_layer_name)
                     layer = caffe.layers.Convolution(previous_layer, num_output=num * squeeze_ratio,
                                                      kernel_size=kernel_config[i],
                                                      stride=stride_config[i],
                                                      pad=pad_config[i],
                                                      weight_filler=dict(type='xavier'),
                                                      bias_filler=dict(type='constant'))
-                    layer_name_str = '%s%d/expand%dx%d' % (layer_name, layer_index,
-                                                           kernel_config[i], kernel_config[i])
+                    layer_name_str = '%s_%d/expand%dx%d_%d' % (layer_name, layer_index,
+                                                            kernel_config[i], kernel_config[i], i)
                     setattr(net_spec_, layer_name_str, layer)
-                    expand_layers.append(layer)
                     # attach relu
                     layer = caffe.layers.ReLU(layer, in_place=True)
                     setattr(net_spec_, layer_name_str + '_relu', layer)
+                    previous_layer_name = layer_name_str + '_relu'
 
+                expand_layers.append(layer)
                 # concat layer
                 layer = caffe.layers.Concat(*expand_layers)
                 setattr(net_spec_, '%s%d/concat' % (layer_name, layer_index), layer)
