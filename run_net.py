@@ -116,20 +116,20 @@ def _provide_remote_info(info):
 
     try:
         s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        print 'Socket created'
+        print('Socket created')
 
         HOST = ''   # Symbolic name meaning all available interfaces
         PORT = 8888 # Arbitrary non-privileged port
         s.bind((HOST, PORT))
-        print 'Socket bind complete'
+        print('Socket bind complete')
 
         s.listen(1)
-        print 'Socket now listening'
+        print('Socket now listening')
 
         #wait to accept a connection - blocking call
         conn, addr = s.accept()
 
-        print 'Connected with ' + addr[0] + ':' + str(addr[1])
+        print('Connected with ' + addr[0] + ':' + str(addr[1]))
 
         #now keep talking with the client
         data = conn.recv(1024)
@@ -137,7 +137,7 @@ def _provide_remote_info(info):
 
 
     except socket.error , msg:
-        print 'Bind failed. Error Code : ' + str(msg[0]) + ' Message ' + msg[1]
+        print('Bind failed. Error Code : ' + str(msg[0]) + ' Message ' + msg[1])
         sys.exit()
     finally:
         conn.close()
