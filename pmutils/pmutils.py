@@ -4,6 +4,9 @@ Power Monitor Utilities
 A collection of helper functions to control Monsoon Power Monitor using PyMonsoon.
 """
 
+from __future__ import print_function
+
+
 # This script currently assumes you're using the black High-Voltage Power
 # Monitor. Un/comment lines below to use the older white Power Monitor.
 USING_WHITE_POWER_MONITOR=False #TODO: Find a way to detect this at run-time
@@ -115,7 +118,7 @@ def live_usb():
     engine.startSampling(numSamples)
     Mon.closeDevice();
 
-def trigger_and_capture():
+def trigger_and_capture(get_test_details_remotely=False, remote_ip=None):
     """
     Triggers on the voltage on the USB channel and captures samples from the main
     channel into a log file in the specified log directory
@@ -138,11 +141,48 @@ def trigger_and_capture():
     engine.setStartTrigger(sampleEngine.triggers.GREATER_THAN,3.0)
     engine.setStopTrigger(sampleEngine.triggers.LESS_THAN,1.0)
 
-    logger.info('Trigerring on USB voltage ...')
-    engine.startSampling(numSamples)
-    logger.info('Capture completed: %s', log_file)
+    try:
+        logger.info('Trigerring on USB voltage ...')
+        engine.startSampling(numSamples)
+        logger.info('Capture completed: %s', log_file)
 
-    Mon.closeDevice();
+        if get_test_details_remotely:
+            test_name = _request_remote_test_details(remote_ip)
+    finally:
+        #TODO: If log file is empty delete it?
+        Mon.closeDevice();
+
+def _request_remote_test_details(ip):
+    """
+    TODO
+    """
+    try:
+        s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        logger.info('Socket Created')
+
+        s.connect((remote_ip , 8887))
+        logger.info('Socket Connected to ' + remote_ip + ':8887')
+
+        # Pickle uses different default protocols in Python 2 and 3 so I'm
+        # specifying a common one explicitly.
+        serialised_message = pickle.dump("A random message", protocol=0)
+
+        s.sendall(message)
+        logger.info('Request sent successfully')
+
+        # Blocking call
+        serialised_reply = s.recv(4096)
+
+        reply = pickle.loads(serialised_reply, protocol=0)
+
+        logger.info('Received test details: {}'.format(reply))
+
+        return reply
+    except:
+        logger.error('Something wrong with socket connection')
+        sys.exit()
+    finally:
+        s.close()
 
 def _get_timestamped_filepath():
     timestamp = datetime.now().strftime('%d-%b-%Y-%X')
