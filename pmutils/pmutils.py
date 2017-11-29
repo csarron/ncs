@@ -21,8 +21,8 @@ from Monsoon import Operations as ops
 
 from datetime import datetime
 import os
-import socket
 import sys
+import socket
 import pickle
 
 import logging
@@ -159,33 +159,28 @@ def _request_remote_test_details(remote_ip):
     """
     TODO
     """
+
     try:
         s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        logger.info('Socket Created')
-
         s.connect((remote_ip , 8887))
-        logger.info('Socket Connected to ' + remote_ip + ':8887')
 
         # Pickle uses different default protocols in Python 2 and 3 so I'm
         # specifying a common one explicitly.
-        serialised_message = pickle.dumps("A random message", protocol=0)
+        serialised_message = pickle.dumps("Tell me everything", protocol=0)
 
         s.sendall(serialised_message)
-        logger.info('Request sent successfully')
 
         # Blocking call
         serialised_reply = s.recv(4096)
 
-        logger.info('Raw reply {}'.format(serialised_reply))
-
         reply = pickle.loads(serialised_reply)
 
-        logger.info('Received test details: {}'.format(reply))
+        logger.info('Received test details from remote tester')
 
         return reply
-    # except:
-    #     logger.error('Something wrong with socket connection')
-    #     sys.exit()
+    except:
+        logger.error('Something wrong with socket connection')
+        sys.exit()
     finally:
         s.close()
 
