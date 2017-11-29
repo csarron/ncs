@@ -106,42 +106,6 @@ def clean_up(device_, graph_):
     end_time = time.time()
     return round((end_time - start_time) * 1000, 2)
 
-# def _provide_remote_info(info):
-#     """
-#     TODO
-#     """
-#     import socket
-#     import sys
-
-#     try:
-#         s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-#         print('Socket created')
-
-#         HOST = ''   # Symbolic name meaning all available interfaces
-#         PORT = 8887 # Arbitrary non-privileged port
-#         s.bind((HOST, PORT))
-#         print('Socket bind complete')
-
-#         s.listen(1)
-#         print('Socket now listening')
-
-#         #wait to accept a connection - blocking call
-#         conn, addr = s.accept()
-
-#         print('Connected with ' + addr[0] + ':' + str(addr[1]))
-
-#         #now keep talking with the client
-#         data = conn.recv(1024)
-#         conn.sendall(info)
-
-
-#     except socket.error , msg:
-#         print('Bind failed. Error Code : ' + str(msg[0]) + ' Message ' + msg[1])
-#         sys.exit()
-#     finally:
-#         conn.close()
-#         s.close()
-
 def _init_server():
     """
     TODO
@@ -168,14 +132,15 @@ def _init_server():
         sys.exit()
 
 def _start_serving(s, info):
+    import pickle 
     #wait to accept a connection - blocking call
     conn, addr = s.accept()
 
     print('Connected with ' + addr[0] + ':' + str(addr[1]))
 
     #now keep talking with the client
-    data = conn.recv(1024)
-    conn.sendall(info)
+    serialised_req = conn.recv(1024)
+    conn.sendall(pickle.dumps(info,protocol=0))
 
     conn.close()
     s.close()
@@ -189,8 +154,11 @@ if __name__ == '__main__':
     mark = args.mark
 
     if args.publish_remotely:
-        _init_server()
-        input("Put PowerMonitor in trigger mode and press Enter to continue...")
+        server = _init_server()
+        try:
+            input("Put PowerMonitor in trigger mode and press Enter to continue...")
+        except:
+            pass
 
     input_data = get_input_data(input_shape)
     device = get_ncs_device()
@@ -211,5 +179,5 @@ if __name__ == '__main__':
 
 
     if args.publish_remotely:
-        _start_serving(graph_file)
+        _start_serving(server, graph_file)
 
