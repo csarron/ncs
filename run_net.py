@@ -106,8 +106,43 @@ def clean_up(device_, graph_):
     end_time = time.time()
     return round((end_time - start_time) * 1000, 2)
 
+# def _provide_remote_info(info):
+#     """
+#     TODO
+#     """
+#     import socket
+#     import sys
 
-def _provide_remote_info(info):
+#     try:
+#         s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+#         print('Socket created')
+
+#         HOST = ''   # Symbolic name meaning all available interfaces
+#         PORT = 8887 # Arbitrary non-privileged port
+#         s.bind((HOST, PORT))
+#         print('Socket bind complete')
+
+#         s.listen(1)
+#         print('Socket now listening')
+
+#         #wait to accept a connection - blocking call
+#         conn, addr = s.accept()
+
+#         print('Connected with ' + addr[0] + ':' + str(addr[1]))
+
+#         #now keep talking with the client
+#         data = conn.recv(1024)
+#         conn.sendall(info)
+
+
+#     except socket.error , msg:
+#         print('Bind failed. Error Code : ' + str(msg[0]) + ' Message ' + msg[1])
+#         sys.exit()
+#     finally:
+#         conn.close()
+#         s.close()
+
+def _init_server():
     """
     TODO
     """
@@ -119,29 +154,31 @@ def _provide_remote_info(info):
         print('Socket created')
 
         HOST = ''   # Symbolic name meaning all available interfaces
-        PORT = 8888 # Arbitrary non-privileged port
+        PORT = 8887 # Arbitrary non-privileged port
         s.bind((HOST, PORT))
         print('Socket bind complete')
 
         s.listen(1)
         print('Socket now listening')
 
-        #wait to accept a connection - blocking call
-        conn, addr = s.accept()
-
-        print('Connected with ' + addr[0] + ':' + str(addr[1]))
-
-        #now keep talking with the client
-        data = conn.recv(1024)
-        conn.sendall(info)
-
+        return s
 
     except socket.error , msg:
         print('Bind failed. Error Code : ' + str(msg[0]) + ' Message ' + msg[1])
         sys.exit()
-    finally:
-        conn.close()
-        s.close()
+
+def _start_serving(s, info):
+    #wait to accept a connection - blocking call
+    conn, addr = s.accept()
+
+    print('Connected with ' + addr[0] + ':' + str(addr[1]))
+
+    #now keep talking with the client
+    data = conn.recv(1024)
+    conn.sendall(info)
+
+    conn.close()
+    s.close()
 
 
 if __name__ == '__main__':
@@ -150,6 +187,10 @@ if __name__ == '__main__':
     input_shape = args.input_shape
     iterations = args.iterations
     mark = args.mark
+
+    if args.publish_remotely:
+        _init_server()
+        input("Put PowerMonitor in trigger mode and press Enter to continue...")
 
     input_data = get_input_data(input_shape)
     device = get_ncs_device()
@@ -164,9 +205,11 @@ if __name__ == '__main__':
     print('inference_time:', inference_time, 'ms')
     set_marker(0, mark)
 
-    if args.publish_remotely:
-        _provide_remote_info(graph_file)
-
     clean_up_time = clean_up(device, graph)
     print('clean_up_time:', clean_up_time, 'ms')
     # set_marker('clean', mark)
+
+
+    if args.publish_remotely:
+        _start_serving(graph_file)
+

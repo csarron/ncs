@@ -21,6 +21,8 @@ from Monsoon import Operations as ops
 
 from datetime import datetime
 import os
+import socket
+import sys
 
 import logging
 import coloredlogs
@@ -165,7 +167,7 @@ def _request_remote_test_details(ip):
 
         # Pickle uses different default protocols in Python 2 and 3 so I'm
         # specifying a common one explicitly.
-        serialised_message = pickle.dump("A random message", protocol=0)
+        serialised_message = pickle.dumps("A random message", protocol=0)
 
         s.sendall(message)
         logger.info('Request sent successfully')
