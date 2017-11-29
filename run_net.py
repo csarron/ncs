@@ -27,7 +27,7 @@ def parse_args():
                         help="iterations to run the model")
     parser.add_argument("-m", "--mark", action="store_true",
                         help="whether to set Raspberry Pi ttl mark (for monsoon timestamp) or not")
-    parser.add_argument("-p", "--publish-remotely", action="store_true", dest='publish_remotely'
+    parser.add_argument("-p", "--publish-remotely", action="store_true", dest='publish_remotely',
                         help="TODO")
     return parser.parse_args()
 
