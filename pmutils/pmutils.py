@@ -23,6 +23,7 @@ from datetime import datetime
 import os
 import socket
 import sys
+import pickle
 
 import logging
 import coloredlogs
@@ -154,7 +155,7 @@ def trigger_and_capture(get_test_details_remotely=False, remote_ip=None):
         #TODO: If log file is empty delete it?
         Mon.closeDevice();
 
-def _request_remote_test_details(ip):
+def _request_remote_test_details(remote_ip):
     """
     TODO
     """
@@ -169,20 +170,22 @@ def _request_remote_test_details(ip):
         # specifying a common one explicitly.
         serialised_message = pickle.dumps("A random message", protocol=0)
 
-        s.sendall(message)
+        s.sendall(serialised_message)
         logger.info('Request sent successfully')
 
         # Blocking call
         serialised_reply = s.recv(4096)
 
-        reply = pickle.loads(serialised_reply, protocol=0)
+        logger.info('Raw reply {}'.format(serialised_reply))
+
+        reply = pickle.loads(serialised_reply)
 
         logger.info('Received test details: {}'.format(reply))
 
         return reply
-    except:
-        logger.error('Something wrong with socket connection')
-        sys.exit()
+    # except:
+    #     logger.error('Something wrong with socket connection')
+    #     sys.exit()
     finally:
         s.close()
 
