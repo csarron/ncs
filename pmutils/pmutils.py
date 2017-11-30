@@ -21,8 +21,9 @@ from Monsoon import Operations as ops
 
 from datetime import datetime
 import os
-import socket
 import sys
+import socket
+import pickle
 
 import logging
 import coloredlogs
@@ -154,30 +155,27 @@ def trigger_and_capture(get_test_details_remotely=False, remote_ip=None):
         #TODO: If log file is empty delete it?
         Mon.closeDevice();
 
-def _request_remote_test_details(ip):
+def _request_remote_test_details(remote_ip):
     """
     TODO
     """
+
     try:
         s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        logger.info('Socket Created')
-
         s.connect((remote_ip , 8887))
-        logger.info('Socket Connected to ' + remote_ip + ':8887')
 
         # Pickle uses different default protocols in Python 2 and 3 so I'm
         # specifying a common one explicitly.
-        serialised_message = pickle.dumps("A random message", protocol=0)
+        serialised_message = pickle.dumps("Tell me everything", protocol=0)
 
-        s.sendall(message)
-        logger.info('Request sent successfully')
+        s.sendall(serialised_message)
 
         # Blocking call
         serialised_reply = s.recv(4096)
 
-        reply = pickle.loads(serialised_reply, protocol=0)
+        reply = pickle.loads(serialised_reply)
 
-        logger.info('Received test details: {}'.format(reply))
+        logger.info('Received test details from remote tester')
 
         return reply
     except:

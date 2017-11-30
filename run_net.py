@@ -134,19 +134,18 @@ def _init_server():
         sys.exit()
 
 def _start_serving(s, info):
-    import pickle 
-    #wait to accept a connection - blocking call
+    import pickle
+
+    # blocking call
     conn, addr = s.accept()
 
-    print('Connected with ' + addr[0] + ':' + str(addr[1]))
+    print('Connected to ' + addr[0] + ':' + str(addr[1]))
 
-    #now keep talking with the client
     serialised_req = conn.recv(1024)
-    conn.sendall(pickle.dumps(info,protocol=0))
+    conn.sendall(pickle.dumps(info, protocol=0))
 
     conn.close()
     s.close()
-
 
 if __name__ == '__main__':
     args = parse_args()
@@ -177,8 +176,6 @@ if __name__ == '__main__':
 
     clean_up_time = clean_up(device, graph)
     print('clean_up_time:', clean_up_time, 'ms')
-    # set_marker('clean', mark)
-
 
     if args.publish_remotely:
         _start_serving(server, graph_file)
