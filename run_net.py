@@ -119,6 +119,8 @@ def _init_server():
 
         HOST = ''   # Symbolic name meaning all available interfaces
         PORT = 8887 # Arbitrary non-privileged port
+        
+        s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1) #TODO: Explain this
         s.bind((HOST, PORT))
         print('Socket bind complete')
 
@@ -155,10 +157,10 @@ if __name__ == '__main__':
 
     if args.publish_remotely:
         server = _init_server()
-        try:
-            input("Put PowerMonitor in trigger mode and press Enter to continue...")
-        except:
-            pass
+        #try:
+        #    input("Put PowerMonitor in trigger mode and press Enter to continue...")
+        #except:
+        #    pass
 
     input_data = get_input_data(input_shape)
     device = get_ncs_device()
